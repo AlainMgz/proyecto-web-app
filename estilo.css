@@ -18,3 +18,13 @@
 .menu{
 background-color: red;
 }
+
+.list_titles {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.list_subtitles {
+  font-weight: bold;
+  font-size: large;
+}
