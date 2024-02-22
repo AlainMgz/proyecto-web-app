@@ -28,17 +28,3 @@ background-color: red;
   font-weight: bold;
   font-size: large;
 }
-
-.caratula {
-    width: 200px; /* Ancho deseado */
-    height: 300px; /* Altura automática para mantener la proporción */
-    border: 2px solid black; /* Borde negro de 2px */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
-    margin-bottom: 20px; /* Margen inferior de 20px */
-    transition: transform 0.3s ease-in-out; /* Transición suave */
-}
-
-.caratula:hover {
-    transform: scale(1.1); /* Aumentar tamaño al pasar el ratón */
-}
