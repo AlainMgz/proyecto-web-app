@@ -1,0 +1,124 @@
+
+
+/*cabecera*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+}
+.cabecera {
+    background-color: #333; /* Color de fondo de la cabecera */
+    color: #fff; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    display: flex; /* Mostrar elementos en línea */
+    align-items: center; /* Alinear elementos verticalmente */
+}
+
+.cabecera img {
+    width: 50px; /* Ancho de la imagen del logo */
+    height: auto; /* Altura automática */
+    margin-right: 20px; /* Margen derecho */
+}
+
+.menu_link {
+    color: #fff; /* Color del enlace */
+    text-decoration: none; /* Sin subrayado */
+    margin-right: 20px; /* Margen derecho */
+}
+
+.menu_link:hover {
+    text-decoration: underline; /* Subrayar en hover */
+}
+
+.login-text {
+    margin-left: auto; /* Alinear el contenedor de inicio de sesión a la derecha */
+}
+
+/*login*/
+
+.back-text{
+    color: #000000;
+    text-decoration: none;
+}
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+.login-form {
+    margin-bottom: 20px;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.login-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.login-form input[type="submit"]:hover {
+    background-color: #555;
+}
+.message {
+    text-align: center;
+    color: #ff0000;
+}
+.title_container {
+    display: block;
+}
+
+.title_container p {
+    font-size: xx-large;
+    text-align: center;
+}
+/* Estilo para el contenedor del buscador */
+.buscador-container {
+    margin: 20px;
+    max-width: 400px;
+}
+
+/* Estilo para el input del buscador */
+.buscador-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Estilo para el botón de búsqueda */
+.buscador-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilo para el botón de búsqueda al pasar el ratón sobre él */
+.buscador-btn:hover {
+    background-color: #0056b3;
+}
