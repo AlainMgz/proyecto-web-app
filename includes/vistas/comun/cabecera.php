@@ -17,6 +17,7 @@ function showGreeting() {
     <a href="#" class="menu_link">Reviews</a>
     <a href="#" class="menu_link">Blog</a>
     <a href="#" class="menu_link">Rankings</a>
+    <a href="#" class="menu_link" id="searchBtn">Buscar</a>
     <?php 
         if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
             echo '<a href="includes/addEstreno.php" class="menu_link">Añadir estreno</a>';

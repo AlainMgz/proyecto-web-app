@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+require_once RAIZ_APP.'/session_start.php';
 
 $tituloPagina = 'Portada';
 
@@ -17,7 +18,7 @@ if (isset($_GET['argBusqueda']) != null) {
 
 }
 
-require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+require RAIZ_APP.'/vistas/plantillas/plantilla.php';
 
 
 

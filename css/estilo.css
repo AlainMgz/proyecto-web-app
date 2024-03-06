@@ -1,96 +1,56 @@
-
-
-/*cabecera*/
-body {
-    font-family: Arial, sans-serif;
+html, body {
     margin: 0;
     padding: 0;
-    background-color: #f1f1f1;
-}
-.cabecera {
-    background-color: #333; /* Color de fondo de la cabecera */
-    color: #fff; /* Color del texto */
-    padding: 10px; /* Espaciado interno */
-    display: flex; /* Mostrar elementos en línea */
-    align-items: center; /* Alinear elementos verticalmente */
+    height: 100%;
 }
 
-.cabecera img {
-    width: 50px; /* Ancho de la imagen del logo */
-    height: auto; /* Altura automática */
-    margin-right: 20px; /* Margen derecho */
+#contenedor {
+    background-color: #f0f0f0;
 }
 
-.menu_link {
-    color: #fff; /* Color del enlace */
-    text-decoration: none; /* Sin subrayado */
-    margin-right: 20px; /* Margen derecho */
-}
-
-.menu_link:hover {
-    text-decoration: underline; /* Subrayar en hover */
-}
-
-.login-text {
-    margin-left: auto; /* Alinear el contenedor de inicio de sesión a la derecha */
-}
-
-/*login*/
-
-.back-text{
-    color: #000000;
-    text-decoration: none;
-}
-.login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.login-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
-}
-.login-form {
-    margin-bottom: 20px;
-}
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%;
+#Peliculas {
+    position: fixed; /* Para que el elemento sea fijo en la pantalla */
+    top: 0; /* Posiciona el elemento en la parte superior */
+    float: left;
+    background-color: #f0f0f0;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.login-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-}
-.login-form input[type="submit"]:hover {
-    background-color: #555;
-}
-.message {
-    text-align: center;
-    color: #ff0000;
-}
-.title_container {
-    display: block;
+    width: 25%; /* La imagen ocupará el 25% del ancho de la pantalla */
+    height: auto;
 }
 
-.title_container p {
-    font-size: xx-large;
-    text-align: center;
+#Descripcion{
+    position: fixed; /* Para que el elemento sea fijo en la pantalla */
+    top: 20; /* Posiciona el elemento en la parte superior */
+     right:0;
+    background-color: #f0f0f0;
+    padding: 10px;
+    width: 70%; /* La imagen ocupará el 50% del ancho de la pantalla */
+    height: 80%;
 }
+
+#editarPelicula{
+    position: fixed;
+        bottom: 10px; /* Ajusta la distancia desde la parte inferior */
+        left: 10px; /* Ajusta la distancia desde la izquierda */
+        width:150px;
+        height: 10%;
+
+}
+
+.caratula {
+    width: 200px; /* Ancho deseado */
+    height: 300px; /* Altura automática para mantener la proporción */
+    border: 2px solid black; /* Borde negro de 2px */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    margin-bottom: 20px; /* Margen inferior de 20px */
+    transition: transform 0.3s ease-in-out; /* Transición suave */
+}
+
+.caratula:hover {
+    transform: scale(1.1); /* Aumentar tamaño al pasar el ratón */
+}
+
 /* Estilo para el contenedor del buscador */
 .buscador-container {
     margin: 20px;
@@ -121,4 +81,185 @@ body {
 /* Estilo para el botón de búsqueda al pasar el ratón sobre él */
 .buscador-btn:hover {
     background-color: #0056b3;
+}
+
+/* Estilo para el contenedor de resultados (puedes ajustar según tus necesidades) */
+.resultados-container {
+    margin-top: 20px;
+}
+
+/* Estilo para los elementos de resultado (puedes ajustar según tus necesidades) */
+.resultado-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Estilo para los elementos de resultado al pasar el ratón sobre ellos */
+.resultado-item:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}       
+       
+
+.estrenos-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.estreno {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.estreno img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.estreno .titulo {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 18px;
+}
+.estreno .descripcion {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+
+.cabecera {
+    background-color: lightgrey;
+    width: 100%;
+    height: 9%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.cabecera img {
+    height: 100%;
+    width: auto;
+} 
+
+.login-text {
+    margin-right: 1%;
+    margin-left: 30%;
+} 
+
+.cabecera .menu_link {
+    margin: 0 auto;
+}
+
+.login-content {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    padding: 10%;
+}
+
+.title_container {
+    display: block;
+}
+
+.title_container p {
+    font-size: xx-large;
+    text-align: center;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 2%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container label, .login-container input {
+    display: block;
+    margin-bottom: 5%;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 3%;
+    box-sizing: border-box;
+}
+
+.login-container button {
+    background-color: #0077cc;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.create-account-link {
+    margin-top: 10%;
+    text-align: center;
+}
+
+/* Add this to your existing CSS file or create a new one */
+
+.search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px); /* Adjust the blur amount as needed */
+    z-index: 999;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Use a semi-transparent background to enhance the blur effect */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 100%;
+}
+
+.search-input {
+    width: 60%;
+    height: 8%;
+    margin-bottom: 10px;
+    margin-top: 20%;
+    padding: 1%;
+    border: 3px solid #ccc; /* Set border width and color */
+    border-radius: 5px; /* Set border radius for rounded corners */
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    outline: none; /* Remove the default outline on focus */
+    border-color: #007bff; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle box shadow on focus */
+}
+
+#closeSearch {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 7%;
+    width: 15%;
 }

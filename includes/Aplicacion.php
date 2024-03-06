@@ -81,7 +81,7 @@ class Aplicacion
         if ( ! $this->inicializada ) {
     	    $this->bdDatosConexion = $bdDatosConexion;
     		$this->inicializada = true;
-    		session_start();
+    		require 'session_start.php';
         }
 	}
 	

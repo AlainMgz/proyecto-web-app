@@ -1,8 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-session_start();
+require_once 'config.php';
+require 'session_start.php';
 
 if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     header("Location: login.php");
