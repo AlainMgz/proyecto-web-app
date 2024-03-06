@@ -13,7 +13,7 @@ function showGreeting() {
 ?>
 <header class="cabecera">
     <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo">
-    <a href="#" class="menu_link">Estrenos</a>
+    <a href="<?= RUTA_APP ?>/estrenos.php" class="menu_link">Estrenos</a>
     <a href="#" class="menu_link">Reviews</a>
     <a href="#" class="menu_link">Blog</a>
     <a href="#" class="menu_link">Rankings</a>

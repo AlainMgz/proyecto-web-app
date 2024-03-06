@@ -12,7 +12,7 @@
 		require RAIZ_APP.'/vistas/comun/cabecera.php';
 		require RAIZ_APP.'/vistas/comun/buscador.php';
 	?>
-		<div id="contenedor" style="height: 91%; width: 100%;">
+		<div id="contenedor">
 			<?= $contenidoPrincipal ?>
 		</div>
 	</body>
