@@ -19,7 +19,7 @@
         } else {
         ?>
         
-        <div class="login-container">
+        <div class="formulario-container">
             <h2>Login</h2>
             <form action="includes/procesarLogin.php" method="post">
                 <label for="username">Username:</label>

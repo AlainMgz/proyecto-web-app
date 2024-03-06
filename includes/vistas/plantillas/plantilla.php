@@ -3,14 +3,15 @@
 <head>
 	<meta charset="UTF-8">
     <title><?= $tituloPagina ?></title>
-    <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="css/estilo.css" />
 </head>
 <body>
 <div id="contenedor">
 <?php
 include(RAIZ_APP.'/vistas/comun/cabecera.php');
-include(RAIZ_APP.'/vistas/comun/buscador.php');
 ?>
+<div id = "buscador-container"> <?php include(RAIZ_APP.'/vistas/comun/buscador.php');?></div> 
+
 	<main>
 		<article>
 			<?= $contenidoPrincipal ?>

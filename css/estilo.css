@@ -1,124 +1,364 @@
+/* NO SE QUE ES*/
+#Peliculas {
+    position: fixed;
+    /* Para que el elemento sea fijo en la pantalla */
+    top: 0;
+    /* Posiciona el elemento en la parte superior */
+    float: left;
+    background-color: #f0f0f0;
+    padding: 10px;
+    width: 25%;
+    /* La imagen ocupará el 25% del ancho de la pantalla */
+    height: auto;
+}
 
+#Descripcion {
+    position: fixed;
+    /* Para que el elemento sea fijo en la pantalla */
+    top: 20;
+    /* Posiciona el elemento en la parte superior */
+    right: 0;
+    background-color: #f0f0f0;
+    padding: 10px;
+    width: 70%;
+    /* La imagen ocupará el 50% del ancho de la pantalla */
+    height: 80%;
+}
 
-/*cabecera*/
+#editarPelicula {
+    position: fixed;
+    bottom: 10px;
+    /* Ajusta la distancia desde la parte inferior */
+    left: 10px;
+    /* Ajusta la distancia desde la izquierda */
+    width: 150px;
+    height: 10%;
+
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f1f1f1;
 }
-.cabecera {
-    background-color: #333; /* Color de fondo de la cabecera */
-    color: #fff; /* Color del texto */
-    padding: 10px; /* Espaciado interno */
-    display: flex; /* Mostrar elementos en línea */
-    align-items: center; /* Alinear elementos verticalmente */
+
+
+
+/* ESTILO PARA LAS CARATULAS */
+.caratula {
+    width: 200px;
+    /* Ancho deseado */
+    height: 300px;
+    /* Altura automática para mantener la proporción */
+    border: 2px solid black;
+    /* Borde negro de 2px */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Sombra */
+    margin-bottom: 20px;
+    /* Margen inferior de 20px */
+    transition: transform 0.3s ease-in-out;
+    /* Transición suave */
+}
+.caratula:hover {
+    transform: scale(1.1);
+    /* Aumentar tamaño al pasar el ratón */
 }
 
-.cabecera img {
-    width: 50px; /* Ancho de la imagen del logo */
-    height: auto; /* Altura automática */
-    margin-right: 20px; /* Margen derecho */
+
+
+/* ESTILO PARA EL BUSCADOR */
+.buscador-container {
+    display: flex;
+    /* Utilizar flexbox para alinear elementos */
+    justify-content: center;
+    /* Centrar horizontalmente el contenido */
+    align-items: center;
+    /* Centrar verticalmente el contenido */
+    margin-top: 20px;
+    /* Margen superior */
+}
+/* Estilo para el campo de entrada del buscador */
+.buscador-input {
+    padding: 10px;
+    /* Espaciado interno */
+    border: 1px solid #ccc;
+    /* Borde con color gris claro */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    font-size: 16px;
+    /* Tamaño de la fuente */
+    width: 300px;
+    /* Ancho del campo de entrada */
+    margin-right: 10px;
+    /* Margen derecho */
+    transition: width 0.5s;
+    /* Transición para el cambio de ancho */
+}
+/* Estilo para el campo de entrada del buscador en foco */
+.buscador-input:focus {
+    width: 350px;
+    /* Ancho del campo de entrada al tener foco */
 }
 
-.menu_link {
-    color: #fff; /* Color del enlace */
-    text-decoration: none; /* Sin subrayado */
-    margin-right: 20px; /* Margen derecho */
+
+
+/* Estilos para el botón del buscador */
+.buscador-btn {
+    padding: 10px 20px;
+    /* Espaciado interno */
+    background-color: #007bff;
+    /* Color de fondo azul */
+    color: #fff;
+    /* Color del texto blanco */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    font-size: 16px;
+    /* Tamaño de la fuente */
+    cursor: pointer;
+    /* Cambia el cursor al pasar por encima */
+}
+/* Estilos para el botón del buscador en hover */
+.buscador-btn:hover {
+    background-color: #0056b3;
+    /* Color de fondo azul oscuro al pasar el ratón */
 }
 
-.menu_link:hover {
-    text-decoration: underline; /* Subrayar en hover */
+
+
+/* ESTILO PARA LOS RESULTADOS DE LA BUSQUEDA */
+.resultados-container {
+    margin-top: 20px;
+}
+/* Estilo para los elementos de resultado (puedes ajustar según tus necesidades) */
+.resultado-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+}
+/* Estilo para los elementos de resultado al pasar el ratón sobre ellos */
+.resultado-item:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
 }
 
-.login-text {
-    margin-left: auto; /* Alinear el contenedor de inicio de sesión a la derecha */
-}
 
-/*login*/
 
-.back-text{
-    color: #000000;
-    text-decoration: none;
-}
-.login-container {
-    max-width: 400px;
-    margin: 100px auto;
+/* ESTILO PARA LOS ESTRENOS */
+.estrenos-container {
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.login-container h2 {
+.estreno {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.estreno img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.estreno .titulo {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 18px;
+}
+.estreno .descripcion {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+
+
+/* ESTILO PARA EL LOGIN Y REGISTRO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.formulario-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.formulario-container h2 {
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
-.login-form {
-    margin-bottom: 20px;
-}
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.login-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-}
-.login-form input[type="submit"]:hover {
-    background-color: #555;
-}
-.message {
-    text-align: center;
-    color: #ff0000;
-}
-.title_container {
+.formulario-container label {
     display: block;
+    margin-bottom: 5px;
+    color: #666;
 }
-
-.title_container p {
-    font-size: xx-large;
-    text-align: center;
-}
-/* Estilo para el contenedor del buscador */
-.buscador-container {
-    margin: 20px;
-    max-width: 400px;
-}
-
-/* Estilo para el input del buscador */
-.buscador-input {
+.formulario-container input[type="text"],
+.formulario-container input[type="email"],
+.formulario-container input[type="password"] {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border-radius: 4px;
 }
-
-/* Estilo para el botón de búsqueda */
-.buscador-btn {
+.formulario-container button {
+    width: 100%;
+    padding: 10px;
     background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+}
+.formulario-container button:hover {
+    background-color: #0056b3;
+}
+.create-account-link {
+    margin-top: 10px;
+    text-align: center;
+}
+.create-account-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+.create-account-link a:hover {
+    text-decoration: underline;
 }
 
-/* Estilo para el botón de búsqueda al pasar el ratón sobre él */
-.buscador-btn:hover {
-    background-color: #0056b3;
+
+
+/* ESTILO PARA AGREGAR ESTRENOS */
+#addEstreno {
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .btn-submit {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-submit:active {
+        background-color: #004187;
+    }
+}
+
+
+
+/* ESTILOS PARA LA CABECERA */
+.cabecera {
+    background-color: #333;
+    /* Color de fondo de la cabecera */
+    color: #fff;
+    /* Color del texto */
+    display: flex;
+    /* Mostrar elementos en línea */
+    justify-content: space-between;
+    /* Distribuir los elementos horizontalmente */
+    align-items: center;
+    /* Alinear elementos verticalmente */
+}
+/* Estilos para el logotipo */
+.logo {
+    width: 50px;
+    /* Ancho del logotipo */
+    height: auto;
+    /* Altura automática */
+}
+/* Estilos para los enlaces del menú */
+.menu_link {
+    display: block;
+    /* Convertir enlaces en bloques */
+    color: #fff;
+    /* Color del texto */
+    text-decoration: none;
+    /* Sin subrayado */
+    width: 120px;
+    /* Ancho del enlace */
+    height: 50px;
+    /* Altura del enlace */
+    line-height: 50px;
+    /* Alinear verticalmente el texto */
+    text-align: center;
+    /* Centrar el texto horizontalmente */
+    background-color: transparent;
+    /* Fondo transparente */
+    transition: background-color 0.3s;
+    /* Transición para el cambio de color de fondo */
+}
+/* Estilo para el hover */
+.menu_link:hover {
+    background-color: #6666663a;
+    /* Cambiar el color de fondo en hover */
 }

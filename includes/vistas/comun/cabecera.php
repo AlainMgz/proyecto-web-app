@@ -12,7 +12,7 @@ function showGreeting() {
 }
 ?>
 <header class="cabecera">
-    <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo">
+    <img src="img/logo.png" alt="Logo" class="logo">
     <a href="#" class="menu_link">Estrenos</a>
     <a href="#" class="menu_link">Reviews</a>
     <a href="#" class="menu_link">Blog</a>

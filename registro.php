@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="content">
-        <div class="login-container">
+        <div class="formulario-container">
             <h2>Create account</h2>
             <form action="includes/procesarRegistro.php" method="post">
                 <label for="username">Username:</label>
