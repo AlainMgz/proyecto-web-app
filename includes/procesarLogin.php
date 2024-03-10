@@ -1,13 +1,9 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-session_start();
+require 'session_start.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
-    // do processing and stuff...
     $password = $_POST['password'];
 
     $servername = "localhost"; 

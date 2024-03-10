@@ -1,8 +1,19 @@
 <?php
-    ?>
-    <p>
-        <form style="text-align:center" action="estrenos.php" method="GET">
-        <input type="text" name="argBusqueda" alt="Buscador" class="buscador-input" placeholder="Buscar..."/>
-        <button type="submit" alt="Buscar" class="buscador-btn">Buscar</button>
-        </form>
-    </p>
+?>
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+        <input type="text" placeholder="Buscar títulos de películas, directores, entradas de blog, ..." class="search-input">
+        <button id="closeSearch">Close</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $("#searchBtn").click(function() {
+            $("#searchOverlay").fadeIn();
+        });
+
+        $("#closeSearch").click(function() {
+            $("#searchOverlay").fadeOut();
+        });
+    });
+</script>
