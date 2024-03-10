@@ -24,4 +24,24 @@ $peliculaDAO= new PeliculaDAO();
 $peliculaDAO->borrarPelicula($pelicula->ID);
 $peliculaDAO->crearPelicula($pelicula);
 }
+
+public function obtenerPeliculaPorID( $id){
+    $peliculaDAO= new PeliculaDAO();
+    $pelicula=$peliculaDAO->obtenerPeliculaPorID($id);
+return $pelicula;
+
 }
+
+public function obtenerPeliculaPorNombre($nombre){
+    $peliculaDAO= new PeliculaDAO();
+    $pelicula=$peliculaDAO->obtenerPeliculaPorNombre($nombre);
+    return $pelicula;
+}
+
+public function filtrarPeliculasPorGenero($genero){
+    $peliculaDAO= new PeliculaDAO();
+   $peliculas= $peliculaDAO->filtrarPeliculasPorGenero($genero);
+   return $peliculas;
+}
+}
+
