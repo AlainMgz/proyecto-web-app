@@ -268,3 +268,23 @@ html, body {
     height: 7%;
     width: 15%;
 }
+
+/* Estilos para el contenedor de las carátulas */
+.peliculas {
+    display: grid; /* Mostrar las carátulas en forma de cuadrícula */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Distribuir automáticamente las carátulas en columnas de 200px de ancho */
+    gap: 20px; /* Espacio entre las carátulas */
+}
+
+/* Estilos para cada carátula */
+.caratula {
+    width: 100%; /* Ancho completo */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    transition: transform 0.3s ease-in-out; /* Transición suave */
+}
+
+.caratula:hover {
+    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón */
+}

@@ -8,34 +8,38 @@ require_once RAIZ_APP . '/PeliculaSA.php';
 $peliculaSA = new PeliculaSA();
 
 // Llama a los métodos de la clase según sea necesario
-
-if (isset($_GET['argBusqueda']) != null) {
-
-    $contenidoPrincipal = <<<EOS
-    <h1>Resultados de la búsqueda</h1>
-    
-    EOS;
-
+if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
+    // Si se proporciona un argumento de búsqueda, ejecutar una búsqueda y mostrar los resultados
+    $argBusqueda = $_GET['argBusqueda'];
+    $resultadosBusqueda = $peliculaSA->obtenerPeliculaPorNombre($argBusqueda);
+    // Generar el contenido principal con los resultados de la búsqueda
+    $contenidoPrincipal = '<h1>Resultados de la búsqueda para: ' . $argBusqueda . '</h1>';
+    if (!empty($resultadosBusqueda)) {
+        $contenidoPrincipal .= '<div class="peliculas">';
+        foreach ($resultadosBusqueda as $pelicula) {
+            // Mostrar la carátula de la película
+            $contenidoPrincipal .= '<img src="' . $pelicula->getCaratula() . '" alt="' . $pelicula->getTitulo() . '">';
+        }
+        $contenidoPrincipal .= '</div>';
+    } else {
+        $contenidoPrincipal .= '<p>No se encontraron resultados para la búsqueda.</p>';
+    }
 } else {
-    $contenidoPrincipal = <<<EOS
-    <h1>estrenos</h1>
-    <form method="post" action="FormularioAgregarPeliculas.php">
-        <button type="submit">Agregar pelicula</button>
-    </form>
-    EOS;
-
-   if(isset($_GET['admin']) ) {
-    $contenidoPrincipal = <<<EOS
-    <form method="post" action="FormularioAgregarPeliculas.php">
-        <button type="submit">Agregar pelicula</button>
-    </form>
-    EOS;
-   }
+    // Si no se proporciona un argumento de búsqueda, obtener la lista completa de películas
+    $listaPeliculas = $peliculaSA->obtenerListaPeliculas();
+    // Generar el contenido principal con las carátulas de las películas
+    $contenidoPrincipal = '<h1>Lista de películas</h1>';
+    if (!empty($listaPeliculas)) {
+        $contenidoPrincipal .= '<div class="peliculas">';
+        foreach ($listaPeliculas as $pelicula) {
+            // Mostrar la carátula de la película
+            $contenidoPrincipal .= '<img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getCaratula() . '" class="caratula">';
+        }
+        $contenidoPrincipal .= '</div>';
+    } else {
+        $contenidoPrincipal .= '<p>No hay películas disponibles en este momento.</p>';
+    }
 }
 
+// Incluir la plantilla principal para mostrar el contenido
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
-
-
-
-
-

@@ -43,5 +43,11 @@ public function filtrarPeliculasPorGenero($genero){
    $peliculas= $peliculaDAO->filtrarPeliculasPorGenero($genero);
    return $peliculas;
 }
+
+public function obtenerListaPeliculas(){
+    $peliculaDAO= new PeliculaDAO();
+    $pelicula=$peliculaDAO->obtenerListaPeliculas();
+    return $pelicula;
+}
 }
 
