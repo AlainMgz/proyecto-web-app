@@ -20,14 +20,32 @@ class PeliculaDTO {
         $this->caratula = $caratula;
     }
 
+    public function getID() {
+        return $this->ID;
+    }
+
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    public function getDescripcion() {
+        return $this->descripcion;
+    }
+
+    public function getDirector() {
+        return $this->director;
+    }
+
+    public function getGenero() {
+        return $this->genero;
+    }
+
+    public function getCaratula() {
+        return $this->caratula;
+    }
+
     public function getPelicula() {
-        return array(
-            'ID' => $this->ID,
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion,
-            'director' => $this->director,
-            'genero' => $this->genero,
-            'caratula' => $this->caratula
-        );
+        return $this;
     }
 }
+?>

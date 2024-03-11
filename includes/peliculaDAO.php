@@ -178,4 +178,33 @@ class PeliculaDAO
         // Retornar el array de películas del género especificado
         return $peliculas;
     }
+
+    public function obtenerListaPeliculas(){
+        $query = "SELECT * FROM peliculas";
+        $statement = $this->conexion->prepare($query);
+        
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+        
+        $statement->execute();
+        
+        $result = $statement->get_result();
+        
+        $peliculas = array();
+        
+        while ($row = $result->fetch_assoc()) {
+            $pelicula = new PeliculaDTO(
+                $row['ID'],
+                $row['nombre'],
+                $row['descripcion'],
+                $row['director'],
+                $row['genero'],
+                $row['caratula']
+            );
+            $peliculas[] = $pelicula;
+        }
+        
+        return $peliculas;
+    }
 }

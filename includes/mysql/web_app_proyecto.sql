@@ -42,7 +42,8 @@ CREATE TABLE `peliculas` (
 
 INSERT INTO `peliculas` (`ID`, `nombre`, `descripcion`, `director`, `genero`, `caratula`) VALUES
 (1, 'La La Land', 'Una historia de amor ambientada en Los Ángeles.', 'Damien Chazelle', 'Romance, M', 'lalaland.jpg'),
-(4, 'KLOK', 'KLOKKLOK', 'YO', 'ROMANCE', 'caratula.png');
+(4, 'KLOK', 'KLOKKLOK', 'YO', 'ROMANCE', 'caratula.png'),
+(5, 'Interestellar', 'Abujeros negros', 'YO', 'hola', 'pelicula1.png');
 
 -- --------------------------------------------------------
 
