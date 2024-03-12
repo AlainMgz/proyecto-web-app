@@ -53,7 +53,7 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
         $contenidoPrincipal .= '<div class="peliculas">';
         foreach ($listaPeliculas as $pelicula) {
             // Mostrar la carátula de la película
-            $contenidoPrincipal .= '<img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getCaratula() . '" class="caratula">';
+            $contenidoPrincipal .= '<a href="infoPeliculas.php?id=' . $pelicula->getId() . '"><img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getNombre() . '" class="caratula">';
         }
         $contenidoPrincipal .= '</div>';
     } else {

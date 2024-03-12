@@ -33,27 +33,16 @@ html, body {
     height: 80%;
 }
 
-#editarPelicula{
-    position: fixed;
-        bottom: 10px; /* Ajusta la distancia desde la parte inferior */
-        left: 10px; /* Ajusta la distancia desde la izquierda */
-        width:150px;
-        height: 10%;
-
-}
-
 .caratula {
-    width: 200px; /* Ancho deseado */
-    height: 300px; /* Altura automática para mantener la proporción */
-    border: 2px solid black; /* Borde negro de 2px */
+    width: 100%; /* Ancho completo */
+    height: auto; /* Altura automática para mantener la proporción */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
-    margin-bottom: 20px; /* Margen inferior de 20px */
-    transition: transform 0.3s ease-in-out; /* Transición suave */
+    transition: transform 0.3s ease-in-out; /* Transición suave */
 }
 
 .caratula:hover {
-    transform: scale(1.1); /* Aumentar tamaño al pasar el ratón */
+    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón */
 }
 
 /* Estilo para el contenedor del buscador */
@@ -269,16 +258,14 @@ html, body {
     width: 15%;
 }
 
-/* Estilos para el contenedor de las carátulas */
 .peliculas {
-    display: grid; /* Mostrar las carátulas en forma de cuadrícula */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Distribuir automáticamente las carátulas en columnas de 200px de ancho */
-    gap: 20px; /* Espacio entre las carátulas */
+    display: grid; /* Utilizar un diseño de cuadrícula */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Definir el ancho de columna mínimo de 200px y dejar que se ajuste automáticamente */
+    gap: 20px; /* Espacio entre las imágenes */
 }
 
-/* Estilos para cada carátula */
 .caratula {
-    width: 100%; /* Ancho completo */
+    width: 100%; /* Ancho del 100% para llenar el contenedor de la cuadrícula */
     height: auto; /* Altura automática para mantener la proporción */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
@@ -287,4 +274,65 @@ html, body {
 
 .caratula:hover {
     transform: scale(1.05); /* Aumentar tamaño al pasar el ratón */
+}
+  
+.info-container {
+    display: flex;
+    align-items: flex-start; /* Alinea los elementos al principio del contenedor */
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.info-img {
+    width: 400px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.info-text {
+    margin-left: 20px; /* Proporciona espacio entre la imagen y los textos */
+    display: flex; /* Utiliza flexbox para alinear verticalmente */
+    flex-direction: column; /* Cambia la dirección de los elementos a columna */
+}
+
+.info-director,
+.info-genero,
+.info-desc {
+    color: rgb(62, 62, 62);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 5px 0; /* Espaciado entre cada texto */
+}
+
+.info-titulo {
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 10px 0; /* Espaciado entre cada texto */
+}
+
+.rating {
+    margin-top: 10px; /* Espaciado superior para separar el rating del texto */
+    margin-left: auto; /* Mueve el rating hacia la izquierda */
+    margin-bottom: 20px;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label {
+    display: inline-block;
+    padding: 5px;
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating > input:checked ~ label,
+.rating:hover > label {
+    color: #f90;
 }
