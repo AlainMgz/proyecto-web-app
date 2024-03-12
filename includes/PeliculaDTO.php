@@ -45,7 +45,16 @@ class PeliculaDTO {
     }
 
     public function getPelicula() {
-        return $this;
+            $valores = array(
+                'ID' => $this->ID,
+                'nombre' => $this->nombre,
+                'descripcion' => $this->descripcion,
+                'director' => $this->director,
+                'genero' => $this->genero,
+                'caratula' => $this->caratula
+            );
+            return $valores;
+        
     }
 }
-?>
+

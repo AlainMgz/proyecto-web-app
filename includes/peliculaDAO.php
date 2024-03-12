@@ -2,8 +2,6 @@
 require_once 'config.php';
 require 'session_start.php';
 
-
-
 class PeliculaDAO
 {
     private $conexion;
@@ -140,6 +138,9 @@ class PeliculaDAO
     }
     
     public function filtrarPeliculasPorGenero($genero){
+        if($genero=="Todos"){
+            return $this->obtenerListaPeliculas();
+        }
         // Consulta SQL para obtener todas las películas del género especificado
         $query = "SELECT * FROM peliculas WHERE genero = ?";
         
