@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['login'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $user_data["email"];
-            $_SESSION['admin'] = $user_data["admin"];
+            $_SESSION['esAdmin'] = true;
             echo "Login successful, welcome " . $_SESSION['username'] . "!";
             header("Location: ../estrenos.php");
         } else {

@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "User with the provided username or email already exists.";
     } else {
         // User doesn't exist, insert into the database
-        $insertQuery = "INSERT INTO users (username, email, password, admin) VALUES ('$username', '$email', '$password_encrypted', 0)";
+        $insertQuery = "INSERT INTO users (username, email, password, admin) VALUES ('$username', '$email', '$password_encrypted', 1)";
     
         if ($conn->query($insertQuery) === TRUE) {
             header("Location: ../login.php");
