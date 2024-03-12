@@ -16,8 +16,16 @@ if (isset($_GET['id'])) {
     // Por ejemplo, puedes utilizar PeliculaSA para obtener la información de la película
     $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
 
+    if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
+        
+        $contenidoPrincipal = '
+        <div class="centro">
+        <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Borrar Película</button></a>
+        </div>
+        ';
+    }
 
-    $contenidoPrincipal = '
+    $contenidoPrincipal .= '
     <div class="info-container">
         <img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getNombre() . '" class="info-img">
         <div class="info-text">
@@ -41,8 +49,7 @@ if (isset($_GET['id'])) {
                 <label for="star2">&#9733;</label>
                 <input type="radio" id="star1" name="rating" value="1">
                 <label for="star1">&#9733;</label>
-            </div>';
-
+    </div>';
 } else {
     // Si no se proporciona un ID de película en la URL, muestra un mensaje de error o redirecciona a otra página, según lo que necesites.
     echo '<p>Error: No se proporcionó un ID de película.</p>';

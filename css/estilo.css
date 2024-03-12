@@ -336,3 +336,26 @@ html, body {
 .rating:hover > label {
     color: #f90;
 }
+
+.boton-borrar {
+    display: inline-block;
+    background-color: #ff0000; /* Color de fondo del botón */
+    color: #fff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.boton-borrar:hover {
+    background-color: #cc0000; /* Cambiar color de fondo al pasar por encima */
+}
+
+/* Contenedor para centrar el botón */
+.centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh; /* Altura total de la ventana */
+}
