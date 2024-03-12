@@ -16,9 +16,11 @@ if (isset($_GET['id'])) {
     // Por ejemplo, puedes utilizar PeliculaSA para obtener la información de la película
     $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
 
+    $contenidoPrincipal = '';
+
     if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
         
-        $contenidoPrincipal = '
+        $contenidoPrincipal .= '
         <div class="centro">
         <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Borrar Película</button></a>
         </div>

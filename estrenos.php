@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once RAIZ_APP . '/PeliculaSA.php';
@@ -8,8 +7,7 @@ require_once RAIZ_APP . '/PeliculaSA.php';
 $peliculaSA = new PeliculaSA();
 $genero = "Todos";
 $listaPeliculas = array();
-
-$selectGenero = '
+$selectGenero = <<<EOS
     <form method="post" action="">
     <p>Genero:
         <select id="gen" name="gen"> 
@@ -28,11 +26,20 @@ $selectGenero = '
             <option value="Thriller">Thriller</option>
             <option value="ROMANDE">ROMANCE</option>
         </select>
-        <button type="submit" id="Filtrar">Filtrar</button>
+        <button type="submit" id="Filtrar" name="accion" value="filtrar">Filtrar</button>
+    
     </p>
     </form>
-';
+        <script>
+        </script>
+    </p>
+    </form>
+EOS;
 
+if (isset($_SESSION['esAdmin']) && $_SESSION['esAdmin'] === true) {
+    $agregar = "<a href='FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
+    $selectGenero .= $agregar;
+}
 // Llama a los métodos de la clase según sea necesario
 if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
     // Si se proporciona un argumento de búsqueda, ejecutar una búsqueda y mostrar los resultados
@@ -51,7 +58,7 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
         $contenidoPrincipal .= '<p>No se encontraron resultados para la búsqueda.</p>';
     }
 } else {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'filtrar') {
         $genero = $_POST['gen']; // Actualizar el género si se envió el formulario de filtrado
     }
     // Si no se proporciona un argumento de búsqueda, obtener la lista completa de películas
@@ -74,3 +81,4 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
 
 // Incluir la plantilla principal para mostrar el contenido
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+?>
