@@ -20,7 +20,6 @@
             <?= $selectGenero ?>
         </header>
     <?php endif; ?>
-    <div id="contenedor">
         <?= $contenidoPrincipal ?>
     </div>
 </body>
