@@ -8,10 +8,10 @@ class PeliculaSA
 
     }
 
-    public function crearPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula)
+    public function crearPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer)
     {
         $peliculaDAO = new PeliculaDAO();
-        $pelicula = new PeliculaDTO($ID, $nombre, $descripcion, $director, $genero, $caratula);
+        $pelicula = new PeliculaDTO($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer);
         $peliculaDAO->crearPelicula($pelicula);
         return $pelicula;
     }

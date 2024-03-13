@@ -101,7 +101,8 @@ class PeliculaDAO
                 $peliculaData['descripcion'],
                 $peliculaData['director'],
                 $peliculaData['genero'],
-                $peliculaData['caratula']
+                $peliculaData['caratula'],
+                $peliculaData['trailer']
             );
     
             return $peliculaDTO;
@@ -128,7 +129,8 @@ class PeliculaDAO
                 $peliculaData['descripcion'],
                 $peliculaData['director'],
                 $peliculaData['genero'],
-                $peliculaData['caratula']
+                $peliculaData['caratula'],
+                $peliculaData['trailer']
             );
     
             return $peliculaDTO;
@@ -170,7 +172,8 @@ class PeliculaDAO
                 $row['descripcion'],
                 $row['director'],
                 $row['genero'],
-                $row['caratula']
+                $row['caratula'],
+                $row['trailer']
             );
             // Agregar la película al array
             $peliculas[] = $pelicula;
@@ -201,15 +204,15 @@ class PeliculaDAO
                 $row['descripcion'],
                 $row['director'],
                 $row['genero'],
-                $row['caratula']
+                $row['caratula'],
+                $row['trailer']
             );
             $peliculas[] = $pelicula;
         }
         
         return $peliculas;
     }
-    public function modificarPelicula(PeliculaDTO $pelicula)
-{
+    public function modificarPelicula(PeliculaDTO $pelicula) {
     // Preparar la consulta SQL
     $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
     $statement = $this->conexion->prepare($query);
@@ -237,6 +240,4 @@ class PeliculaDAO
 
     // Retornar verdadero si se modificó alguna fila, falso de lo contrario
     return $rows_affected > 0;
-}
-
 }

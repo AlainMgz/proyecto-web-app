@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $director = $_POST['director'];
     $genero = $_POST['genero'];
     $caratula = $_POST['caratula'];
+    $trailer = $_POST['trailer'];
 
     // Crea una instancia de PeliculaSA
     $peliculaSA = new PeliculaSA();
