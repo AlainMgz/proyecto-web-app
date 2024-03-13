@@ -37,9 +37,8 @@ if (isset($_GET['id'])) {
             <p class="info-director">Director: ' . $pelicula->getDirector() . '</p>
             <p class="info-genero">Género: ' . $pelicula->getGenero() . '</p>
             <p class="info-desc">Descripción: ' . $pelicula->getDescripcion() . '</p>
-            <iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            
-        </div>
+            <iframe width="560" height="315" src="' . $pelicula->getTrailer() . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
             
     </div>
     <div class="rating">

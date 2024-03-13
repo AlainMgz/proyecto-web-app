@@ -101,7 +101,8 @@ class PeliculaDAO
                 $peliculaData['descripcion'],
                 $peliculaData['director'],
                 $peliculaData['genero'],
-                $peliculaData['caratula']
+                $peliculaData['caratula'],
+                $peliculaData['trailer']
             );
     
             return $peliculaDTO;
@@ -128,7 +129,8 @@ class PeliculaDAO
                 $peliculaData['descripcion'],
                 $peliculaData['director'],
                 $peliculaData['genero'],
-                $peliculaData['caratula']
+                $peliculaData['caratula'],
+                $peliculaData['trailer']
             );
     
             return $peliculaDTO;
@@ -170,7 +172,8 @@ class PeliculaDAO
                 $row['descripcion'],
                 $row['director'],
                 $row['genero'],
-                $row['caratula']
+                $row['caratula'],
+                $row['trailer']
             );
             // Agregar la película al array
             $peliculas[] = $pelicula;
@@ -201,11 +204,40 @@ class PeliculaDAO
                 $row['descripcion'],
                 $row['director'],
                 $row['genero'],
-                $row['caratula']
+                $row['caratula'],
+                $row['trailer']
             );
             $peliculas[] = $pelicula;
         }
         
         return $peliculas;
     }
+    public function modificarPelicula(PeliculaDTO $pelicula) {
+    // Preparar la consulta SQL
+    $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
+    $statement = $this->conexion->prepare($query);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta: " . $this->conexion->error);
+    }
+
+    // Obtener los valores de la película
+    $valores = $pelicula->getPelicula();
+
+    // Obtener el ID de la película
+    $id = $valores['ID'];
+
+    // Ejecutar la consulta con los valores proporcionados
+    $statement->bind_param("sssssi", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $id);
+    $statement->execute();
+
+    // Verificar si se modificó alguna fila
+    $rows_affected = $statement->affected_rows;
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar verdadero si se modificó alguna fila, falso de lo contrario
+    return $rows_affected > 0;
 }

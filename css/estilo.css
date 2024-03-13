@@ -352,20 +352,6 @@ html, body {
 .boton-borrar:hover {
     background-color: #cc0000; /* Cambiar color de fondo al pasar por encima */
 }
-.boton-modificar {
-    display: inline-block;
-    background-color: #ff0000; /* Color de fondo del botón */
-    color: #fff; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar por encima */
-    transition: background-color 0.3s ease; /* Transición suave */
-}
-
-.boton-modificar:hover {
-    background-color: #cc0000; /* Cambiar color de fondo al pasar por encima */
-}
 
 /* Contenedor para centrar el botón */
 .centro {
