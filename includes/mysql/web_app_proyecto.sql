@@ -32,7 +32,7 @@ CREATE TABLE `peliculas` (
   `nombre` varchar(20) NOT NULL,
   `descripcion` text NOT NULL,
   `director` varchar(20) NOT NULL,
-  `genero` varchar(10) NOT NULL,
+  `genero` varchar(30) NOT NULL,
   `caratula` varchar(100) NOT NULL,
   `trailer` varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
