@@ -9,9 +9,7 @@ $contenidoPrincipal = <<<EOS
     <div class="film-content">
         <div class="film-container">
             <h2>Agregar Pelicula</h2>
-            <form action="includes/procesarAgregarPelicula.php" method="post">
-            <label for="ID">ID:</label>
-                <input type="text" id="ID" name="ID" required>
+            <form action="includes/procesarAgregarPelicula.php" method="post">       
                 <label for="Nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
                 <label for="Descripcion">Descripcion:</label>

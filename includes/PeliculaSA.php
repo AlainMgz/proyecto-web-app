@@ -26,8 +26,7 @@ class PeliculaSA
     public function modificarPelicula(PeliculaDTO $pelicula)
     {
         $peliculaDAO = new PeliculaDAO();
-        $peliculaDAO->borrarPelicula($pelicula->ID);
-        $peliculaDAO->crearPelicula($pelicula);
+        $peliculaDAO->modificarPelicula($pelicula);
         
     }
 

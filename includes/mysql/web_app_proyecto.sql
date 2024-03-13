@@ -74,8 +74,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `admin`) VALUES
-(4, 'usuario', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user@gmail.com', 0),
-(5, 'admin', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'admin@gmail.com', 1);
+(3, 'alain', '$2y$10$mFnhdnr8N5Gp6l8ux5H2Xuwz0Vom4D4BxGTqlUxOmc9tDz6b0qwSS', 'alain.magazin@outlook.com', 0),
+(4, 'samcarri', '$2y$10$aseW/H54oucIorB3SjNJ8.wexATnOQ2b8IbXeh41b2Cu7RG8JMdaq', 'samcarri@ucm.es', 0),
+(5, 'admin', '$2y$10$6AjTTt8J8Lk/8Fql2ALF2O6tHcy40QCPjXHbmO4GBh6ZOAYAmzASa', 'admin@gmail.com', 1);
 
 --
 -- Índices para tablas volcadas
