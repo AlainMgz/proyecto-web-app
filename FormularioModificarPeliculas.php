@@ -21,7 +21,7 @@ $contenidoPrincipal = <<<EOS
             <label for="Genero">Genero:</label>
             <input type="genero" id="genero" name="genero" required>
             <label for="Caratula">Caratula:</label>
-            <input type="caratula" id="caratula" name="caratula" required>
+            <input type="file" id="caratula" name="caratula" accept=".png" required>
             <button type="submit">Agregar</button>
         </form>
     </div>
