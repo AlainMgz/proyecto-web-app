@@ -12,10 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $director = $_POST['director'];
     $genero = $_POST['genero'];
     $caratula = $_POST['caratula'];
+    $trailer = $_POST['trailer'];
 
     // Crea una instancia de PeliculaSA
     $peliculaSA = new PeliculaSA();
-$peliculaDTO= new PeliculaDTO($ID, $nombre, $descripcion, $director, $genero, $caratula);
+$peliculaDTO= new PeliculaDTO($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer);
     // Llama al método crearPelicula con los datos obtenidos del formulario
     $peliculaSA->modificarPelicula($peliculaDTO);
 

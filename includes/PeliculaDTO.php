@@ -7,17 +7,20 @@ class PeliculaDTO {
     public $genero;
     public $caratula;
 
-    public function __construct($ID, $nombre, $descripcion, $director, $genero, $caratula) {
-        $this->setPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula);
+    public $trailer;
+
+    public function __construct($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer) {
+        $this->setPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer);
     }
 
-    private function setPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula) {
+    private function setPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer) {
         $this->ID = $ID;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->director = $director;
         $this->genero = $genero;
         $this->caratula = $caratula;
+        $this->trailer = $trailer;
     }
 
     public function getID() {
@@ -56,5 +59,10 @@ class PeliculaDTO {
             return $valores;
         
     }
+
+    public function getTrailer() {
+        return $this->trailer;
+    }
 }
+
 

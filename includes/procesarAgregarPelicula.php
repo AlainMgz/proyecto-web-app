@@ -12,12 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $director = $_POST['director'];
     $genero = $_POST['genero'];
     $caratula = $_POST['caratula'];
+    $trailer = $_POST['trailer'];
 
     // Crea una instancia de PeliculaSA
     $peliculaSA = new PeliculaSA();
 
     // Llama al método crearPelicula con los datos obtenidos del formulario
-    $peliculaSA->crearPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula);
+    $peliculaSA->crearPelicula($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer);
 
     // Redirecciona a alguna página después de procesar los datos, si es necesario
      header('Location: ../estrenos.php');
