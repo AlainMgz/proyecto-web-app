@@ -212,7 +212,6 @@ class PeliculaDAO
         
         return $peliculas;
     }
-
     public function modificarPelicula(PeliculaDTO $pelicula) {
     // Preparar la consulta SQL
     $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
@@ -230,7 +229,7 @@ class PeliculaDAO
     $id = $valores['ID'];
 
     // Ejecutar la consulta con los valores proporcionados
-    $statement->bind_param("sssssi", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $valores['trailer']);
+    $statement->bind_param("sssssi", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $id);
     $statement->execute();
 
     // Verificar si se modificó alguna fila
@@ -241,5 +240,4 @@ class PeliculaDAO
 
     // Retornar verdadero si se modificó alguna fila, falso de lo contrario
     return $rows_affected > 0;
-}
 }
