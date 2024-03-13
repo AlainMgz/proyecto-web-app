@@ -23,6 +23,7 @@ if (isset($_GET['id'])) {
         $contenidoPrincipal .= '
         <div class="centro">
         <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Borrar Película</button></a>
+        <a href="FormularioModificarPeliculas.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Modificar</button></a>
         </div>
         ';
     }
