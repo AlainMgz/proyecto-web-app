@@ -160,8 +160,8 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: auto;
-    padding: 10%;
+    /* min-height: auto; */
+    height: 90vh;
 }
 
 .title_container {

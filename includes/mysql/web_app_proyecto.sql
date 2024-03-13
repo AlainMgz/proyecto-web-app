@@ -64,17 +64,16 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `email` varchar(255) NOT NULL,
-  `admin` tinyint(1) NOT NULL
+  `role` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `admin`) VALUES
-(3, 'alain', '$2y$10$mFnhdnr8N5Gp6l8ux5H2Xuwz0Vom4D4BxGTqlUxOmc9tDz6b0qwSS', 'alain.magazin@outlook.com', 0),
-(4, 'samcarri', '$2y$10$aseW/H54oucIorB3SjNJ8.wexATnOQ2b8IbXeh41b2Cu7RG8JMdaq', 'samcarri@ucm.es', 0),
-(5, 'admin', '$2y$10$6AjTTt8J8Lk/8Fql2ALF2O6tHcy40QCPjXHbmO4GBh6ZOAYAmzASa', 'admin@gmail.com', 1);
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
+(4, 'usuario', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user@gmail.com', 0),
+(5, 'admin', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'admin@gmail.com', 1);
 
 --
 -- Índices para tablas volcadas

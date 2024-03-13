@@ -2,7 +2,7 @@
 require_once __DIR__.'/includes/config.php';
 require_once RAIZ_APP.'/session_start.php';
 
-$tituloPagina = 'Login';
+$tituloPagina = 'Registro';
 
 if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     $contenidoPrincipal = <<<EOS
