@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once RAIZ_APP . '/PeliculaSA.php';
+require_once RAIZ_APP . '/Usuario.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
@@ -36,7 +37,7 @@ $selectGenero = <<<EOS
     </form>
 EOS;
 
-if (isset($_SESSION['esAdmin']) && $_SESSION['esAdmin'] === true) {
+if (isset($_SESSION['user_obj']) && unserialize($_SESSION['user_obj'])->getRole() == 1) {
     $agregar = "<a href='FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }

@@ -66,14 +66,14 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `email` varchar(255) NOT NULL,
-  `admin` tinyint(1) NOT NULL
+  `role` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `admin`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
 (4, 'usuario', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user@gmail.com', 0),
 (5, 'admin', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'admin@gmail.com', 1);
 
