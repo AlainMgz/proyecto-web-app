@@ -6,7 +6,6 @@ class PeliculaDTO {
     public $director;
     public $genero;
     public $caratula;
-
     public $trailer;
 
     public function __construct($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer) {

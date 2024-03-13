@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Crea una instancia de PeliculaSA
     $peliculaSA = new PeliculaSA();
-$peliculaDTO= new PeliculaDTO($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer);
+    $peliculaDTO= new PeliculaDTO($ID, $nombre, $descripcion, $director, $genero, $caratula, $trailer);
     // Llama al método crearPelicula con los datos obtenidos del formulario
     $peliculaSA->modificarPelicula($peliculaDTO);
 

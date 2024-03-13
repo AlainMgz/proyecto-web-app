@@ -213,31 +213,32 @@ class PeliculaDAO
         return $peliculas;
     }
     public function modificarPelicula(PeliculaDTO $pelicula) {
-    // Preparar la consulta SQL
-    $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
-    $statement = $this->conexion->prepare($query);
+        // Preparar la consulta SQL
+        $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
+        $statement = $this->conexion->prepare($query);
 
-    // Verificar si la preparación de la consulta fue exitosa
-    if (!$statement) {
-        die("Error al preparar la consulta: " . $this->conexion->error);
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        // Obtener los valores de la película
+        $valores = $pelicula->getPelicula();
+
+        // Obtener el ID de la película
+        $id = $valores['ID'];
+
+        // Ejecutar la consulta con los valores proporcionados
+        $statement->bind_param("sssssi", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $valores['trailer']);
+        $statement->execute();
+
+        // Verificar si se modificó alguna fila
+        $rows_affected = $statement->affected_rows;
+
+        // Cerrar la declaración
+        $statement->close();
+
+        // Retornar verdadero si se modificó alguna fila, falso de lo contrario
+        return $rows_affected > 0;
     }
-
-    // Obtener los valores de la película
-    $valores = $pelicula->getPelicula();
-
-    // Obtener el ID de la película
-    $id = $valores['ID'];
-
-    // Ejecutar la consulta con los valores proporcionados
-    $statement->bind_param("sssssi", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $id);
-    $statement->execute();
-
-    // Verificar si se modificó alguna fila
-    $rows_affected = $statement->affected_rows;
-
-    // Cerrar la declaración
-    $statement->close();
-
-    // Retornar verdadero si se modificó alguna fila, falso de lo contrario
-    return $rows_affected > 0;
 }
