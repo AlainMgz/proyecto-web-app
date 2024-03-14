@@ -241,3 +241,4 @@ class PeliculaDAO
     // Retornar verdadero si se modificó alguna fila, falso de lo contrario
     return $rows_affected > 0;
 }
+}
