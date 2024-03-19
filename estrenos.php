@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
-require_once RAIZ_APP . '/PeliculaSA.php';
+require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
