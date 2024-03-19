@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/PeliculaDAO.php';
+require_once __DIR__ . '/DAOs/PeliculaDAO.php';
 require_once __DIR__ . '/PeliculaDTO.php';
 class PeliculaSA
 {
