@@ -11,7 +11,7 @@ class reviewDTO
 
     public function __construct($ID, $usuario, $titulo, $critica, $puntuacion, $pelicula)
     {
-        $this->setPelicula($ID, $usuario, $titulo, $critica, $puntuacion, $pelicula);
+        $this->setReview($ID, $usuario, $titulo, $critica, $puntuacion, $pelicula);
     }
 
     private function setReview($ID, $usuario, $titulo, $critica, $puntuacion, $pelicula)
@@ -24,6 +24,10 @@ class reviewDTO
         $this->pelicula = $pelicula;
     }
 
+    public function getReview()
+    {
+
+    }
     public function getID()
     {
         return $this->ID;
@@ -50,7 +54,18 @@ class reviewDTO
     }
     public function getPelicula()
     {
-        return $this->pelicula;
+        $valores = array(
+            'ID' => $this->ID,
+
+            'usuario' => $this->usuario,
+            'titulo' => $this->titulo,
+            'critica' => $this->critica,
+            'puntuacion' => $this->puntuacion,
+            'pelicula' => $this->pelicula
+        );
+        return $valores;
+
+
 
     }
 
