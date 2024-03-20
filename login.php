@@ -38,4 +38,4 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
 
 require RAIZ_APP.'/vistas/plantillas/plantilla.php'; 
 
-?>
+

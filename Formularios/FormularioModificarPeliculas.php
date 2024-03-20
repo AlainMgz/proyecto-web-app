@@ -22,7 +22,7 @@ $contenidoPrincipal = <<<EOS
             <input type="file" id="caratula" name="caratula" accept=".png" required>
             <label for="Trailer">Trailer:</label>
             <input type="trailer" id="trailer" name="trailer" required>
-            <button type="submit">Agregar</button>
+            <button type="submit">Modificar</button>
         </form>
     </div>
 </div>
