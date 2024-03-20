@@ -1,5 +1,5 @@
 <?php
-require 'session_start.php';
+require '../session_start.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = htmlspecialchars($_POST['username']);
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $checkQuery = "SELECT username, password, email, admin FROM users WHERE username = '$username'";
+    $checkQuery = "SELECT username, password, email, role FROM users WHERE username = '$username'";
     $result = $conn->query($checkQuery);
 
     if ($result->num_rows == 0) {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $user_data["email"];
             $_SESSION['esAdmin'] = true;
             echo "Login successful, welcome " . $_SESSION['username'] . "!";
-            header("Location: ../estrenos.php");
+            header("Location: ../../estrenos.php");
         } else {
             echo "Incorrect password.";
         }

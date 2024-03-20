@@ -1,15 +1,15 @@
 <?php
-require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/../includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
-require_once __DIR__ . '/includes/PeliculaSA.php';
-$tituloPagina = 'AgregarPelicula';
+require_once __DIR__ . '/../includes/SAs/PeliculaSA.php';
+$tituloPagina = 'ModificarPelicula';
 $id = $_GET['id'];
 
 $contenidoPrincipal = <<<EOS
 <div class="film-content">
     <div class="film-container">
-        <h2>Agregar Pelicula</h2>
-        <form action="includes/procesarModificarPelicula.php" method="post">
+        <h2>Modificar Pelicula</h2>
+        <form action="../includes/Procesamiento/procesarModificarPelicula.php" method="post">
             <label for="Nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
             <label for="Descripcion">Descripcion:</label>
