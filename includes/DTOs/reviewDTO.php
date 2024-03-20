@@ -24,10 +24,6 @@ class reviewDTO
         $this->pelicula = $pelicula;
     }
 
-    public function getReview()
-    {
-
-    }
     public function getID()
     {
         return $this->ID;
@@ -52,11 +48,10 @@ class reviewDTO
     {
         return $this->puntuacion;
     }
-    public function getPelicula()
+    public function getReview()
     {
         $valores = array(
             'ID' => $this->ID,
-
             'usuario' => $this->usuario,
             'titulo' => $this->titulo,
             'critica' => $this->critica,
@@ -64,11 +59,7 @@ class reviewDTO
             'pelicula' => $this->pelicula
         );
         return $valores;
-
-
-
     }
-
 }
 
 

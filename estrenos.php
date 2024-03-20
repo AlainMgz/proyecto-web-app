@@ -36,10 +36,10 @@ $selectGenero = <<<EOS
     </form>
 EOS;
 
-if (isset($_SESSION['esAdmin']) && $_SESSION['esAdmin'] === true) {
-    $agregar = "<a href='FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
+
+    $agregar = "<a href='Formularios/FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
-}
+
 // Llama a los métodos de la clase según sea necesario
 if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
     // Si se proporciona un argumento de búsqueda, ejecutar una búsqueda y mostrar los resultados
