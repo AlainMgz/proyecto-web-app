@@ -24,7 +24,6 @@ $selectGenero = <<<EOS
             <option value="Romance">Romance</option>
             <option value="Terror">Terror</option>
             <option value="Thriller">Thriller</option>
-            <option value="ROMANDE">ROMANCE</option>
         </select>
         <button type="submit" id="Filtrar" name="accion" value="filtrar">Filtrar</button>
     
@@ -40,7 +39,7 @@ if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
     $agregar = "<a href='Formularios/FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
-$selectGenero.="<a href='Formularios/FormularioAgregarReview.php'><button type='button'>Realizar review</button></a>";
+$selectGenero .= "<a href='Formularios/FormularioAgregarReview.php'><button type='button'>Realizar review</button></a>";
 // Llama a los métodos de la clase según sea necesario
 if (isset ($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
     // Si se proporciona un argumento de búsqueda, ejecutar una búsqueda y mostrar los resultados
@@ -82,4 +81,3 @@ if (isset ($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
 
 // Incluir la plantilla principal para mostrar el contenido
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
-?>
