@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
+$tituloPagina="Estrenos";
 $genero = "Todos";
 $listaPeliculas = array();
 $selectGenero = <<<EOS
@@ -36,7 +37,7 @@ $selectGenero = <<<EOS
 EOS;
 
 if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
-    $agregar = "<a href='Formularios/FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
+    $agregar = "<a href='/agregarPelicula.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
 $selectGenero .= "<a href='Formularios/FormularioAgregarReview.php'><button type='button'>Realizar review</button></a>";
