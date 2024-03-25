@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
 
     $contenidoPrincipal = '';
 
-    if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
+    if(isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
         
         $contenidoPrincipal .= '
         <div class="centro">

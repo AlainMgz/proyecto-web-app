@@ -1,15 +1,18 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 require_once RAIZ_APP.'/session_start.php';
+require_once RAIZ_APP.'/Usuario.php';
 
 $tituloPagina = 'Login';
 
 if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
+    $user = unserialize($_SESSION['user_obj']);
+    $username = $user->getNombreUsuario();
     $contenidoPrincipal = <<<EOS
     <div class="login-content">
         <div class="title_container">
             <p>You are already logged in!</p>
-            <p>Welcome {$_SESSION['username']}!</p>
+            <p>Welcome {$username}!</p>
         </div>
     </div>
     EOS;
