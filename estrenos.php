@@ -1,11 +1,11 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
-require_once RAIZ_APP . '/PeliculaSA.php';
-require_once RAIZ_APP . '/Usuario.php';
+require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
+$tituloPagina="Estrenos";
 $genero = "Todos";
 $listaPeliculas = array();
 $selectGenero = <<<EOS
@@ -25,7 +25,6 @@ $selectGenero = <<<EOS
             <option value="Romance">Romance</option>
             <option value="Terror">Terror</option>
             <option value="Thriller">Thriller</option>
-            <option value="ROMANDE">ROMANCE</option>
         </select>
         <button type="submit" id="Filtrar" name="accion" value="filtrar">Filtrar</button>
     
@@ -37,18 +36,19 @@ $selectGenero = <<<EOS
     </form>
 EOS;
 
-if (isset($_SESSION['user_obj']) && unserialize($_SESSION['user_obj'])->getRole() == 1) {
-    $agregar = "<a href='FormularioAgregarPeliculas.php'><button type='button'>Agregar</button></a>";
+if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
+    $agregar = "<a href='/agregarPelicula.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
+$selectGenero .= "<a href='Formularios/FormularioAgregarReview.php'><button type='button'>Realizar review</button></a>";
 // Llama a los métodos de la clase según sea necesario
-if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
+if (isset ($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
     // Si se proporciona un argumento de búsqueda, ejecutar una búsqueda y mostrar los resultados
     $argBusqueda = $_GET['argBusqueda'];
     $resultadosBusqueda = $peliculaSA->obtenerPeliculaPorNombre($argBusqueda);
     // Generar el contenido principal con los resultados de la búsqueda
     $contenidoPrincipal = '<h1>Resultados de la búsqueda para: ' . $argBusqueda . '</h1>';
-    if (!empty($resultadosBusqueda)) {
+    if (!empty ($resultadosBusqueda)) {
         $contenidoPrincipal .= '<div class="peliculas">';
         foreach ($resultadosBusqueda as $pelicula) {
             // Mostrar la carátula de la película
@@ -59,14 +59,14 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
         $contenidoPrincipal .= '<p>No se encontraron resultados para la búsqueda.</p>';
     }
 } else {
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'filtrar') {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_POST['accion']) && $_POST['accion'] == 'filtrar') {
         $genero = $_POST['gen']; // Actualizar el género si se envió el formulario de filtrado
     }
     // Si no se proporciona un argumento de búsqueda, obtener la lista completa de películas
     $listaPeliculas = $peliculaSA->filtrarPeliculasPorGenero($genero);
     // Generar el contenido principal con las carátulas de las películas
     $contenidoPrincipal = '<h1>Lista de películas</h1>';
-    if (!empty($listaPeliculas)) {
+    if (!empty ($listaPeliculas)) {
         $contenidoPrincipal .= '<div class="peliculas">';
         foreach ($listaPeliculas as $pelicula) {
             // Mostrar la carátula de la película con un enlace a los detalles
@@ -82,4 +82,3 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
 
 // Incluir la plantilla principal para mostrar el contenido
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
-?>

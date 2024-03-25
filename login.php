@@ -21,7 +21,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     <div class="login-content">
         <div class="login-container">
             <h2>Login</h2>
-            <form action="includes/procesarLogin.php" method="post">
+            <form action="includes/Procesamiento/procesarLogin.php" method="post">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
 
@@ -41,4 +41,4 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
 
 require RAIZ_APP.'/vistas/plantillas/plantilla.php'; 
 
-?>
+
