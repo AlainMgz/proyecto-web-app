@@ -6,7 +6,7 @@ require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
 $tituloPagina = "Estrenos";
-$genero = "Todos";
+$genero = "";
 $listaPeliculas = array();
 $generos = $peliculaSA->getGeneros();
 // Inicializar el selector
@@ -32,6 +32,8 @@ $selectGenero .= <<<EOS
         // Aquí puedes agregar cualquier código JavaScript relacionado con el selector si es necesario
     </script>
 EOS;
+
+$genero = "Todos";
 
 if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
     $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='button'>Agregar</button></a>";

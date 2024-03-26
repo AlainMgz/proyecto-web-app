@@ -9,6 +9,8 @@ $tituloPagina = 'ModificarPelicula';
 // Definir una nueva clase que extienda Formulario
 class FormularioModificarPeliculas extends Formulario{
     public $id;
+    public $pelicula;
+
   public function __construct($id) {
     parent::__construct('formModificarPelicula', ['urlRedireccion' => '../estrenos.php']);
     $this->id = $id;
@@ -16,25 +18,51 @@ class FormularioModificarPeliculas extends Formulario{
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
+        $peliculaSA = new PeliculaSA();
+        $pelicula = $peliculaSA->obtenerPeliculaPorID($this->id);
+        
+        // Obtener los valores de la película utilizando los getters
+        $nombre = $pelicula->getNombre();
+        $descripcion = $pelicula->getDescripcion();
+        $director = $pelicula->getDirector();
+        $genero = $pelicula->getGenero();
+        $caratula = $pelicula->getCaratula();
+        $trailer = $pelicula->getTrailer();
+        $opcionesGenero = $peliculaSA->getGeneros();
+        
+        // Genera las opciones del selector
+        $opciones = '';
+        foreach ($opcionesGenero as $opcion) {
+            // Verifica si la opción es igual al género de la película
+            $selected = ($opcion === $genero) ? 'selected' : '';
+            $opciones .= '<option value="' . $opcion . '" ' . $selected . '>' . $opcion . '</option>';
+        }
+    
         $contenidoPrincipal = <<<EOS
             <div class="film-container">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombrePelicula" name="nombrePelicula" required>
+                <input type="text" id="nombrePelicula" name="nombrePelicula" value="$nombre" required>
                 <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" name="descripcion" required>
+                <input type="text" id="descripcion" name="descripcion" value="$descripcion" required>
                 <label for="director">Director:</label>
-                <input type="text" id="director" name="director" required>
                 <label for="genero">Género:</label>
-                <input type="text" id="genero" name="genero" required>
+                <select id="genero" name="genero" required>
+                    <option value="" disabled>Selecciona un género</option>
+                    $opciones
+                </select>
+                <input type="text" id="director" name="director" value="$director" required>
                 <label for="caratula">Carátula:</label>
                 <input type="file" id="caratula" name="caratula" accept=".png" required>
                 <label for="trailer">Tráiler:</label>
-                <input type="text" id="trailer" name="trailer" required>
+                <input type="text" id="trailer" name="trailer" value="$trailer" required>
                 <button type="submit">Agregar</button>
             </div>
         EOS;
+        
         return $contenidoPrincipal;
     }
+    
+
 
     // Método para procesar los datos del formulario
     protected function procesaFormulario(&$datos)

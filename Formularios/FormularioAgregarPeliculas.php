@@ -14,6 +14,17 @@ class FormularioAgregarPeliculas extends Formulario
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
+        $peliculaSA= new PeliculaSA();
+        // Array de opciones para el selector de género
+        $opcionesGenero = $peliculaSA->getGeneros();
+    
+        // Genera las opciones del selector
+        $opciones = '';
+        foreach ($opcionesGenero as $opcion) {
+            $opciones .= '<option value="' . $opcion . '">' . $opcion . '</option>';
+        }
+    
+        // Contenido del formulario con el selector de género
         $contenidoPrincipal = <<<EOS
             <div class="film-container">
                 <label for="nombre">Nombre:</label>
@@ -23,7 +34,10 @@ class FormularioAgregarPeliculas extends Formulario
                 <label for="director">Director:</label>
                 <input type="text" id="director" name="director" required>
                 <label for="genero">Género:</label>
-                <input type="text" id="genero" name="genero" required>
+                <select id="genero" name="genero" required>
+                    <option value="" disabled selected>Selecciona un género</option>
+                    $opciones
+                </select>
                 <label for="caratula">Carátula:</label>
                 <input type="file" id="caratula" name="caratula" accept=".png" required>
                 <label for="trailer">Tráiler:</label>
@@ -33,6 +47,7 @@ class FormularioAgregarPeliculas extends Formulario
         EOS;
         return $contenidoPrincipal;
     }
+    
 
     // Método para procesar los datos del formulario
     protected function procesaFormulario(&$datos)
