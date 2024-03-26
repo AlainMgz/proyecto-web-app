@@ -109,6 +109,24 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
 ALTER TABLE `generos`
   ADD PRIMARY KEY (`genero`);
 
+---
+---
+---
+
+INSERT IGNORE INTO `generos` (`genero`) VALUES
+('Acción'),
+('Animación'),
+('Aventuras'),
+('Ciencia ficción'),
+('Comedia'),
+('Documental'),
+('Drama'),
+('Fantasía'),
+('Musical'),
+('Romance'),
+('Terror'),
+('Thriller');
+
 --
 -- Indices de la tabla `peliculas`
 --
