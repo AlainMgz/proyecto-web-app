@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-03-2024 a las 12:47:04
+-- Tiempo de generación: 26-03-2024 a las 13:07:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -30,6 +30,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `generos` (
   `genero` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `generos`
+--
+
+INSERT INTO `generos` (`genero`) VALUES
+('Acción'),
+('Animación'),
+('Aventuras'),
+('Ciencia ficción'),
+('Comedia'),
+('Documental'),
+('Drama'),
+('Fantasía'),
+('Musical'),
+('Romance'),
+('Terror'),
+('Thriller');
 
 -- --------------------------------------------------------
 
@@ -58,8 +76,8 @@ INSERT INTO `peliculas` (`ID`, `nombre`, `descripcion`, `director`, `genero`, `c
 (7, 'The Shawshank Redemp', 'Un banquero condenado a cadena perpetua por el asesinato de su esposa y su amante, encuentra esperanza en medio de la desesperación mientras planea su escape de prisión.', 'Frank Darabont', 'Drama', 'shawshankredemption.png', 'https://www.youtube.com/embed/PLl99DlL6b4?si=uDUmWdMDvjisQ8Ly'),
 (8, 'Pulp Fiction', 'La vida de varios personajes interconectados, incluidos dos asesinos a sueldo, un boxeador, un gángster y su esposa, en tres historias entrelazadas.', 'Quentin Tarantino', 'Drama', 'pulpfiction.png', 'https://www.youtube.com/embed/s7EdQ4FqbhY?si=ujNd7lHeykVYkB2z'),
 (9, 'The Dark Knight', 'Cuando el caos irrumpe en Gotham City debido a la aparición del Joker, Batman debe enfrentarse a una de las pruebas más grandes de su vida.', 'Christopher Nolan', 'Acción', 'darkknight.png', 'https://www.youtube.com/embed/Qs-NylETt1E?si=DvuAFY9GLHyAR0QF'),
-(10, 'Inception', 'Un ladrón especializado en robar secretos del subconsciente durante el estado de sueño es contratado para implantar una idea en la mente de un CEO.', 'Christopher Nolan', 'Acción', 'inception.png', 'https://www.youtube.com/embed/8hP9D6kZseM?si=Y_bbvLQmY7hZFJZg'),
-(11, 'Fight Club', 'Un insomne empleado de oficina y un fabricante de jabón deprimido forman un club clandestino de lucha, revolucionando pronto toda la ciudad.', 'David Fincher', 'Drama', 'fightclub.png', 'https://www.youtube.com/embed/BdJKm16Co6M?si=FT_sqL2Ik9OTip7J');
+(11, 'Fight Club', 'Un insomne empleado de oficina y un fabricante de jabón deprimido forman un club clandestino de lucha, revolucionando pronto toda la ciudad.', 'David Fincher', 'Drama', 'fightclub.png', 'https://www.youtube.com/embed/BdJKm16Co6M?si=FT_sqL2Ik9OTip7J'),
+(22, 'Insepsion', 'Un ladr&oacute;n especializado en robar secretos del subconsciente durante el estado de sue&ntilde;o es contratado para implantar una idea en la mente de un CEO.', 'Christopher Nolan', 'Acci&oacute;n', 'inception.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -109,24 +127,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
 ALTER TABLE `generos`
   ADD PRIMARY KEY (`genero`);
 
----
----
----
-
-INSERT IGNORE INTO `generos` (`genero`) VALUES
-('Acción'),
-('Animación'),
-('Aventuras'),
-('Ciencia ficción'),
-('Comedia'),
-('Documental'),
-('Drama'),
-('Fantasía'),
-('Musical'),
-('Romance'),
-('Terror'),
-('Thriller');
-
 --
 -- Indices de la tabla `peliculas`
 --
@@ -156,7 +156,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
