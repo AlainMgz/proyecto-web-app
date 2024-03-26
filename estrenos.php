@@ -5,35 +5,32 @@ require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
-$tituloPagina="Estrenos";
+$tituloPagina = "Estrenos";
 $genero = "Todos";
 $listaPeliculas = array();
+$generos = $peliculaSA->getGeneros();
+// Inicializar el selector
 $selectGenero = <<<EOS
     <form method="post" action="">
     <p>Genero:
         <select id="gen" name="gen"> 
             <option value="Todos">Todos</option>
-            <option value="Acción">Acción</option>
-            <option value="Animación">Animación</option>
-            <option value="Aventuras">Aventuras</option>
-            <option value="Ciencia ficción">Ciencia ficción</option>
-            <option value="Comedia">Comedia</option>
-            <option value="Documental">Documental</option>
-            <option value="Drama">Drama</option>
-            <option value="Fantasía">Fantasía</option>
-            <option value="Musical">Musical</option>
-            <option value="Romance">Romance</option>
-            <option value="Terror">Terror</option>
-            <option value="Thriller">Thriller</option>
+EOS;
+
+// Agregar opciones de género dinámicamente
+foreach ($generos as $genero) {
+    $selectGenero .= "<option value=\"$genero\">$genero</option>";
+}
+
+// Cerrar el selector y agregar el botón de filtrar
+$selectGenero .= <<<EOS
         </select>
         <button type="submit" id="Filtrar" name="accion" value="filtrar">Filtrar</button>
-    
     </p>
     </form>
-        <script>
-        </script>
-    </p>
-    </form>
+    <script>
+        // Aquí puedes agregar cualquier código JavaScript relacionado con el selector si es necesario
+    </script>
 EOS;
 
 if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
