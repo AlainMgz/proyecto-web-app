@@ -10,7 +10,7 @@ $tituloPagina = 'ModificarPelicula';
 class FormularioModificarPeliculas extends Formulario{
     public $id;
   public function __construct($id) {
-    parent::__construct('formModificarPelicula', ['urlRedireccion' => 'estrenos.php']);
+    parent::__construct('formModificarPelicula', ['urlRedireccion' => '../estrenos.php']);
     $this->id = $id;
 }
     // Método para generar los campos del formulario

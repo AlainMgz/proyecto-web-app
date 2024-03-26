@@ -37,7 +37,7 @@ $selectGenero = <<<EOS
 EOS;
 
 if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
-    $agregar = "<a href='/agregarPelicula.php'><button type='button'>Agregar</button></a>";
+    $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
 $selectGenero .= "<a href='Formularios/FormularioAgregarReview.php'><button type='button'>Realizar review</button></a>";
