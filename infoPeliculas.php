@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
     </div>
 </div>  ';
 if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
-    $contenidoPrincipal .= "<a href='funcionalidades/agregarReseña.php'><button type='button'>Realizar review</button></a>";
+    $contenidoPrincipal .= "<a href='funcionalidades/agregarReseña.php?id=" . $pelicula->getId() . "'><button type='button'>Realizar review</button></a>";
 }
 } else {
     // Si no se proporciona un ID de película en la URL, muestra un mensaje de error o redirecciona a otra página, según lo que necesites.

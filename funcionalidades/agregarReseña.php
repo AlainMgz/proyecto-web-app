@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../Formularios/FormularioAgregarReview.php';
 
-$form = new FormularioAgregarReview();
+$form = new FormularioAgregarReview($_GET['id']);
 $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Agregar reviews';
 

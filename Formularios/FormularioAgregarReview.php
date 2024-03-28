@@ -14,9 +14,11 @@ class FormularioAgregarReview extends Formulario
     public $ID='';
     public $pelicula= '';
     
-    public function __construct()
+    
+    public function __construct($id)
     {
         parent::__construct('formAgregarReview', ['urlRedireccion' => '../estrenos.php']);
+     $this->ID=$id;
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
@@ -39,7 +41,7 @@ class FormularioAgregarReview extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
-
+        
         $titulo = trim($datos['titulo'] ?? '');
         $titulo = filter_var($titulo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$titulo || mb_strlen($titulo) > 100) {
@@ -59,7 +61,9 @@ class FormularioAgregarReview extends Formulario
         if (count($this->errores) === 0) {
 
             $reviewSA = new reviewSA();
-            $review = $reviewSA->crearReview($this->ID, $_GET('usuario'), $titulo, $critica, $puntuacion, $this->pelicula);
+            $peliculaSA= new peliculaSA();
+            $this->pelicula=$peliculaSA->obtenerPeliculaPorID($this->ID);
+            $review = $reviewSA->crearReview($this->ID, $_SESSION["username"], $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
         }
     }
 
