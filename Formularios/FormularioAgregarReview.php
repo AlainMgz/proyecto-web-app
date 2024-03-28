@@ -1,5 +1,4 @@
 <?php
-require RAIZ_APP . '/vistas/plantillas/plantilla.php';
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/session_start.php';
 require_once __DIR__ . '/../includes/SAs/PeliculaSA.php';
@@ -14,9 +13,10 @@ class FormularioAgregarReview extends Formulario
 {
     public $ID='';
     public $pelicula= '';
+    
     public function __construct()
     {
-        parent::__construct('formAgregarReview', ['urlRedireccion' => 'estrenos.php']);
+        parent::__construct('formAgregarReview', ['urlRedireccion' => '../estrenos.php']);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
@@ -52,8 +52,8 @@ class FormularioAgregarReview extends Formulario
         }
         $puntuacion = trim($datos['puntuacion'] ?? '');
         $puntuacion = filter_var($puntuacion, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$puntuacion || $puntuacion < 0 || $puntuacion > 10) {
-            $this->errores['puntuacion'] = 'La puntuación debe ser un número entre 0 y 10.';
+        if (!$puntuacion || $puntuacion < 0 || $puntuacion > 5) {
+            $this->errores['puntuacion'] = 'La puntuación debe ser un número entre 0 y 5.';
         }
 
         if (count($this->errores) === 0) {

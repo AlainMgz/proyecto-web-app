@@ -39,7 +39,7 @@ if (isset ($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
     $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
-$selectGenero .= "<a href='Formularios/FormularioAgregarReview.php'><button type='button'>Realizar review</button></a>";
+
 // Llama a los métodos de la clase según sea necesario
 if (isset ($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
     // Si se proporciona un argumento de búsqueda, ejecutar una búsqueda y mostrar los resultados

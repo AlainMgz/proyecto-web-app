@@ -8,22 +8,24 @@ $tituloPagina = 'AgregarPelicula';
 
 // Definir una nueva clase que extienda Formulario
 class FormularioAgregarPeliculas extends Formulario
-{   public function __construct() {
-    parent::__construct('formAgregarPelicula', ['urlRedireccion' => '../estrenos.php']);
-}
+{
+    public function __construct()
+    {
+        parent::__construct('formAgregarPelicula', ['urlRedireccion' => '../estrenos.php']);
+    }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
-        $peliculaSA= new PeliculaSA();
+        $peliculaSA = new PeliculaSA();
         // Array de opciones para el selector de género
         $opcionesGenero = $peliculaSA->getGeneros();
-    
+
         // Genera las opciones del selector
         $opciones = '';
         foreach ($opcionesGenero as $opcion) {
             $opciones .= '<option value="' . $opcion . '">' . $opcion . '</option>';
         }
-    
+
         // Contenido del formulario con el selector de género
         $contenidoPrincipal = <<<EOS
             <div class="film-container">
@@ -47,7 +49,7 @@ class FormularioAgregarPeliculas extends Formulario
         EOS;
         return $contenidoPrincipal;
     }
-    
+
 
     // Método para procesar los datos del formulario
     protected function procesaFormulario(&$datos)
@@ -83,15 +85,15 @@ class FormularioAgregarPeliculas extends Formulario
             $this->errores['caratula'] = 'La URL de la caratula no puede superar los 100 caracteres';
         }
         $trailer = trim($datos['trailer'] ?? '');
-        $trailer= filter_var($trailer, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $trailer = filter_var($trailer, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$trailer || mb_strlen($trailer) > 200) {
             $this->errores['trailer'] = 'La URL del trailer no puede superar los 200 caracteres';
         }
-        
+
         if (count($this->errores) === 0) {
-                $pelicula = new PeliculaDTO(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
-                $peliculaSA= new PeliculaSA();
-                $peliculaSA->crearPelicula(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
+            $pelicula = new PeliculaDTO(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer, 0, 0);
+            $peliculaSA = new PeliculaSA();
+            $peliculaSA->crearPelicula(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
         }
     }
 

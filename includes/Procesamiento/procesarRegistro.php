@@ -1,6 +1,6 @@
 <?php
-require_once 'config.php';
-require 'session_start.php';
+require_once '../config.php';
+require '../session_start.php';
 
 if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     header("Location: login.php");
@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "User with the provided username or email already exists.";
     } else {
         // User doesn't exist, insert into the database
-        $insertQuery = "INSERT INTO users (username, email, password, admin) VALUES ('$username', '$email', '$password_encrypted', 1)";
+        $insertQuery = "INSERT INTO users (username, email, password, role) VALUES ('$username', '$email', '$password_encrypted', 1)";
     
         if ($conn->query($insertQuery) === TRUE) {
-            header("Location: ../login.php");
+            header("Location: ../../login.php");
 
         } else {
             echo "Error: " . $insertQuery . "<br>" . $conn->error;
@@ -44,4 +44,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 
 }
-?>

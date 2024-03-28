@@ -26,7 +26,7 @@ class PeliculaDAO
     public function crearPelicula(PeliculaDTO $pelicula)
     {
         // Preparar la consulta SQL
-        $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, 0, 0)";
         $statement = $this->conexion->prepare($query);
 
         // Verificar si la preparación de la consulta fue exitosa
@@ -38,7 +38,7 @@ class PeliculaDAO
         $valores = $pelicula->getPelicula();
 
         // Ejecutar la consulta con los valores proporcionados
-        $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula']);
+        $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'],  $valores['numValoraciones'],  $valores['valoracion']);
         $statement->execute();
 
         // Verificar si se insertó alguna fila
@@ -102,7 +102,9 @@ class PeliculaDAO
                 $peliculaData['director'],
                 $peliculaData['genero'],
                 $peliculaData['caratula'],
-                $peliculaData['trailer']
+                $peliculaData['trailer'],
+                $peliculaData['numValoraciones'],
+                $peliculaData['valoracion']
             );
 
             return $peliculaDTO;
@@ -131,7 +133,9 @@ class PeliculaDAO
                 $peliculaData['director'],
                 $peliculaData['genero'],
                 $peliculaData['caratula'],
-                $peliculaData['trailer']
+                $peliculaData['trailer'],
+                $peliculaData['numValoraciones'],
+                $peliculaData['valoraciones']
             );
 
             return $peliculaDTO;
@@ -175,7 +179,9 @@ class PeliculaDAO
                 $row['director'],
                 $row['genero'],
                 $row['caratula'],
-                $row['trailer']
+                $row['trailer'],
+                $row['numValoraciones'],
+                $row['valoracion']
             );
             // Agregar la película al array
             $peliculas[] = $pelicula;
@@ -208,7 +214,9 @@ class PeliculaDAO
                 $row['director'],
                 $row['genero'],
                 $row['caratula'],
-                $row['trailer']
+                $row['trailer'],
+                $row['numValoraciones'],
+                $row['valoracion']
             );
             $peliculas[] = $pelicula;
         }

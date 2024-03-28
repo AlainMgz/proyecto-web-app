@@ -315,30 +315,66 @@ html, body {
     margin: 10px 0; /* Espaciado entre cada texto */
 }
 
-.rating {
-    margin-top: 10px; /* Espaciado superior para separar el rating del texto */
-    margin-left: auto; /* Mueve el rating hacia la izquierda */
-    margin-bottom: 20px;
+.rating-container {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
 }
 
-.rating > input {
-    display: none;
+.rating-container p {
+    margin-right: 10px;
 }
 
-.rating > label {
-    display: inline-block;
-    padding: 5px;
-    font-size: 30px;
-    color: #ccc;
+.rating-stars {
+    display: flex;
+    align-items: center;
+}
+
+.rating-stars select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.rating > input:checked ~ label,
-.rating:hover > label {
-    color: #f90;
+.rating-stars select option {
+    color: #ffd700; /* color de las estrellas */
 }
 
-.boton-borrar {
+.rating-stars select option:hover {
+    transform: scale(1.2); /* efecto de zoom al pasar el ratón */
+}
+
+
+.boton-b {
+    background-color: #f90;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.boton-b:hover {
+    background-color: #ffaa00;
+}
+
+
+.boton-b {
+    background-color: #f90;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.boton-b:hover {
+    background-color: #ffaa00;
+}orrar {
     display: inline-block;
     background-color: #ff0000; /* Color de fondo del botón */
     color: #fff; /* Color del texto */

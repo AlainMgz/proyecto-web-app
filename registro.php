@@ -18,7 +18,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     <div class="login-content">
         <div class="login-container">
             <h2>Create account</h2>
-            <form action="includes/procesarRegistro.php" method="post">
+            <form action="includes/Procesamiento/procesarRegistro.php" method="post">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
 
