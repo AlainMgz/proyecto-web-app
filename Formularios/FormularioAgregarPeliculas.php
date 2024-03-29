@@ -11,7 +11,7 @@ class FormularioAgregarPeliculas extends Formulario
 {
     public function __construct()
     {
-        parent::__construct('formAgregarPelicula', ['urlRedireccion' => '../estrenos.php']);
+        parent::__construct('formAgregarPelicula', ['urlRedireccion' => '../index.php']);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)

@@ -5,4 +5,4 @@ require_once RAIZ_APP . '/session_start.php';
 
 $peliculaSA = new PeliculaSA();
 $peliculaSA->borrarPelicula($_GET['id']);
-header('Location: ../estrenos.php');
+header('Location: ../index.php');

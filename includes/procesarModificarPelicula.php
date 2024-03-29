@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $peliculaSA->modificarPelicula($peliculaDTO);
 
     // Redirecciona a alguna página después de procesar los datos, si es necesario
-     header('Location: ../estrenos.php');
+     header('Location: ../index.php');
     // exit;
 } else {
     // Si no se han enviado datos mediante POST, redirecciona a alguna página de error
-     header('Location: ../estrenos.php');
+     header('Location: ../index.php');
     // exit;
 }

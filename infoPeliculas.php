@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
     <p>Rating:</p>
     <div class="rating-stars">
         <p>' . $pelicula->getValoracion() . '</p>
-        <form action="funcionalidades/agregarReseña.php" method="POST">
+        <form action="funcionalidades/agregarReseña.php"'.$pelicula->getId() .' method="POST">
             <input type="hidden" name="id_pelicula" value="' . $pelicula->getId() . '">
             <select name="rating" onchange="this.form.submit()">
                 <option value="1">&#9733;</option>
