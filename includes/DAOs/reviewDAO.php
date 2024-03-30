@@ -127,9 +127,44 @@ class ReviewDAO
 
     }
 
-    public function obtenerReviewPorPelicula($pelicula)
+    public function obtenerReviewPorPelicula($pelicula) //pelicula es el nombre de la pelicula
     {
+  // Consulta SQL para obtener todas las películas del género especificado
+  $query = "SELECT * FROM reviews WHERE pelicula  = ?";
 
+  // Preparar la consulta SQL
+  $statement = $this->conexion->prepare($query);
+
+  // Verificar si la preparación de la consulta fue exitosa
+  if (!$statement) {
+      die ("Error al preparar la consulta: " . $this->conexion->error);
+  }
+
+  // Ejecutar la consulta con el género proporcionado
+  $statement->bind_param("s", $pelicula); // "s" indica que $genero es una cadena
+  $statement->execute();
+
+  // Obtener el resultado de la consulta
+  $result = $statement->get_result();
+
+  // Crear un array para almacenar las películas del género especificado
+  $reviews = array();
+
+  while ($row = $result->fetch_assoc()) {
+      $review = new reviewDTO(
+        $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['critica'],
+                $row['puntuacion'],
+                $row['pelicula']
+      );
+      // Agregar la película al array
+      $reviews[] = $review;
+  }
+
+  // Retornar el array de películas del género especificado
+  return $reviews;
     }
 
 }
