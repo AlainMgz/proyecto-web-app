@@ -88,13 +88,14 @@ INSERT INTO `peliculas` (`ID`, `nombre`, `descripcion`, `director`, `genero`, `c
 --
 
 CREATE TABLE `reviews` (
-  `ID` int(20) UNSIGNED NOT NULL,
+  `ID` int(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `usuario` varchar(20) NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `critica` varchar(300) NOT NULL,
   `puntuacion` int(5) UNSIGNED NOT NULL,
   `pelicula` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Volcado de datos para la tabla `reviews`
