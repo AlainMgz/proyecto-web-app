@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ .'/../config.php';
+require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
 
 class ReviewDAO
@@ -81,5 +81,55 @@ class ReviewDAO
         return $statement->affected_rows > 0;
     }
 
+    public function obtenerListaReviews()
+    {
+        $query = "SELECT * FROM reviews";
+        $statement = $this->conexion->prepare($query);
+
+        if (!$statement) {
+            die ("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        $statement->execute();
+
+        $result = $statement->get_result();
+
+        $reviews= array();
+
+        while ($row = $result->fetch_assoc()) {
+            $review = new reviewDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['critica'],
+                $row['puntuacion'],
+                $row['pelicula']
+             
+            );
+            $reviews[] = $review;
+        }
+
+        return $reviews;
+    }
+    /*COMPLETAR*/
+    public function modificarReview(ReviewDTO $review)
+    {
+
+    }
+    public function obtenerReviewPorID($id)
+    {
+
+
+    }
+
+    public function obtenerReviewPorUsuario($usuario)
+    {
+
+    }
+
+    public function obtenerReviewPorPelicula($pelicula)
+    {
+
+    }
 
 }
