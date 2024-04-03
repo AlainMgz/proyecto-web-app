@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -14,35 +15,47 @@ html, body {
 }
 
 #Peliculas {
-    position: fixed; /* Para que el elemento sea fijo en la pantalla */
-    top: 0; /* Posiciona el elemento en la parte superior */
+    position: fixed;
+    /* Para que el elemento sea fijo en la pantalla */
+    top: 0;
+    /* Posiciona el elemento en la parte superior */
     float: left;
     background-color: #f0f0f0;
     padding: 10px;
-    width: 25%; /* La imagen ocupará el 25% del ancho de la pantalla */
+    width: 25%;
+    /* La imagen ocupará el 25% del ancho de la pantalla */
     height: auto;
 }
 
-#Descripcion{
-    position: fixed; /* Para que el elemento sea fijo en la pantalla */
-    top: 20; /* Posiciona el elemento en la parte superior */
-     right:0;
+#Descripcion {
+    position: fixed;
+    /* Para que el elemento sea fijo en la pantalla */
+    top: 20;
+    /* Posiciona el elemento en la parte superior */
+    right: 0;
     background-color: #f0f0f0;
     padding: 10px;
-    width: 70%; /* La imagen ocupará el 50% del ancho de la pantalla */
+    width: 70%;
+    /* La imagen ocupará el 50% del ancho de la pantalla */
     height: 80%;
 }
 
 .caratula {
-    width: 100%; /* Ancho completo */
-    height: auto; /* Altura automática para mantener la proporción */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
-    transition: transform 0.3s ease-in-out; /* Transición suave */
+    width: 100%;
+    /* Ancho completo */
+    height: auto;
+    /* Altura automática para mantener la proporción */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Sombra */
+    transition: transform 0.3s ease-in-out;
+    /* Transición suave */
 }
 
 .caratula:hover {
-    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón */
+    transform: scale(1.05);
+    /* Aumentar tamaño al pasar el ratón */
 }
 
 /* Estilo para el contenedor del buscador */
@@ -93,8 +106,8 @@ html, body {
 .resultado-item:hover {
     background-color: #f5f5f5;
     cursor: pointer;
-}       
-       
+}
+
 
 .estrenos-container {
     max-width: 800px;
@@ -104,17 +117,20 @@ html, body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .estreno {
     margin-bottom: 20px;
     border-radius: 8px;
     overflow: hidden;
 }
+
 .estreno img {
     width: 100%;
     height: auto;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+
 .estreno .titulo {
     padding: 10px;
     background-color: #333;
@@ -132,7 +148,7 @@ html, body {
 .cabecera {
     background-color: lightgrey;
     width: 100%;
-    height: 10vh; 
+    height: 10vh;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -142,12 +158,12 @@ html, body {
 .cabecera img {
     height: 100%;
     width: auto;
-} 
+}
 
 .login-text {
     margin-right: 1%;
     margin-left: 30%;
-} 
+}
 
 .cabecera .menu_link {
     margin: 0 auto;
@@ -160,8 +176,8 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* min-height: auto; */
-    height: 90vh;
+    min-height: auto;
+    padding: 10%;
 }
 
 .title_container {
@@ -180,7 +196,8 @@ html, body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.login-container label, .login-container input {
+.login-container label,
+.login-container input {
     display: block;
     margin-bottom: 5%;
 }
@@ -215,7 +232,8 @@ html, body {
     width: 100%;
     height: 100%;
     -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px); /* Adjust the blur amount as needed */
+    backdrop-filter: blur(2px);
+    /* Adjust the blur amount as needed */
     z-index: 999;
     align-items: center;
 }
@@ -224,7 +242,8 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Use a semi-transparent background to enhance the blur effect */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Use a semi-transparent background to enhance the blur effect */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -237,15 +256,20 @@ html, body {
     margin-bottom: 10px;
     margin-top: 20%;
     padding: 1%;
-    border: 3px solid #ccc; /* Set border width and color */
-    border-radius: 5px; /* Set border radius for rounded corners */
+    border: 3px solid #ccc;
+    /* Set border width and color */
+    border-radius: 5px;
+    /* Set border radius for rounded corners */
     box-sizing: border-box;
 }
 
 .search-input:focus {
-    outline: none; /* Remove the default outline on focus */
-    border-color: #007bff; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle box shadow on focus */
+    outline: none;
+    /* Remove the default outline on focus */
+    border-color: #007bff;
+    /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    /* Add a subtle box shadow on focus */
 }
 
 #closeSearch {
@@ -260,41 +284,55 @@ html, body {
 }
 
 .peliculas {
-    display: grid; /* Utilizar un diseño de cuadrícula */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Definir el ancho de columna mínimo de 200px y dejar que se ajuste automáticamente */
-    gap: 20px; /* Espacio entre las imágenes */
+    display: grid;
+    /* Utilizar un diseño de cuadrícula */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    /* Definir el ancho de columna mínimo de 200px y dejar que se ajuste automáticamente */
+    gap: 20px;
+    /* Espacio entre las imágenes */
 }
 
 .caratula {
-    width: 100%; /* Ancho del 100% para llenar el contenedor de la cuadrícula */
-    height: auto; /* Altura automática para mantener la proporción */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
-    transition: transform 0.3s ease-in-out; /* Transición suave */
+    width: 100%;
+    /* Ancho del 100% para llenar el contenedor de la cuadrícula */
+    height: auto;
+    /* Altura automática para mantener la proporción */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Sombra */
+    transition: transform 0.3s ease-in-out;
+    /* Transición suave */
 }
 
 .caratula:hover {
-    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón */
+    transform: scale(1.05);
+    /* Aumentar tamaño al pasar el ratón */
 }
-  
+
 .info-container {
     display: flex;
-    align-items: flex-start; /* Alinea los elementos al principio del contenedor */
+    align-items: flex-start;
+    /* Alinea los elementos al principio del contenedor */
     margin-top: 5%;
     margin-bottom: 5%;
 }
 
 .info-img {
-    width: 400px; /* Ajusta el tamaño de la imagen según sea necesario */
+    width: 400px;
+    /* Ajusta el tamaño de la imagen según sea necesario */
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .info-text {
-    margin-left: 20px; /* Proporciona espacio entre la imagen y los textos */
-    display: flex; /* Utiliza flexbox para alinear verticalmente */
-    flex-direction: column; /* Cambia la dirección de los elementos a columna */
+    margin-left: 20px;
+    /* Proporciona espacio entre la imagen y los textos */
+    display: flex;
+    /* Utiliza flexbox para alinear verticalmente */
+    flex-direction: column;
+    /* Cambia la dirección de los elementos a columna */
 }
 
 .info-director,
@@ -304,7 +342,8 @@ html, body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     text-decoration: none;
-    margin: 5px 0; /* Espaciado entre cada texto */
+    margin: 5px 0;
+    /* Espaciado entre cada texto */
 }
 
 .info-titulo {
@@ -312,45 +351,94 @@ html, body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     text-decoration: none;
-    margin: 10px 0; /* Espaciado entre cada texto */
+    margin: 10px 0;
+    /* Espaciado entre cada texto */
 }
 
-.rating {
-    margin-top: 10px; /* Espaciado superior para separar el rating del texto */
-    margin-left: auto; /* Mueve el rating hacia la izquierda */
-    margin-bottom: 20px;
+.rating-container {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
 }
 
-.rating > input {
-    display: none;
+.rating-container p {
+    margin-right: 10px;
 }
 
-.rating > label {
-    display: inline-block;
-    padding: 5px;
-    font-size: 30px;
-    color: #ccc;
+.rating-stars {
+    display: flex;
+    align-items: center;
+}
+
+.rating-stars select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.rating > input:checked ~ label,
-.rating:hover > label {
-    color: #f90;
+.rating-stars select option {
+    color: #ffd700;
+    /* color de las estrellas */
 }
 
-.boton-borrar {
+.rating-stars select option:hover {
+    transform: scale(1.2);
+    /* efecto de zoom al pasar el ratón */
+}
+
+
+.boton-b {
+    background-color: #f90;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.boton-b:hover {
+    background-color: #ffaa00;
+}
+
+
+.boton-b {
+    background-color: #f90;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.boton-b:hover {
+    background-color: #ffaa00;
+}
+
+borrar {
     display: inline-block;
-    background-color: #ff0000; /* Color de fondo del botón */
-    color: #fff; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar por encima */
-    transition: background-color 0.3s ease; /* Transición suave */
+    background-color: #ff0000;
+    /* Color de fondo del botón */
+    color: #fff;
+    /* Color del texto */
+    border: none;
+    /* Sin borde */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s ease;
+    /* Transición suave */
 }
 
 .boton-borrar:hover {
-    background-color: #cc0000; /* Cambiar color de fondo al pasar por encima */
+    background-color: #cc0000;
+    /* Cambiar color de fondo al pasar por encima */
 }
 
 /* Contenedor para centrar el botón */
@@ -358,8 +446,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5vh; /* Altura total de la ventana */
+    height: 5vh;
+    /* Altura total de la ventana */
 }
+
 /* Estilos para el formulario de agregar review */
 
 .review-content {
@@ -412,3 +502,17 @@ button[type="submit"]:hover {
     background-color: #45a049;
 }
 
+.review {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.review h2 {
+    margin-top: 0;
+}
+
+.review p {
+    margin-bottom: 5px;
+}
