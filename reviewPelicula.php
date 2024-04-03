@@ -5,20 +5,20 @@ require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
 
 $reviewSA = new ReviewSA();
-$reviews = $reviewSA->obtenerReviewPorPelicula($_GET['nombre']);
+$nombre = $_GET['nombre'];
+$reviews = $reviewSA->obtenerReviewPorPelicula($nombre);
 
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
 $reviews_mostradas = array_slice($reviews, 0, $num_reviews_mostrar);
-?>
 
-<!DOCTYPE html>
+// Construir el contenido principal
+$contenidoPrincipal = '<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviews de la película <?php echo $_GET['nombre']; ?></title>
-    
+    <title>Reviews de la película ' . $nombre . '</title>
     <style>
         /* Estilos CSS */
         .review {
@@ -36,15 +36,21 @@ $reviews_mostradas = array_slice($reviews, 0, $num_reviews_mostrar);
     </style>
 </head>
 <body>
-    <h1>Primeras 5 Revisiones</h1>
-    <?php foreach ($reviews_mostradas as $review): ?>
+    <h1>Reviews de ' . $nombre . '</h1>';
+
+foreach ($reviews_mostradas as $review) {
+    $contenidoPrincipal .= '
         <div class="review">
-            <h2><?php echo $review->titulo; ?></h2>
-            <p><strong>Usuario:</strong> <?php echo $review->usuario; ?></p>
-            <p><strong>Critica:</strong> <?php echo $review->critica; ?></p>
-            <p><strong>Puntuación:</strong> <?php echo $review->puntuacion; ?></p>
-            <p><strong>Película:</strong> <?php echo $review->pelicula; ?></p>
-        </div>
-    <?php endforeach; ?>
+            <h2>' . $review->titulo . '</h2>
+            <p><strong>Usuario:</strong> ' . $review->usuario . '</p>
+            <p><strong>Critica:</strong> ' . $review->critica . '</p>
+            <p><strong>Puntuación:</strong> ' . $review->puntuacion . '</p>
+            <p><strong>Película:</strong> ' . $review->pelicula . '</p>
+        </div>';
+}
+
+$contenidoPrincipal .= '
 </body>
-</html>
+</html>';
+
+echo $contenidoPrincipal;
