@@ -1,41 +1,28 @@
 <?php
-require '../session_start.php';
+require_once '../config.php';
+require_once '../session_start.php';
+require_once '../SAs/UsuarioSA.php';
+
+if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
+    header("Location: ../estrenos.php");
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = htmlspecialchars($_POST['username']);
-    $password = htmlspecialchars($_POST['password']);
-    $password = $_POST['password'];
+    $password_plain = $_POST['password'];
 
-    $servername = "localhost"; 
-    $username_db = "root";
-    $password_db = ""; 
-    $dbname = "web_app_proyecto";
+    $userSA = new UsuarioSA();
+    $user = $userSA->login($username, $password_plain);
 
-    $conn = new mysqli($servername, $username_db, $password_db, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $checkQuery = "SELECT username, password, email, role FROM users WHERE username = '$username'";
-    $result = $conn->query($checkQuery);
-
-    if ($result->num_rows == 0) {
-        echo "User with the provided username does not exists.";
+    if ($user) {
+        $_SESSION['login'] = true;
+        $_SESSION['user_obj'] = serialize($user);
+        header("Location: ../../index.php");
     } else {
-        $user_data = $result->fetch_assoc();
-        if (password_verify($password, $user_data["password"])) {
-
-            $_SESSION['login'] = true;
-            $_SESSION['username'] = $username;
-            $_SESSION['email'] = $user_data["email"];
-            $_SESSION['esAdmin'] = true;
-            echo "Login successful, welcome " . $_SESSION['username'] . "!";
-            header("Location: ../../index.php");
-        } else {
-            echo "Incorrect password.";
-        }
+        
+        //header("Location: ../registro.php");
     }
 
-    $conn->close();
 }
+?>
