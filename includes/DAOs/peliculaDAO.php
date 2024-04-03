@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
-require_once __DIR__ . '/../SAs/reviewSA.php';
 class PeliculaDAO
 {
     private $conexion;
@@ -275,12 +274,10 @@ class PeliculaDAO
 
         return $generos;
     }
-    public function realizarMedia(PeliculaDTO $pelicula)
+    public function realizarMedia(PeliculaDTO $pelicula, array $reviews )
     {
         $suma = 0;
         $contador = 0;
-        $reviewSA = new ReviewSA();
-        $reviews = $reviewSA->obtenerReviewPorPelicula($pelicula->getNombre());
         foreach ($reviews as $review) {
             $contador++;
             $suma = $review->getPuntuacion();

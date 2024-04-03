@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../DAOs/PeliculaDAO.php';
 require_once __DIR__ . '/../DTOs/PeliculaDTO.php';
+require_once __DIR__ . '/../DAOS/reviewDAO.php';
 class PeliculaSA
 {
     public function __construct()
@@ -64,6 +65,15 @@ class PeliculaSA
         $peliculaDAO = new PeliculaDAO();
         $generos = $peliculaDAO->getGeneros();
         return $generos;
+    }
+
+    public function realizarMedia(PeliculaDTO $pelicula)
+    {
+        $peliculaDAO = new PeliculaDAO();
+        $reviewDAO = new ReviewDAO();
+        $reviews = $reviewDAO->obtenerReviewPorPelicula($pelicula->getNombre());
+         $peliculaDAO->realizarMedia($pelicula,$reviews );
+        return true;
     }
 }
 
