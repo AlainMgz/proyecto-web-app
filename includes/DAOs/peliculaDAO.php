@@ -284,7 +284,7 @@ class PeliculaDAO
         }
         $media = $suma / $contador;
         $pelicula->setValoracion($media);
-
+        $this->modificarPelicula($pelicula);
     }
 }
 

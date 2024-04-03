@@ -64,6 +64,7 @@ class FormularioAgregarReview extends Formulario
             $peliculaSA = new peliculaSA();
             $this->pelicula = $peliculaSA->obtenerPeliculaPorID($this->ID);
             $review = $reviewSA->crearReview($this->ID, $_SESSION["username"], $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
+            $peliculaSA->realizarMedia($peliculaSA->obtenerPeliculaPorID($this->ID));
         }
     }
 

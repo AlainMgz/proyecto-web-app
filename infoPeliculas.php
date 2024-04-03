@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 
     // Por ejemplo, puedes utilizar PeliculaSA para obtener la información de la película
     $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
-
+    $peliculaSA->realizarMedia($pelicula);
     $contenidoPrincipal = '';
 
     if (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
@@ -36,23 +36,27 @@ if (isset($_GET['id'])) {
             <p class="info-director">Director: ' . $pelicula->getDirector() . '</p>
             <p class="info-genero">Género: ' . $pelicula->getGenero() . '</p>
             <p class="info-desc">Descripción: ' . $pelicula->getDescripcion() . '</p>
+            <p class="info-desc">Valoración: ' . $pelicula->getValoracion() . '</p>
             <iframe width="560" height="315" src="' . $pelicula->getTrailer() . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="rating-container">
-            <p>Rating:</p>
-            <div class="rating-stars">
-                <p>' . $pelicula->getValoracion() . '</p>
-                <form action="funcionalidades/agregarReseña.php?id=' . $pelicula->getId() . '" method="POST">
-                    <input type="hidden" name="id_pelicula" value="' . $pelicula->getId() . '">
-                    <select name="rating" onchange="this.form.submit()">
-                        <option value="1">&#9733;</option>
-                        <option value="2">&#9733;&#9733;</option>
-                        <option value="3">&#9733;&#9733;&#9733;</option>
-                        <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-                    </select>
-                </form>
-            </div>
+            <p>Valoración:</p>
+            <div class="rating-stars">';
+            // Obtener la valoración de la película
+            $valoracion = $pelicula->getValoracion();
+            // Redondear la valoración al número entero más cercano
+            $valoracionRedondeada = round($valoracion);
+            // Mostrar la valoración en forma de estrellas
+            for ($i = 1; $i <= 5; $i++) {
+                // Si la posición actual es menor o igual que la valoración redondeada, muestra una estrella completa
+                if ($i <= $valoracionRedondeada) {
+                    $contenidoPrincipal .= '<span>&#9733;</span>';
+                } else {
+                    // De lo contrario, muestra una estrella vacía
+                    $contenidoPrincipal .= '<span>&#9734;</span>';
+                }
+            }
+            $contenidoPrincipal .= '</div>
         </div>';
 
     if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
@@ -68,3 +72,4 @@ if (isset($_GET['id'])) {
 }
 
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+
