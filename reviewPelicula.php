@@ -53,4 +53,4 @@ $contenidoPrincipal .= '
 </body>
 </html>';
 
-echo $contenidoPrincipal;
+require RAIZ_APP . '/vistas/plantillas/plantilla.php';
