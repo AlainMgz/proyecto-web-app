@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
-
+require_once __DIR__ . '/../SAs/reviewSA.php';
 class PeliculaDAO
 {
     private $conexion;
@@ -19,7 +19,7 @@ class PeliculaDAO
 
         // Verificar si la conexión fue exitosa
         if ($this->conexion->connect_error) {
-            die ("Error de conexión: " . $this->conexion->connect_error);
+            die("Error de conexión: " . $this->conexion->connect_error);
         }
     }
 
@@ -31,14 +31,14 @@ class PeliculaDAO
 
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         // Obtener los valores de la película
         $valores = $pelicula->getPelicula();
 
         // Ejecutar la consulta con los valores proporcionados
-        $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'],  $valores['numValoraciones'],  $valores['valoracion']);
+        $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $valores['numValoraciones'], $valores['valoracion']);
         $statement->execute();
 
         // Verificar si se insertó alguna fila
@@ -64,7 +64,7 @@ class PeliculaDAO
         $statement = $this->conexion->prepare($query);
         if (!$statement) {
             // Manejar el error al preparar la consulta
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         // Ejecutar la consulta con el parámetro ID
@@ -74,7 +74,7 @@ class PeliculaDAO
         // Manejar errores en la ejecución de la consulta
         if ($statement->error) {
             // Manejar el error de ejecución de la consulta
-            die ("Error al ejecutar la consulta: " . $statement->error);
+            die("Error al ejecutar la consulta: " . $statement->error);
         }
 
         // Verificar si se eliminó alguna fila
@@ -157,7 +157,7 @@ class PeliculaDAO
 
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         // Ejecutar la consulta con el género proporcionado
@@ -197,7 +197,7 @@ class PeliculaDAO
         $statement = $this->conexion->prepare($query);
 
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         $statement->execute();
@@ -231,7 +231,7 @@ class PeliculaDAO
 
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         // Obtener los valores de la película
@@ -260,7 +260,7 @@ class PeliculaDAO
         $statement = $this->conexion->prepare($query);
 
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         $statement->execute();
@@ -275,5 +275,19 @@ class PeliculaDAO
 
         return $generos;
     }
+    public function realizarMedia(PeliculaDTO $pelicula)
+    {
+        $suma = 0;
+        $contador = 0;
+        $reviewSA = new ReviewSA();
+        $reviews = $reviewSA->obtenerReviewPorPelicula($pelicula->getNombre());
+        foreach ($reviews as $review) {
+            $contador++;
+            $suma = $review->getPuntuacion();
+        }
+        $media = $suma / $contador;
+        $pelicula->setValoracion($media);
 
+    }
 }
+

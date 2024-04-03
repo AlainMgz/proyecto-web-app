@@ -88,7 +88,9 @@ class PeliculaDTO
         return $valores;
 
     }
-
+public function setValoracion($media){
+    $this->valoracion=$media;
+}
 
 }
 
