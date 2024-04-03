@@ -4,8 +4,9 @@ require_once RAIZ_APP . '/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
 
+$paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $reviewSA = new ReviewSA();
-$reviews = $reviewSA->obtenerListaReviews();
+$reviews = $reviewSA->obtener5Reviews($paginaActual * 5);
 
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
@@ -33,8 +34,34 @@ foreach ($reviews_mostradas as $review) {
 }
 
 $contenidoPrincipal .= '
+<div id="pagination">
+<button id="prevPage">&#9664;</button>
+<div id="pageNumbers">'.($paginaActual + 1).'</div>
+<button id="nextPage">&#9654;</button>
+</div>
+';
+
+$contenidoPrincipal .= '
 </body>
 </html>';
 
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
 
+?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var paginaActual = <?php echo $paginaActual; ?>;
+
+  document.getElementById("prevPage").addEventListener("click", function() {
+    if (paginaActual > 0) {
+      paginaActual--;
+      window.location.href =  "lastReviews.php?pagina=" + paginaActual;
+    }
+  });
+
+  document.getElementById("nextPage").addEventListener("click", function() {
+    paginaActual++;
+    window.location.href = "lastReviews.php?pagina=" + paginaActual;
+  });
+});
+</script>

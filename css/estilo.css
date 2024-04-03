@@ -516,3 +516,27 @@ button[type="submit"]:hover {
 .review p {
     margin-bottom: 5px;
 }
+
+#pagination {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  
+  #pagination button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #prevPage {
+    float: left;
+  }
+  
+  #nextPage {
+    float: right;
+  }

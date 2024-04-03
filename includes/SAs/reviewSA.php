@@ -24,12 +24,19 @@ class ReviewSA
         return true;
     }
 
-    public function obtenerListaReviews()
+    public function obtenerListaReviews($skip)
     {
         $reviewDAO = new reviewDAO();
         $reviews = $reviewDAO->obtenerListaReviews();
         return $reviews;
     }
+
+    public function obtener5reviews($skip){
+        $reviewDAO = new reviewDAO();
+        $reviews = $reviewDAO->obtener5reviews($skip);
+        return $reviews;
+    }
+
     public function modificarReview(ReviewDTO $review)
     {
         $reviewDAO = new reviewDAO();
