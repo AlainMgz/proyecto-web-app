@@ -2,10 +2,11 @@
 
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
-require_once __DIR__. '/includes/SAs/PeliculaSA.php';
+require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
+
 // Verificar si se ha proporcionado un ID de película en la URL
 if (isset($_GET['id'])) {
     // Obtener el ID de la película de la URL
@@ -18,12 +19,11 @@ if (isset($_GET['id'])) {
 
     $contenidoPrincipal = '';
 
-    if(isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
-        
+    if (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
         $contenidoPrincipal .= '
         <div class="centro">
-        <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Borrar Película</button></a>
-        <a href="modificarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Modificar</button></a>
+            <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Borrar Película</button></a>
+            <a href="funcionalidades/modificarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Modificar</button></a>
         </div>
         ';
     }
@@ -37,25 +37,34 @@ if (isset($_GET['id'])) {
             <p class="info-genero">Género: ' . $pelicula->getGenero() . '</p>
             <p class="info-desc">Descripción: ' . $pelicula->getDescripcion() . '</p>
             <iframe width="560" height="315" src="' . $pelicula->getTrailer() . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="rating-container">
+            <p>Rating:</p>
+            <div class="rating-stars">
+                <p>' . $pelicula->getValoracion() . '</p>
+                <form action="funcionalidades/agregarReseña.php?id=' . $pelicula->getId() . '" method="POST">
+                    <input type="hidden" name="id_pelicula" value="' . $pelicula->getId() . '">
+                    <select name="rating" onchange="this.form.submit()">
+                        <option value="1">&#9733;</option>
+                        <option value="2">&#9733;&#9733;</option>
+                        <option value="3">&#9733;&#9733;&#9733;</option>
+                        <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                    </select>
+                </form>
             </div>
-            
-    </div>
-    <div class="rating">
-                <input type="radio" id="star5" name="rating" value="5">
-                <label for="star5">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4">
-                <label for="star4">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3">
-                <label for="star3">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2">
-                <label for="star2">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1">
-                <label for="star1">&#9733;</label>
-    </div>';
+        </div>';
+
+    if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+        $contenidoPrincipal .= "<a href='funcionalidades/agregarReseña.php?id=" . $pelicula->getId() . "'><button type='button'>Realizar review</button></a>";
+    }
+
+    // Agregar botón "Ver Reviews"
+    $contenidoPrincipal .= '<a href="reviewPelicula.php?nombre=' . urlencode($pelicula->getNombre()) . '"><button type="button">Ver Reviews</button></a>';
+
 } else {
     // Si no se proporciona un ID de película en la URL, muestra un mensaje de error o redirecciona a otra página, según lo que necesites.
     echo '<p>Error: No se proporcionó un ID de película.</p>';
 }
 
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
-

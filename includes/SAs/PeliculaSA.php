@@ -27,7 +27,7 @@ class PeliculaSA
     {
         $peliculaDAO = new PeliculaDAO();
         $peliculaDAO->modificarPelicula($pelicula);
-        
+
     }
 
     public function obtenerPeliculaPorID($id)
@@ -57,6 +57,13 @@ class PeliculaSA
         $peliculaDAO = new PeliculaDAO();
         $pelicula = $peliculaDAO->obtenerListaPeliculas();
         return $pelicula;
+    }
+
+    public function getGeneros()
+    {
+        $peliculaDAO = new PeliculaDAO();
+        $generos = $peliculaDAO->getGeneros();
+        return $generos;
     }
 }
 

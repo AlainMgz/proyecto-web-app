@@ -9,4 +9,3 @@ if (session_status() == PHP_SESSION_NONE) {
         error_log("Error starting session: " . $e->getMessage());
     }
 }
-?>

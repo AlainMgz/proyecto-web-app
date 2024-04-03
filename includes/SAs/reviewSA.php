@@ -24,11 +24,17 @@ class ReviewSA
         return true;
     }
 
+    public function obtenerListaReviews()
+    {
+        $reviewDAO = new reviewDAO();
+        $reviews = $reviewDAO->obtenerListaReviews();
+        return $reviews;
+    }
     public function modificarReview(ReviewDTO $review)
     {
         $reviewDAO = new reviewDAO();
         $reviewDAO->modificarReview($review);
-        
+
     }
 
     public function obtenerReviewPorID($id)
