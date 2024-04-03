@@ -111,6 +111,37 @@ class ReviewDAO
 
         return $reviews;
     }
+
+    public function obtener5reviews($skip){
+        $query = "SELECT * FROM reviews LIMIT 5 OFFSET $skip";
+        $statement = $this->conexion->prepare($query);
+
+        if (!$statement) {
+            die ("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        $statement->execute();
+
+        $result = $statement->get_result();
+
+        $reviews= array();
+
+        while ($row = $result->fetch_assoc()) {
+            $review = new reviewDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['critica'],
+                $row['puntuacion'],
+                $row['pelicula']
+             
+            );
+            $reviews[] = $review;
+        }
+
+        return $reviews;
+    }
+
     /*COMPLETAR*/
     public function modificarReview(ReviewDTO $review)
     {
