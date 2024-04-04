@@ -287,7 +287,35 @@ class PeliculaDAO
         else
             $media = 0;
         $pelicula->setValoracion($media);
-        $this->modificarPelicula($pelicula);
+        $this->modificarMedia($pelicula, $media);
     }
+
+    public function modificarMedia(PeliculaDTO $pelicula, $media){
+        // Preparar la consulta SQL
+        $query = "UPDATE peliculas SET valoracion=? WHERE ID=?";
+        $statement = $this->conexion->prepare($query);
+    
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+    
+        // Obtener el ID de la película
+        $id = $pelicula->getID();
+    
+        // Ejecutar la consulta con los valores proporcionados
+        $statement->bind_param("di", $media, $id); // "di" indica que $media es un double y $id es un integer
+        $statement->execute();
+    
+        // Verificar si se modificó alguna fila
+        $rows_affected = $statement->affected_rows;
+    
+        // Cerrar la declaración
+        $statement->close();
+    
+        // Retornar verdadero si se modificó alguna fila, falso de lo contrario
+        return $rows_affected > 0;
+    }
+    
 }
 

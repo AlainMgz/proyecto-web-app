@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/session_start.php';
 require_once __DIR__ . '/../includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/../includes/SAs/reviewSA.php';
 require_once __DIR__ . '/../includes/DTOs/reviewDTO.php';
+require_once __DIR__ . '/../includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/Formulario.php';
 
 $tituloPagina = 'AgregarReview';
@@ -63,7 +64,8 @@ class FormularioAgregarReview extends Formulario
             $reviewSA = new reviewSA();
             $peliculaSA = new peliculaSA();
             $this->pelicula = $peliculaSA->obtenerPeliculaPorID($this->ID);
-            $review = $reviewSA->crearReview($this->ID, $_SESSION["username"], $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
+            $username = unserialize($_SESSION["user_obj"])->getNombreUsuario(); 
+            $review = $reviewSA->crearReview($this->ID, $username, $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
             $peliculaSA->realizarMedia($peliculaSA->obtenerPeliculaPorID($this->ID));
         }
     }
