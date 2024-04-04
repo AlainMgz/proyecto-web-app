@@ -30,13 +30,22 @@ class FormularioAgregarReview extends Formulario
                 <input type="text" id="titulo" name="titulo" required>
                 <label for="critica">Crítica:</label>
                 <input type="text" id="critica" name="critica" required>
-                <label for="puntuacion">Puntuacion:</label>
-                <input type="text" id="puntuacion" name="puntuacion" required>
+                <label for="puntuacion">Puntuación:</label>
+                <select id="puntuacion" name="puntuacion" required>
+                    <option value="">Selecciona una puntuación</option>
+                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="3">&#9733;&#9733;&#9733;</option>
+                    <option value="2">&#9733;&#9733;</option>
+                    <option value="1">&#9733;</option>
+                </select>
                 <button type="submit">Agregar</button>
             </div>
         EOS;
         return $contenidoPrincipal;
     }
+    
+    
 
     // Método para procesar los datos del formulario
     protected function procesaFormulario(&$datos)
@@ -64,7 +73,7 @@ class FormularioAgregarReview extends Formulario
             $reviewSA = new reviewSA();
             $peliculaSA = new peliculaSA();
             $this->pelicula = $peliculaSA->obtenerPeliculaPorID($this->ID);
-            $username = unserialize($_SESSION["user_obj"])->getNombreUsuario(); 
+            $username = unserialize($_SESSION["user_obj"])->getNombreUsuario();
             $review = $reviewSA->crearReview($this->ID, $username, $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
             $peliculaSA->realizarMedia($peliculaSA->obtenerPeliculaPorID($this->ID));
         }
