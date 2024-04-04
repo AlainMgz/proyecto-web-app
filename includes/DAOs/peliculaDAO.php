@@ -274,7 +274,7 @@ class PeliculaDAO
 
         return $generos;
     }
-    public function realizarMedia(PeliculaDTO $pelicula, array $reviews )
+    public function realizarMedia(PeliculaDTO $pelicula, array $reviews)
     {
         $suma = 0;
         $contador = 0;
@@ -282,7 +282,10 @@ class PeliculaDAO
             $contador++;
             $suma = $review->getPuntuacion();
         }
-        $media = $suma / $contador;
+        if ($contador != 0)
+            $media = $suma / $contador;
+        else
+            $media = 0;
         $pelicula->setValoracion($media);
         $this->modificarPelicula($pelicula);
     }
