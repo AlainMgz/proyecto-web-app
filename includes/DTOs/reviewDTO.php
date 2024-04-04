@@ -48,6 +48,11 @@ class reviewDTO
     {
         return $this->puntuacion;
     }
+
+    public function getPelicula(){
+
+        return $this->pelicula;
+    }
     public function getReview()
     {
         $valores = array(

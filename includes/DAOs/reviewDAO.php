@@ -67,7 +67,7 @@ class ReviewDAO
             // Manejar el error al preparar la consulta
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
+        
         // Ejecutar la consulta con el parámetro ID
         $statement->bind_param("i", $ID); // "i" indica que $ID es un entero
         $statement->execute();
@@ -150,7 +150,30 @@ class ReviewDAO
     }
     public function obtenerReviewPorID($id)
     {
+        $query = "SELECT * FROM reviews WHERE ID = ?";
+        $statement = $this->conexion->prepare($query);
+        $statement->bind_param("i", $id); // "i" indica que $ID es un integer
+        $statement->execute();
+        $result = $statement->get_result();
 
+        // Obtener la fila de resultados como un array asociativo
+        $reviewData = $result->fetch_assoc();
+
+        if ($reviewData != null) {
+            // Crear un nuevo objeto ReviewDTO con los datos recuperados
+            $reviewDTO = new ReviewDTO(
+                $reviewData['ID'],
+                $reviewData['usuario'],
+                $reviewData['titulo'],
+                $reviewData['critica'],
+                $reviewData['puntuacion'],
+                $reviewData['pelicula']
+            );
+
+            return $reviewDTO;
+        } else {
+            return null; // Opcional: Manejo de caso en el que no se encuentra ninguna película con el nombre especificado
+        }
 
     }
 

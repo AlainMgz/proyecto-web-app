@@ -3,6 +3,7 @@
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
+require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 
 // Crea una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
@@ -19,7 +20,7 @@ if (isset($_GET['id'])) {
     $peliculaSA->realizarMedia($pelicula);
     $contenidoPrincipal = '';
 
-    if (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
+    if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
         $contenidoPrincipal .= '
         <div class="centro">
             <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="boton-borrar">Borrar Película</button></a>
