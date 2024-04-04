@@ -280,7 +280,7 @@ class PeliculaDAO
         $contador = 0;
         foreach ($reviews as $review) {
             $contador++;
-            $suma = $review->getPuntuacion();
+            $suma += $review->getPuntuacion();
         }
         if ($contador != 0)
             $media = $suma / $contador;

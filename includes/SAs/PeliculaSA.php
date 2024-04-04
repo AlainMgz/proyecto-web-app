@@ -72,7 +72,7 @@ class PeliculaSA
         $peliculaDAO = new PeliculaDAO();
         $reviewDAO = new ReviewDAO();
         $reviews = $reviewDAO->obtenerReviewPorPelicula($pelicula->getNombre());
-         $peliculaDAO->realizarMedia($pelicula,$reviews );
+        $peliculaDAO->realizarMedia($pelicula,$reviews );
         return true;
     }
 }
