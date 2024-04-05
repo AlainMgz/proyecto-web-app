@@ -88,14 +88,14 @@ class ReviewDAO
         $statement = $this->conexion->prepare($query);
 
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         $statement->execute();
 
         $result = $statement->get_result();
 
-        $reviews= array();
+        $reviews = array();
 
         while ($row = $result->fetch_assoc()) {
             $review = new reviewDTO(
@@ -105,7 +105,7 @@ class ReviewDAO
                 $row['critica'],
                 $row['puntuacion'],
                 $row['pelicula']
-             
+
             );
             $reviews[] = $review;
         }
@@ -113,19 +113,20 @@ class ReviewDAO
         return $reviews;
     }
 
-    public function obtener5reviews($skip){
+    public function obtener5reviews($skip)
+    {
         $query = "SELECT * FROM reviews LIMIT 5 OFFSET $skip";
         $statement = $this->conexion->prepare($query);
 
         if (!$statement) {
-            die ("Error al preparar la consulta: " . $this->conexion->error);
+            die("Error al preparar la consulta: " . $this->conexion->error);
         }
 
         $statement->execute();
 
         $result = $statement->get_result();
 
-        $reviews= array();
+        $reviews = array();
 
         while ($row = $result->fetch_assoc()) {
             $review = new reviewDTO(
@@ -135,7 +136,7 @@ class ReviewDAO
                 $row['critica'],
                 $row['puntuacion'],
                 $row['pelicula']
-             
+
             );
             $reviews[] = $review;
         }
@@ -156,47 +157,81 @@ class ReviewDAO
 
     public function obtenerReviewPorUsuario($usuario)
     {
+        // Consulta SQL para obtener todas las películas del género especificado
+        $query = "SELECT * FROM reviews WHERE usuario   = ?";
 
-    }
 
-    public function obtenerReviewPorPelicula($pelicula) //pelicula es el nombre de la pelicula
-    {
-  // Consulta SQL para obtener todas las películas del género especificado
-  $query = "SELECT * FROM reviews WHERE pelicula  = ?";
+        // Preparar la consulta SQL
+        $statement = $this->conexion->prepare($query);
 
-  // Preparar la consulta SQL
-  $statement = $this->conexion->prepare($query);
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
 
-  // Verificar si la preparación de la consulta fue exitosa
-  if (!$statement) {
-      die ("Error al preparar la consulta: " . $this->conexion->error);
-  }
+        // Ejecutar la consulta con el género proporcionado
+        $statement->bind_param("s", $usuario); // "s" indica que $genero es una cadena
+        $statement->execute();
 
-  // Ejecutar la consulta con el género proporcionado
-  $statement->bind_param("s", $pelicula); // "s" indica que $genero es una cadena
-  $statement->execute();
+        // Obtener el resultado de la consulta
+        $result = $statement->get_result();
 
-  // Obtener el resultado de la consulta
-  $result = $statement->get_result();
+        // Crear un array para almacenar las películas del género especificado
+        $reviews = array();
 
-  // Crear un array para almacenar las películas del género especificado
-  $reviews = array();
-
-  while ($row = $result->fetch_assoc()) {
-      $review = new reviewDTO(
-        $row['ID'],
+        while ($row = $result->fetch_assoc()) {
+            $review = new reviewDTO(
+                $row['ID'],
                 $row['usuario'],
                 $row['titulo'],
                 $row['critica'],
                 $row['puntuacion'],
                 $row['pelicula']
-      );
-      // Agregar la película al array
-      $reviews[] = $review;
-  }
+            );
+            // Agregar la película al array
+            $reviews[] = $review;
+        }
+        return $reviews;
+    }
 
-  // Retornar el array de películas del género especificado
-  return $reviews;
+    public function obtenerReviewPorPelicula($pelicula) //pelicula es el nombre de la pelicula
+    {
+        // Consulta SQL para obtener todas las películas del género especificado
+        $query = "SELECT * FROM reviews WHERE pelicula  = ?";
+
+        // Preparar la consulta SQL
+        $statement = $this->conexion->prepare($query);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        // Ejecutar la consulta con el género proporcionado
+        $statement->bind_param("s", $pelicula); // "s" indica que $genero es una cadena
+        $statement->execute();
+
+        // Obtener el resultado de la consulta
+        $result = $statement->get_result();
+
+        // Crear un array para almacenar las películas del género especificado
+        $reviews = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $review = new reviewDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['critica'],
+                $row['puntuacion'],
+                $row['pelicula']
+            );
+            // Agregar la película al array
+            $reviews[] = $review;
+        }
+
+        // Retornar el array de películas del género especificado
+        return $reviews;
     }
 
 }
