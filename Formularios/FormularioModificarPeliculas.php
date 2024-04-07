@@ -7,20 +7,22 @@ require_once __DIR__ . '/Formulario.php';
 $tituloPagina = 'ModificarPelicula';
 
 // Definir una nueva clase que extienda Formulario
-class FormularioModificarPeliculas extends Formulario{
+class FormularioModificarPeliculas extends Formulario
+{
     public $id;
     public $pelicula;
 
-  public function __construct($id) {
-    parent::__construct('formModificarPelicula', ['urlRedireccion' => '../index.php']);
-    $this->id = $id;
-}
+    public function __construct($id)
+    {
+        parent::__construct('formModificarPelicula', ['urlRedireccion' => '../index.php']);
+        $this->id = $id;
+    }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
         $peliculaSA = new PeliculaSA();
         $pelicula = $peliculaSA->obtenerPeliculaPorID($this->id);
-        
+
         // Obtener los valores de la película utilizando los getters
         $nombre = $pelicula->getNombre();
         $descripcion = $pelicula->getDescripcion();
@@ -28,8 +30,10 @@ class FormularioModificarPeliculas extends Formulario{
         $genero = $pelicula->getGenero();
         $caratula = $pelicula->getCaratula();
         $trailer = $pelicula->getTrailer();
+        $numValoraciones = $pelicula->getNumValoraciones();
+        $media = $pelicula->getValoracion();
         $opcionesGenero = $peliculaSA->getGeneros();
-        
+
         // Genera las opciones del selector
         $opciones = '';
         foreach ($opcionesGenero as $opcion) {
@@ -37,7 +41,7 @@ class FormularioModificarPeliculas extends Formulario{
             $selected = ($opcion === $genero) ? 'selected' : '';
             $opciones .= '<option value="' . $opcion . '" ' . $selected . '>' . $opcion . '</option>';
         }
-    
+
         $contenidoPrincipal = <<<EOS
             <div class="film-container">
                 <label for="nombre">Nombre:</label>
@@ -58,10 +62,10 @@ class FormularioModificarPeliculas extends Formulario{
                 <button type="submit">Agregar</button>
             </div>
         EOS;
-        
+
         return $contenidoPrincipal;
     }
-    
+
 
 
     // Método para procesar los datos del formulario
@@ -98,16 +102,16 @@ class FormularioModificarPeliculas extends Formulario{
             $this->errores['caratula'] = 'La URL de la caratula no puede superar los 100 caracteres';
         }
         $trailer = trim($datos['trailer'] ?? '');
-        $trailer= filter_var($trailer, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $trailer = filter_var($trailer, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$trailer || mb_strlen($trailer) > 200) {
             $this->errores['trailer'] = 'La URL del trailer no puede superar los 200 caracteres';
         }
-        
+
         if (count($this->errores) === 0) {
-                $pelicula = new PeliculaDTO(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
-                $peliculaSA= new PeliculaSA();
-                $peliculaSA->borrarPelicula($this->id);
-                $peliculaSA->crearPelicula(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
+            $pelicula = new PeliculaDTO(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer, $this->numValoraciones, $this->media);
+            $peliculaSA = new PeliculaSA();
+            $peliculaSA->borrarPelicula($this->id);
+            $peliculaSA->crearPelicula(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
         }
     }
 

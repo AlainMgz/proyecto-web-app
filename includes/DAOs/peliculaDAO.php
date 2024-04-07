@@ -23,32 +23,33 @@ class PeliculaDAO
     }
 
     public function crearPelicula(PeliculaDTO $pelicula)
-    {
-        // Preparar la consulta SQL
-        $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, 0, 0)";
-        $statement = $this->conexion->prepare($query);
+{
+    // Preparar la consulta SQL
+    $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, 0, 0)";
+    $statement = $this->conexion->prepare($query);
 
-        // Verificar si la preparación de la consulta fue exitosa
-        if (!$statement) {
-            die("Error al preparar la consulta: " . $this->conexion->error);
-        }
-
-        // Obtener los valores de la película
-        $valores = $pelicula->getPelicula();
-
-        // Ejecutar la consulta con los valores proporcionados
-        $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $valores['numValoraciones'], $valores['valoracion']);
-        $statement->execute();
-
-        // Verificar si se insertó alguna fila
-        $rows_affected = $statement->affected_rows;
-
-        // Cerrar la declaración
-        $statement->close();
-
-        // Retornar verdadero si se insertó alguna fila, falso de lo contrario
-        return $rows_affected > 0;
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta: " . $this->conexion->error);
     }
+
+    // Obtener los valores de la película
+    $valores = $pelicula->getPelicula();
+
+    // Ejecutar la consulta con los valores proporcionados
+    $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula']);
+    $statement->execute();
+
+    // Verificar si se insertó alguna fila
+    $rows_affected = $statement->affected_rows;
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar verdadero si se insertó alguna fila, falso de lo contrario
+    return $rows_affected > 0;
+}
+
 
     public function borrarPelicula($ID)
     {

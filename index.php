@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
+require_once __DIR__ .'/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
@@ -35,7 +36,9 @@ EOS;
 
 $genero = "Todos";
 
-if (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
+
+if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
+
     $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='button'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
