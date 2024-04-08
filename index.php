@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
-require_once __DIR__ .'/includes/DTOs/UsuarioDTO.php';
+require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crea una instancia de la clase PeliculaSA
@@ -30,7 +30,6 @@ $selectGenero .= <<<EOS
     </p>
     </form>
     <script>
-        // Aquí puedes agregar cualquier código JavaScript relacionado con el selector si es necesario
     </script>
 EOS;
 

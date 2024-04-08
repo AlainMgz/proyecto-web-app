@@ -56,7 +56,7 @@ INSERT INTO `generos` (`genero`) VALUES
 --
 
 CREATE TABLE `peliculas` (
-  `ID` int(10) UNSIGNED NOT NULL,
+  `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   `descripcion` text NOT NULL,
   `director` varchar(20) NOT NULL,
@@ -64,7 +64,8 @@ CREATE TABLE `peliculas` (
   `caratula` varchar(100) NOT NULL,
   `trailer` varchar(200) DEFAULT NULL,
   `numValoraciones` int(200) NOT NULL,
-  `valoracion` int(10) NOT NULL
+  `valoracion` int(10) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
