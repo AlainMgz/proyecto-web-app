@@ -4,10 +4,12 @@ require_once RAIZ_APP . '/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
 require_once RAIZ_APP.'/DTOs/UsuarioDTO.php';
+require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 
+$paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $reviewSA = new ReviewSA();
 $username = unserialize($_SESSION['user_obj'])->getNombreUsuario();
-$reviews = $reviewSA->obtenerReviewPorUsuario($username);
+$reviews = $reviewSA->obtener5ReviewsPorUsuario($paginaActual, $username);
 
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
@@ -19,39 +21,40 @@ $contenidoPrincipal = '<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviews de  ' . $username. '</title>
-    <style>
-        /* Estilos CSS */
-        .review {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .review h2 {
-            margin-top: 0;
-        }
-        .review p {
-            margin-bottom: 5px;
-        }
-    </style>
+    <title>Primeras 5 Revisiones</title>
 </head>
 <body>
-    <h1>Reviews de ' . $username . '</h1>';
+    <h1>Últimas reviews</h1>';
 
-foreach ($reviews_mostradas as $review) {
-    $contenidoPrincipal .= '
-        <div class="review">
-            <h2>' . $review->titulo . '</h2>
-            <p><strong>Usuario:</strong> ' . $review->usuario . '</p>
-            <p><strong>Critica:</strong> ' . $review->critica . '</p>
-            <p><strong>Puntuación:</strong> ' . $review->puntuacion . '</p>
-            <p><strong>Película:</strong> ' . $review->pelicula . '</p>
-        </div>';
-}
+$contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
+
+$contenidoPrincipal .= '
+<div id="pagination">
+    <button id="prevPage">&#9664;</button>
+    <div id="pageNumbers">' . ($paginaActual + 1) . '</div>
+    <button id="nextPage">&#9654;</button>
+</div>';
 
 $contenidoPrincipal .= '
 </body>
 </html>';
 
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var paginaActual = <?php echo $paginaActual; ?>;
+
+  document.getElementById("prevPage").addEventListener("click", function() {
+    if (paginaActual > 0) {
+      paginaActual--;
+      window.location.href =  "lastReviews.php?pagina=" + paginaActual;
+    }
+  });
+
+  document.getElementById("nextPage").addEventListener("click", function() {
+    paginaActual++;
+    window.location.href = "lastReviews.php?pagina=" + paginaActual;
+  });
+});
+</script>

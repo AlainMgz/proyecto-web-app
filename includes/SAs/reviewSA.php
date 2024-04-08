@@ -23,22 +23,22 @@ class ReviewSA
         $reviewDAO->borrarReview($ID);
         return true;
     }
-
-    public function obtenerListaReviews($skip)
+    public function obtener5reviews($skip)
     {
-        $reviewDAO = new reviewDAO();
-        $reviews = $reviewDAO->obtenerListaReviews();
-        return $reviews;
-    }
-
-    public function obtener5reviews($skip){
         $reviewDAO = new reviewDAO();
         $reviews = $reviewDAO->obtener5reviews($skip);
         return $reviews;
     }
-    public function obtener5ReviewsPorPelicula($skip, $pelicula){
+    public function obtener5ReviewsPorPelicula($skip, $pelicula)
+    {
         $reviewDAO = new reviewDAO();
         $reviews = $reviewDAO->obtener5ReviewsPorPelicula($skip, $pelicula);
+        return $reviews;
+    }
+    public function obtener5ReviewsPorUsuario($skip, $usuario)
+    {
+        $reviewDAO = new reviewDAO();
+        $reviews = $reviewDAO->obtener5ReviewsPorUsuario($skip, $usuario);
         return $reviews;
     }
     public function modificarReview(ReviewDTO $review)
@@ -55,7 +55,7 @@ class ReviewSA
         return $review;
 
     }
-
+    /*EN PRINCIPIO ESTAN EN DESUSO*/
     public function obtenerReviewPorUsuario($usuario)
     {
         $reviewDAO = new reviewDAO();
@@ -68,6 +68,13 @@ class ReviewSA
         $reviewDAO = new reviewDAO();
         $review = $reviewDAO->obtenerReviewPorPelicula($pelicula);
         return $review;
+    }
+
+    public function obtenerListaReviews($skip)
+    {
+        $reviewDAO = new reviewDAO();
+        $reviews = $reviewDAO->obtenerListaReviews();
+        return $reviews;
     }
 
 }

@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // In
 $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $reviewSA = new ReviewSA();
 $nombre = $_GET['nombre'];
-$reviews = $reviewSA->obtener5ReviewsPorPelicula(0,$nombre);
+$reviews = $reviewSA->obtener5ReviewsPorPelicula($paginaActual,$nombre);
 
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;

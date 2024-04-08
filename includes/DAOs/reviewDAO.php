@@ -67,7 +67,7 @@ class ReviewDAO
             // Manejar el error al preparar la consulta
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-        
+
         // Ejecutar la consulta con el parámetro ID
         $statement->bind_param("i", $ID); // "i" indica que $ID es un entero
         $statement->execute();
@@ -257,36 +257,66 @@ class ReviewDAO
         return $reviews;
     }
     public function obtener5ReviewsPorPelicula($skip, $pelicula)
-{
-    $query = "SELECT * FROM reviews WHERE pelicula = ? LIMIT 5 OFFSET ?";
-    $statement = $this->conexion->prepare($query);
+    {
+        $query = "SELECT * FROM reviews WHERE pelicula = ? LIMIT 5 OFFSET ?";
+        $statement = $this->conexion->prepare($query);
 
-    if (!$statement) {
-        die("Error al preparar la consulta: " . $this->conexion->error);
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        $statement->bind_param("si", $pelicula, $skip);
+        $statement->execute();
+
+        $result = $statement->get_result();
+
+        $reviews = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $review = new reviewDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['critica'],
+                $row['puntuacion'],
+                $row['pelicula']
+            );
+            $reviews[] = $review;
+        }
+
+        return $reviews;
+    }
+    public function obtener5ReviewsPorUsuario($skip, $usuario)
+    {
+        $query = "SELECT * FROM reviews WHERE usuario = ? LIMIT 5 OFFSET ?";
+        $statement = $this->conexion->prepare($query);
+
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        $statement->bind_param("si", $usuario, $skip);
+        $statement->execute();
+
+        $result = $statement->get_result();
+
+        $reviews = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $review = new reviewDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['critica'],
+                $row['puntuacion'],
+                $row['pelicula']
+            );
+            $reviews[] = $review;
+        }
+
+        return $reviews;
     }
 
-    $statement->bind_param("si", $pelicula, $skip);
-    $statement->execute();
 
-    $result = $statement->get_result();
-
-    $reviews = array();
-
-    while ($row = $result->fetch_assoc()) {
-        $review = new reviewDTO(
-            $row['ID'],
-            $row['usuario'],
-            $row['titulo'],
-            $row['critica'],
-            $row['puntuacion'],
-            $row['pelicula']
-        );
-        $reviews[] = $review;
-    }
-
-    return $reviews;
-}
-
-    
 }
 
