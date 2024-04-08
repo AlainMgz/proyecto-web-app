@@ -35,12 +35,13 @@ foreach ($reviews_mostradas as $review) {
             (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario)){
               $contenidoPrincipal .= '<a href="funcionalidades/modificarReview.php?id=' . $review->ID . '"><button class="boton-editar">Editar</button></a>';
             }
-        if(isset($_SESSION["user_obj"]) && 
-            (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario) ||
+        if(isset($_SESSION["user_obj"])){ 
+            if((unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario) ||
             unserialize($_SESSION["user_obj"])->getRole() == 1 || 
             unserialize($_SESSION["user_obj"])->getRole() == 2) {
                 $contenidoPrincipal .= '<a href="includes/borrarReview.php?id=' . $review->ID . '"><button class="boton-borrar">Borrar</button></a>';
             }
+          }
         $contenidoPrincipal .= '
             </div>';
 }
