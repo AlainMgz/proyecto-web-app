@@ -3,6 +3,7 @@ require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
+require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 require_once RAIZ_APP.'/DTOs/UsuarioDTO.php';
 
 $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
@@ -23,58 +24,36 @@ $contenidoPrincipal = '<!DOCTYPE html>
 <body>
     <h1>Últimas reviews</h1>';
 
-foreach ($reviews_mostradas as $review) {
+    $contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
+
     $contenidoPrincipal .= '
-    <div class="review">
-        <h2>' . $review->titulo . '</h2>
-        <p><strong>Usuario:</strong> ' . $review->usuario . '</p>
-        <p><strong>Critica:</strong> ' . $review->critica . '</p>
-        <p><strong>Puntuación:</strong> ' . $review->puntuacion . '</p>
-        <p><strong>Película:</strong> ' . $review->pelicula . '</p>';
-        if (isset($_SESSION["user_obj"]) && 
-            (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario)){
-              $contenidoPrincipal .= '<a href="funcionalidades/modificarReview.php?id=' . $review->ID . '"><button class="boton-editar">Editar</button></a>';
-            }
-        if(isset($_SESSION["user_obj"])){ 
-            if((unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario) ||
-            unserialize($_SESSION["user_obj"])->getRole() == 1 || 
-            unserialize($_SESSION["user_obj"])->getRole() == 2) {
-                $contenidoPrincipal .= '<a href="includes/borrarReview.php?id=' . $review->ID . '"><button class="boton-borrar">Borrar</button></a>';
-            }
-          }
-        $contenidoPrincipal .= '
-            </div>';
-}
-
-$contenidoPrincipal .= '
-<div id="pagination">
-<button id="prevPage">&#9664;</button>
-<div id="pageNumbers">'.($paginaActual + 1).'</div>
-<button id="nextPage">&#9654;</button>
-</div>
-';
-
-$contenidoPrincipal .= '
-</body>
-</html>';
-
-require RAIZ_APP . '/vistas/plantillas/plantilla.php';
-
-?>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var paginaActual = <?php echo $paginaActual; ?>;
-
-  document.getElementById("prevPage").addEventListener("click", function() {
-    if (paginaActual > 0) {
-      paginaActual--;
-      window.location.href =  "lastReviews.php?pagina=" + paginaActual;
-    }
-  });
-
-  document.getElementById("nextPage").addEventListener("click", function() {
-    paginaActual++;
-    window.location.href = "lastReviews.php?pagina=" + paginaActual;
-  });
-});
-</script>
+    <div id="pagination">
+        <button id="prevPage">&#9664;</button>
+        <div id="pageNumbers">' . ($paginaActual + 1) . '</div>
+        <button id="nextPage">&#9654;</button>
+    </div>';
+    
+    $contenidoPrincipal .= '
+    </body>
+    </html>';
+    
+    require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+    ?>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var paginaActual = <?php echo $paginaActual; ?>;
+    
+      document.getElementById("prevPage").addEventListener("click", function() {
+        if (paginaActual > 0) {
+          paginaActual--;
+          window.location.href =  "lastReviews.php?pagina=" + paginaActual;
+        }
+      });
+    
+      document.getElementById("nextPage").addEventListener("click", function() {
+        paginaActual++;
+        window.location.href = "lastReviews.php?pagina=" + paginaActual;
+      });
+    });
+    </script>
+    

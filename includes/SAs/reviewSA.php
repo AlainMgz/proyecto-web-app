@@ -36,7 +36,11 @@ class ReviewSA
         $reviews = $reviewDAO->obtener5reviews($skip);
         return $reviews;
     }
-
+    public function obtener5ReviewsPorPelicula($skip, $pelicula){
+        $reviewDAO = new reviewDAO();
+        $reviews = $reviewDAO->obtener5ReviewsPorPelicula($skip, $pelicula);
+        return $reviews;
+    }
     public function modificarReview(ReviewDTO $review)
     {
         $reviewDAO = new reviewDAO();
