@@ -83,3 +83,4 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
 
 // Incluir la plantilla principal para mostrar el contenido
 require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+?>

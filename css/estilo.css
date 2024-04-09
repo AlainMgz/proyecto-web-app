@@ -3,6 +3,8 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    min-width: 800px;
+    min-height: auto;
 }
 
 #contenedor {
@@ -561,3 +563,19 @@ button[type="submit"]:hover {
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.arrow-down {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .arrow-down:hover {
+    background-color: #45a049;
+  }
