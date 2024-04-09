@@ -101,6 +101,7 @@
             <?php endif; ?>
         </ul>
     </div>
+    <div class="login-text"><?php showGreeting(); ?></div>
 </nav>
     
 </body>
