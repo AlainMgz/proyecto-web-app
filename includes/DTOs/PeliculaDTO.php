@@ -82,6 +82,7 @@ class PeliculaDTO
             'director' => $this->director,
             'genero' => $this->genero,
             'caratula' => $this->caratula,
+            'trailer' => $this->trailer,
             'numValoraciones' => $this->num_valoraciones,
             'valoracion' => $this->valoracion
         );

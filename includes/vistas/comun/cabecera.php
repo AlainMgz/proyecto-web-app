@@ -68,7 +68,7 @@ function showGreeting() {
     <a href="#" class="menu_link" id="searchBtn">Buscar</a>
     <?php 
         if(isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
-            echo '<a href="includes/addEstreno.php" class="menu_link">Añadir estreno</a>';
+            echo '<a href="funcionalidades/agregarPelicula.php" class="menu_link">Añadir estreno</a>';
         
         }
     ?>

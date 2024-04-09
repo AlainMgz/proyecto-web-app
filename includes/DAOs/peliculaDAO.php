@@ -25,7 +25,7 @@ class PeliculaDAO
     public function crearPelicula(PeliculaDTO $pelicula)
 {
     // Preparar la consulta SQL
-    $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, 0, 0)";
+    $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, trailer, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, ?, 0, 0)";
     $statement = $this->conexion->prepare($query);
 
     // Verificar si la preparación de la consulta fue exitosa
@@ -36,8 +36,9 @@ class PeliculaDAO
     // Obtener los valores de la película
     $valores = $pelicula->getPelicula();
 
+    
     // Ejecutar la consulta con los valores proporcionados
-    $statement->bind_param("sssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula']);
+    $statement->bind_param("ssssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $valores['trailer']);
     $statement->execute();
 
     // Verificar si se insertó alguna fila
