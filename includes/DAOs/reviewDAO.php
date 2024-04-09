@@ -14,18 +14,14 @@ class ReviewDAO
         $username = "root";
         $password = "";
         $dbname = "web_app_proyecto";
-
-        // Crear la conexión
-        $this->conexion = new mysqli($servername, $username, $password, $dbname);
-
-        // Verificar si la conexión fue exitosa
-        if ($this->conexion->connect_error) {
-            die("Error de conexión: " . $this->conexion->connect_error);
-        }
     }
 
+    /*
+FIX: Ahora todas las conexiones se hacen desde las funciones.
+    */
     public function crearReview(ReviewDTO $review)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         // Preparar la consulta SQL
         $query = "INSERT INTO reviews (usuario, titulo, critica, puntuacion, pelicula) VALUES (?, ?, ?, ?, ?)";
         $statement = $this->conexion->prepare($query);
@@ -54,6 +50,7 @@ class ReviewDAO
 
     public function borrarReview($ID)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         // Validar el parámetro ID
         if (!is_numeric($ID) || $ID <= 0) {
             // Manejar el error de ID no válido
@@ -84,6 +81,7 @@ class ReviewDAO
 
     public function obtenerListaReviews()
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews";
         $statement = $this->conexion->prepare($query);
 
@@ -115,6 +113,7 @@ class ReviewDAO
 
     public function obtener5reviews($skip)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews LIMIT 5 OFFSET $skip";
         $statement = $this->conexion->prepare($query);
 
@@ -147,10 +146,11 @@ class ReviewDAO
     /*COMPLETAR*/
     public function modificarReview(ReviewDTO $review)
     {
-
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
     }
     public function obtenerReviewPorID($id)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews WHERE ID = ?";
         $statement = $this->conexion->prepare($query);
         $statement->bind_param("i", $id); // "i" indica que $ID es un integer
@@ -180,6 +180,7 @@ class ReviewDAO
 
     public function obtenerReviewPorUsuario($usuario)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         // Consulta SQL para obtener todas las películas del género especificado
         $query = "SELECT * FROM reviews WHERE usuario   = ?";
 
@@ -219,6 +220,7 @@ class ReviewDAO
 
     public function obtenerReviewPorPelicula($pelicula) //pelicula es el nombre de la pelicula
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         // Consulta SQL para obtener todas las películas del género especificado
         $query = "SELECT * FROM reviews WHERE pelicula  = ?";
 
@@ -258,6 +260,7 @@ class ReviewDAO
     }
     public function obtener5ReviewsPorPelicula($skip, $pelicula)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews WHERE pelicula = ? LIMIT 5 OFFSET ?";
         $statement = $this->conexion->prepare($query);
 
@@ -288,6 +291,7 @@ class ReviewDAO
     }
     public function obtener5ReviewsPorUsuario($skip, $usuario)
     {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews WHERE usuario = ? LIMIT 5 OFFSET ?";
         $statement = $this->conexion->prepare($query);
 

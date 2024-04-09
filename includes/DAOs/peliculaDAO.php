@@ -12,19 +12,12 @@ class PeliculaDAO
         $username = "root";
         $password = "";
         $dbname = "web_app_proyecto";
-
-        // Crear la conexión
-        $this->conexion = new mysqli($servername, $username, $password, $dbname);
-
-        // Verificar si la conexión fue exitosa
-        if ($this->conexion->connect_error) {
-            die("Error de conexión: " . $this->conexion->connect_error);
-        }
     }
 
     public function crearPelicula(PeliculaDTO $pelicula)
 {
     // Preparar la consulta SQL
+    $this->conexion=Aplicacion::getInstance()->getConexionBd();
     $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, trailer, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, ?, 0, 0)";
     $statement = $this->conexion->prepare($query);
 
@@ -54,6 +47,7 @@ class PeliculaDAO
 
     public function borrarPelicula($ID)
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         // Validar el parámetro ID
         if (!is_numeric($ID) || $ID <= 0) {
             // Manejar el error de ID no válido
@@ -85,6 +79,7 @@ class PeliculaDAO
 
     public function obtenerPeliculaPorID($ID)
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM peliculas WHERE ID = ?";
         $statement = $this->conexion->prepare($query);
         $statement->bind_param("i", $ID); // "i" indica que $ID es un integer
@@ -116,6 +111,7 @@ class PeliculaDAO
 
     public function obtenerPeliculaPorNombre($nombre)
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM peliculas WHERE nombre = ?";
         $statement = $this->conexion->prepare($query);
         $statement->bind_param("s", $nombre); // "s" indica que $nombre es una cadena
@@ -147,6 +143,7 @@ class PeliculaDAO
 
     public function filtrarPeliculasPorGenero($genero)
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         if ($genero == "Todos") {
             return $this->obtenerListaPeliculas();
         }
@@ -194,6 +191,7 @@ class PeliculaDAO
 
     public function obtenerListaPeliculas()
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM peliculas";
         $statement = $this->conexion->prepare($query);
 
@@ -226,6 +224,7 @@ class PeliculaDAO
     }
     public function modificarPelicula(PeliculaDTO $pelicula)
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         // Preparar la consulta SQL
         $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
         $statement = $this->conexion->prepare($query);
@@ -257,6 +256,7 @@ class PeliculaDAO
 
     public function getGeneros()
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM generos";
         $statement = $this->conexion->prepare($query);
 
@@ -278,6 +278,7 @@ class PeliculaDAO
     }
     public function realizarMedia(PeliculaDTO $pelicula, array $reviews)
     {
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         $suma = 0;
         $contador = 0;
         foreach ($reviews as $review) {
@@ -294,6 +295,7 @@ class PeliculaDAO
 
     public function modificarMedia(PeliculaDTO $pelicula, $media){
         // Preparar la consulta SQL
+        $this->conexion=Aplicacion::getInstance()->getConexionBd();
         $query = "UPDATE peliculas SET valoracion=? WHERE ID=?";
         $statement = $this->conexion->prepare($query);
     
