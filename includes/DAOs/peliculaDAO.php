@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
+
 class PeliculaDAO
 {
     private $conexion;
@@ -15,44 +16,71 @@ class PeliculaDAO
     }
 
     public function crearPelicula(PeliculaDTO $pelicula)
-{
-    // Preparar la consulta SQL
-    $this->conexion=Aplicacion::getInstance()->getConexionBd();
-    $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, trailer, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, ?, 0, 0)";
-    $statement = $this->conexion->prepare($query);
-
-    // Verificar si la preparación de la consulta fue exitosa
-    if (!$statement) {
-        die("Error al preparar la consulta: " . $this->conexion->error);
-    }
-
-    // Obtener los valores de la película
-    $valores = $pelicula->getPelicula();
-
+    {
+        // Preparar la consulta SQL
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+        $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, trailer, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, ?, 0, 0)";
+        $statement = $this->conexion->prepare($query);
     
-    // Ejecutar la consulta con los valores proporcionados
-    $statement->bind_param("ssssss", $valores['nombre'], $valores['descripcion'], $valores['director'], $valores['genero'], $valores['caratula'], $valores['trailer']);
-    $statement->execute();
-
-    // Verificar si se insertó alguna fila
-    $rows_affected = $statement->affected_rows;
-
-    // Cerrar la declaración
-    $statement->close();
-
-    // Retornar verdadero si se insertó alguna fila, falso de lo contrario
-    return $rows_affected > 0;
-}
-
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+    
+        // Obtener los valores de la película y filtrarlos
+        $valores = $pelicula->getPelicula();
+        $nombre = $valores['nombre'];
+        $descripcion = $valores['descripcion'];
+        $director = $valores['director'];
+        $genero = $valores['genero'];
+        $caratula = $valores['caratula'];
+        $trailer = $valores['trailer'];
+    
+        // Filtrar y escapar los datos antes de ejecutar la consulta
+        $nombre = htmlspecialchars($nombre);
+        $nombre = $this->conexion->real_escape_string($nombre);
+    
+        $descripcion = htmlspecialchars($descripcion);
+        $descripcion = $this->conexion->real_escape_string($descripcion);
+    
+        $director = htmlspecialchars($director);
+        $director = $this->conexion->real_escape_string($director);
+    
+        $genero = htmlspecialchars($genero);
+        $genero = $this->conexion->real_escape_string($genero);
+    
+        $caratula = htmlspecialchars($caratula);
+        $caratula = $this->conexion->real_escape_string($caratula);
+    
+        $trailer = htmlspecialchars($trailer);
+        $trailer = $this->conexion->real_escape_string($trailer);
+    
+        // Ejecutar la consulta con los valores proporcionados
+        $statement->bind_param("ssssss", $nombre, $descripcion, $director, $genero, $caratula, $trailer);
+        $statement->execute();
+    
+        // Verificar si se insertó alguna fila
+        $rows_affected = $statement->affected_rows;
+    
+        // Cerrar la declaración
+        $statement->close();
+    
+        // Retornar verdadero si se insertó alguna fila, falso de lo contrario
+        return $rows_affected > 0;
+    }
+    
 
     public function borrarPelicula($ID)
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         // Validar el parámetro ID
         if (!is_numeric($ID) || $ID <= 0) {
             // Manejar el error de ID no válido
             return false;
         }
+
+        // Escape de la variable $ID
+        $ID = $this->conexion->real_escape_string($ID);
 
         // Consulta preparada con marcadores de posición sin nombres específicos
         $query = "DELETE FROM peliculas WHERE ID = ?";
@@ -76,10 +104,9 @@ class PeliculaDAO
         return $statement->affected_rows > 0;
     }
 
-
     public function obtenerPeliculaPorID($ID)
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM peliculas WHERE ID = ?";
         $statement = $this->conexion->prepare($query);
         $statement->bind_param("i", $ID); // "i" indica que $ID es un integer
@@ -111,7 +138,7 @@ class PeliculaDAO
 
     public function obtenerPeliculaPorNombre($nombre)
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM peliculas WHERE nombre = ?";
         $statement = $this->conexion->prepare($query);
         $statement->bind_param("s", $nombre); // "s" indica que $nombre es una cadena
@@ -143,7 +170,7 @@ class PeliculaDAO
 
     public function filtrarPeliculasPorGenero($genero)
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         if ($genero == "Todos") {
             return $this->obtenerListaPeliculas();
         }
@@ -191,7 +218,7 @@ class PeliculaDAO
 
     public function obtenerListaPeliculas()
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM peliculas";
         $statement = $this->conexion->prepare($query);
 
@@ -224,7 +251,7 @@ class PeliculaDAO
     }
     public function modificarPelicula(PeliculaDTO $pelicula)
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         // Preparar la consulta SQL
         $query = "UPDATE peliculas SET nombre=?, descripcion=?, director=?, genero=?, caratula=? WHERE ID=?";
         $statement = $this->conexion->prepare($query);
@@ -256,7 +283,7 @@ class PeliculaDAO
 
     public function getGeneros()
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM generos";
         $statement = $this->conexion->prepare($query);
 
@@ -278,7 +305,7 @@ class PeliculaDAO
     }
     public function realizarMedia(PeliculaDTO $pelicula, array $reviews)
     {
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $suma = 0;
         $contador = 0;
         foreach ($reviews as $review) {
@@ -293,33 +320,34 @@ class PeliculaDAO
         $this->modificarMedia($pelicula, $media);
     }
 
-    public function modificarMedia(PeliculaDTO $pelicula, $media){
+    public function modificarMedia(PeliculaDTO $pelicula, $media)
+    {
         // Preparar la consulta SQL
-        $this->conexion=Aplicacion::getInstance()->getConexionBd();
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "UPDATE peliculas SET valoracion=? WHERE ID=?";
         $statement = $this->conexion->prepare($query);
-    
+
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-    
+
         // Obtener el ID de la película
         $id = $pelicula->getID();
-    
+
         // Ejecutar la consulta con los valores proporcionados
         $statement->bind_param("di", $media, $id); // "di" indica que $media es un double y $id es un integer
         $statement->execute();
-    
+
         // Verificar si se modificó alguna fila
         $rows_affected = $statement->affected_rows;
-    
+
         // Cerrar la declaración
         $statement->close();
-    
+
         // Retornar verdadero si se modificó alguna fila, falso de lo contrario
         return $rows_affected > 0;
     }
-    
+
 }
 

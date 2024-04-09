@@ -86,10 +86,10 @@
                 <a href="<?= RUTA_APP ?>/lastReviews.php" class="nav-link">Reviews</a>
             </li>
             <li class="nav-item">
-                <a href="<?= RUTA_APP ?>/Blog.php" class="nav-link">Blog</a>
+                <a href="<?= RUTA_APP ?>/blog.php" class="nav-link">Blog</a>
             </li>
             <li class="nav-item">
-                <a href="<?= RUTA_APP ?>/Ranking.php" class="nav-link">Ranking</a>
+                <a href="<?= RUTA_APP ?>/ranking.php" class="nav-link">Ranking</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" id="searchBtn">Buscar</a>
