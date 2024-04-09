@@ -20,30 +20,44 @@ class ReviewDAO
 FIX: Ahora todas las conexiones se hacen desde las funciones.
     */
     public function crearReview(ReviewDTO $review)
-{
-    $this->conexion = Aplicacion::getInstance()->getConexionBd();
-    // Preparar la consulta SQL
-    $query = "INSERT INTO reviews (usuario, titulo, critica, puntuacion, pelicula) VALUES (?, ?, ?, ?, ?)";
-    $statement = $this->conexion->prepare($query);
-
-    // Verificar si la preparación de la consulta fue exitosa
-    if (!$statement) {
-        die("Error al preparar la consulta: " . $this->conexion->error);
+    {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+        // Preparar la consulta SQL
+        $query = "INSERT INTO reviews (usuario, titulo, critica, puntuacion, pelicula) VALUES (?, ?, ?, ?, ?)";
+        $statement = $this->conexion->prepare($query);
+    
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+    
+        // Obtener los valores de la review
+        $valores = $review->getReview();
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $usuario = htmlspecialchars($valores['usuario']);
+        $usuario = $this->conexion->real_escape_string($usuario);
+    
+        $titulo = htmlspecialchars($valores['titulo']);
+        $titulo = $this->conexion->real_escape_string($titulo);
+    
+        $critica = htmlspecialchars($valores['critica']);
+        $critica = $this->conexion->real_escape_string($critica);
+    
+        // Ejecutar la consulta con los valores proporcionados
+        $statement->bind_param("sssis", $usuario, $titulo, $critica, $valores['puntuacion'], $valores['pelicula']);
+        $statement->execute();
+    
+        // Verificar si se insertó alguna fila
+        $rows_affected = $statement->affected_rows;
+    
+        // Cerrar la declaración
+        $statement->close();
+    
+        // Retornar verdadero si se insertó alguna fila, falso de lo contrario
+        return $rows_affected > 0;
     }
-
-    // Obtener los valores de la review
-    $valores = $review->getReview();
-
-    // Escapar y filtrar los datos antes de ejecutar la consulta
-    $usuario = htmlspecialchars($valores['usuario']);
-    $usuario = $this->conexion->real_escape_string($usuario);
-
-    $titulo = htmlspecialchars($valores['titulo']);
-    $titulo = $this->conexion->real_escape_string($titulo);
-
-    $critica = htmlspecialchars($valores['critica']);
-    $critica = $this->conexion->real_escape_string($critica);
-}
+    
 
     public function borrarReview($ID)
     {
