@@ -5,7 +5,7 @@ require_once __DIR__ . '/Formularios/FormularioLogin.php';
 
 $form = new FormularioLogin();
 $htmlFormRegistro = $form->gestiona();
-$tituloPagina = 'Agregar peliculas';
+$tituloPagina = 'Registro';
 
 $contenidoPrincipal = <<<EOS
 <h1>Login</h1>

@@ -1,49 +1,58 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/session_start.php';
-require_once __DIR__ . '/../includes/SAs/PeliculaSA.php';
-require_once __DIR__ . '/../includes/SAs/reviewSA.php';
-require_once __DIR__ . '/../includes/DTOs/reviewDTO.php';
 require_once __DIR__ . '/../includes/DTOs/UsuarioDTO.php';
+require_once __DIR__ . '/../includes/SAs/UsuarioSA.php';
 require_once __DIR__ . '/Formulario.php';
 
-$tituloPagina = 'AgregarReview';
+$tituloPagina = 'Registro';
 
 // Definir una nueva clase que extienda Formulario
-class FormularioAgregarReview extends Formulario
+class FormularioRegistro extends Formulario
 {
-    public $ID = '';
-    public $pelicula = '';
-
-
-    public function __construct($id)
+        public function __construct()
     {
-        parent::__construct('formAgregarReview', ['urlRedireccion' => '../index.php']);
-        $this->ID = $id;
+        parent::__construct('formRegistro', ['urlRedireccion' => 'index.php']);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
-        $contenidoPrincipal = <<<EOS
-            <div class="film-container">
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" name="titulo" required>
-                <label for="critica">Crítica:</label>
-                <input type="text" id="critica" name="critica" required>
-                <label for="puntuacion">Puntuación:</label>
-                <select id="puntuacion" name="puntuacion" required>
-                    <option value="">Selecciona una puntuación</option>
-                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                    <option value="3">&#9733;&#9733;&#9733;</option>
-                    <option value="2">&#9733;&#9733;</option>
-                    <option value="1">&#9733;</option>
-                </select>
-                <button type="submit">Agregar</button>
+        if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
+            $contenidoPrincipal = <<<EOS
+            <div class="login-content">
+                <div class="title_container">
+                    <p>You are already logged in!</p>
+                    <p>Welcome {$_SESSION['username']}!</p>
+                </div>
             </div>
-        EOS;
-        return $contenidoPrincipal;
+            EOS;
+        } else {
+            $contenidoPrincipal = <<<EOS
+            <div class="login-content">
+                <div class="login-container">
+                    <h2>Create account</h2>
+                    <form action="includes/Procesamiento/procesarRegistro.php" method="post">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+        
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+        
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+        
+                        <button type="submit">Submit</button>
+                    </form>
+        
+                    <div class="create-account-link">
+                        <p>If you already have an account, <a href="login.php">login</a>.</p>
+                    </div>
+                </div>
+            </div>
+            EOS;
     }
+    return $contenidoPrincipal;
+}
     
     
 
@@ -52,30 +61,31 @@ class FormularioAgregarReview extends Formulario
     {
         $this->errores = [];
 
-        $titulo = trim($datos['titulo'] ?? '');
-        $titulo = filter_var($titulo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$titulo || mb_strlen($titulo) > 100) {
-            $this->errores['titulo'] = 'El titulo de la critica no puede tener ms de 100 caracteres.';
+        $username = trim($datos['username'] ?? ''); // Corregido el índice
+        if (empty($username)) {
+            $this->errores[] = 'El nombre del usuario no puede estar vacío'; // Añadido al array sin clave específica
         }
-        $critica = trim($datos['critica'] ?? '');
-        $critica = filter_var($critica, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$critica || mb_strlen($critica) > 300) {
-            $this->errores['critica'] = 'La crítica debe tener menos de 300 caracteres.';
-        }
-        $puntuacion = trim($datos['puntuacion'] ?? '');
-        $puntuacion = filter_var($puntuacion, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$puntuacion || $puntuacion < 0 || $puntuacion > 5) {
-            $this->errores['puntuacion'] = 'La puntuación debe ser un número entre 0 y 5.';
+    
+        $password = trim($datos['password'] ?? ''); // Corregido el índice
+        if (empty($password)) {
+            $this->errores[] = 'La contraseña no puede estar vacía'; // Añadido al array sin clave específica
         }
 
+        $email = trim($datos['email'] ?? ''); // Corregido el índice
+        if (empty($password)) {
+            $this->errores[] = 'El email no puede estar vacio'; // Añadido al array sin clave específica
+        }
+    
         if (count($this->errores) === 0) {
-
-            $reviewSA = new reviewSA();
-            $peliculaSA = new peliculaSA();
-            $this->pelicula = $peliculaSA->obtenerPeliculaPorID($this->ID);
-            $username = unserialize($_SESSION["user_obj"])->getNombreUsuario();
-            $review = $reviewSA->crearReview($this->ID, $username, $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
-            $peliculaSA->realizarMedia($peliculaSA->obtenerPeliculaPorID($this->ID));
+            $usuarioSA = new UsuarioSA();
+           if($usuarioSA->buscaUsuario($username)){
+            $this->errores[] = "El usuario ya existe"; // Corregido el mensaje de error
+           }
+           else{
+          $usuarioSA->crea($username, $password, $email, 0);
+                header("Location: login.php"); // Redirige al usuario después del inicio de sesión exitoso
+                exit(); // Detiene la ejecución del script después de la redirección
+        }
         }
     }
 
