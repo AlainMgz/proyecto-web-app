@@ -11,6 +11,4 @@ if(isset($_SESSION['esAdmin'])) {
     unset($_SESSION['esAdmin']);
 }
 session_destroy();
-echo "<p>You've been logged out!</p>
-      <a href='" . RUTA_APP . "/login.php'>Login</a>";
-?>
+header ('Location: ../estrenos.php');
