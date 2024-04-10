@@ -26,7 +26,7 @@ ob_start();
     .carousel-item img {
         object-fit: cover;
         /* Ajusta la imagen al contenedor sin distorsionarla */
-        max-height: 75vh;
+        max-height: 80vh;
         /* Altura máxima del 75% del viewport height */
         width: 100%;
         /* Asegura que la imagen ocupe todo el ancho del contenedor */
@@ -38,7 +38,7 @@ ob_start();
 
     #carouselExampleIndicators {
 
-        height: 75vh;
+        height: 80vh;
         /* Establece una altura del 75% del viewport height para el carrusel */
     }
 
@@ -154,16 +154,21 @@ ob_start();
     });
 </script>
 
-<div id="scroll-target" style="height: 700px;">
-    <div style="text-align: center; margin-top: 200px;">
-        <h1>¡Únete ya a esta gran comunidad y comparte tus gustos!</h1>
-        <p>En FEEL, puedes compartir tus opiniones sobre tus películas favoritas, conocer personas afines a ti y mucho más.</p>
-    </div>
-    <div class="container" style="margin-top: 50px;">
+<div id="scroll-target" style="min-height: 100vh; padding-top: 200px;">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-4 text-center">
-                <button class="btn btn-secondary mx-auto" onclick="location.href='login.php';">Iniciar sesión</button>
-                <button class="btn btn-light mx-auto" onclick="location.href='registro.php';">Registrarse</button>
+            <div class="col-lg-8 text-center">
+                <h1 class="mb-4">¡Únete ya a esta gran comunidad y comparte tus gustos!</h1>
+                <p class="lead">En FEEL, puedes compartir tus opiniones sobre tus películas favoritas, conocer personas
+                    afines a ti y mucho más.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-4 text-center">
+                <button class="btn btn-secondary btn-lg btn-block" onclick="location.href='login.php';">Iniciar sesión</button>
+            </div>
+            <div class="col-lg-4 text-center mt-2 mt-lg-0">
+                <button class="btn btn-light btn-lg btn-block" onclick="location.href='registro.php';">Registrarse</button>
             </div>
         </div>
     </div>
