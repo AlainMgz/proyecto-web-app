@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar con desplegable</title>
     
+    
 </head>
 
 <body>
@@ -21,7 +22,7 @@
     $reviews_url = RUTA_APP . '/lastReviews.php';
     $blog_url = RUTA_APP . '/blog.php';
     $ranking_url = RUTA_APP . '/ranking.php';
-    $search_url = RUTA_APP . '/search.php';
+    $search_url = RUTA_APP . '/includes/vistas/comun/buscador.php';
     $agregar_pelicula_url = RUTA_APP . '/funcionalidades/agregarPelicula.php';
 
     $estrenos_active = ($current_url == $estrenos_url) ? 'active' : '';
@@ -79,7 +80,7 @@
                     <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
                 </li>
                 <li class="nav-item <?= $search_active ?>">
-                    <a href="<?= $search_url ?>" class="nav-link" id="searchBtn">Buscar</a>
+                    <a href="#" class="nav-link" id="searchBtn">Buscar</a>
                 </li>
                 <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
                     <li class="nav-item <?= $agregar_pelicula_active ?>">
