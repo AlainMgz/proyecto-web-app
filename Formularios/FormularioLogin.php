@@ -16,7 +16,7 @@ class FormularioLogin extends Formulario
 
     public function __construct()
     {
-        parent::__construct('formLogin', ['urlRedireccion' => '../index.php']);
+        parent::__construct('formLogin', ['urlRedireccion' => '../estrenos.php']);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
@@ -69,7 +69,7 @@ class FormularioLogin extends Formulario
         } else {
             $_SESSION['login'] = true;
             $_SESSION['user_obj'] = serialize($usuario);
-            header("Location: index.php"); // Redirige al usuario después del inicio de sesión exitoso
+            header("Location: estrenos.php"); // Redirige al usuario después del inicio de sesión exitoso
             exit(); // Detiene la ejecución del script después de la redirección
         }
     }

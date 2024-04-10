@@ -86,7 +86,7 @@
             <ul class="navbar-nav mr-auto">
                 <!-- Lista de opciones del menú -->
                 <li class="nav-item">
-                    <a href="<?= RUTA_APP ?>/index.php" class="nav-link">Estrenos</a>
+                    <a href="<?= RUTA_APP ?>/estrenos.php" class="nav-link">Estrenos</a>
                 </li>
                 <li class="nav-item">
                     <a href="<?= RUTA_APP ?>/lastReviews.php" class="nav-link">Reviews</a>

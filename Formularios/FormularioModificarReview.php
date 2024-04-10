@@ -12,7 +12,7 @@ class FormularioModificarReview extends Formulario{
     public $review;
 
   public function __construct($id) {
-    parent::__construct('formModificarReview', ['urlRedireccion' => '../index.php']);
+    parent::__construct('formModificarReview', ['urlRedireccion' => '../estrenos.php']);
     $this->id = $id;
     $reviewSA = new reviewSA();
     $this->review = $reviewSA->obtenerReviewPorID($this->id);

@@ -18,7 +18,7 @@ class FormularioAgregarReview extends Formulario
 
     public function __construct($id)
     {
-        parent::__construct('formAgregarReview', ['urlRedireccion' => '../index.php']);
+        parent::__construct('formAgregarReview', ['urlRedireccion' => '../estrenos.php']);
         $this->ID = $id;
     }
     // Método para generar los campos del formulario
