@@ -7,6 +7,7 @@
     <title>Navbar con desplegable</title>
     
     
+
 </head>
 
 <body>
@@ -29,8 +30,6 @@
     $reviews_active = ($current_url == $reviews_url) ? 'active' : '';
     $blog_active = ($current_url == $blog_url) ? 'active' : '';
     $ranking_active = ($current_url == $ranking_url) ? 'active' : '';
-    $search_active = ($current_url == $search_url) ? 'active' : '';
-    $agregar_pelicula_active = ($current_url == $agregar_pelicula_url) ? 'active' : '';
 
     function showGreeting()
     {
@@ -88,8 +87,17 @@
                     </li>
                 <?php endif; ?>
             </ul>
-
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="/proyecto-web-app/reviewPelicula.php" method="get">
+                        <li>
+                            <input class="form-control mr-sm-2" type="search" name="nombre" placeholder="Buscar">
+                        </li>
+                        <li>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        </li>
+                    </form>
+                </li>
                 <li class="nav-item">
                     <?php showGreeting(); ?>
                 </li>
