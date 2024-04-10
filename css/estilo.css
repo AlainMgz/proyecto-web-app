@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: black;
+    background-color: white;
 
 }
 
@@ -489,20 +489,6 @@ textarea {
     font-size: 16px;
 }
 
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049;
-}
 
 .review {
     margin-bottom: 20px;
@@ -563,6 +549,7 @@ button[type="submit"]:hover {
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
 
 .carousel-item img {
     object-fit: cover;

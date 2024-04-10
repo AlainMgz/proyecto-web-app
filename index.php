@@ -4,45 +4,45 @@ require_once RAIZ_APP . '/session_start.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
-$peliculaSA = new PeliculaSA();
-$listaPeliculas = $peliculaSA->obtenerListaPeliculas();
-
 $contenidoPrincipal = '';
 
 // Empieza a capturar el contenido principal
 ob_start();
 ?>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <?php for ($i = 0; $i < 6; $i++): ?>
-            <li data-target="#carouselExampleIndicators" data-slide-to="<?= $i ?>" class="<?= $i === 0 ? 'active' : '' ?>">
-            </li>
-        <?php endfor; ?>
-    </ol>
-    <div class="carousel-inner">
-        <?php for ($i = 1; $i <= 5; $i++): ?>
-            <div class="carousel-item <?= $i === 1 ? 'active' : '' ?>">
-                <img src="img/carrusel<?= $i ?>.png" class="d-block w-100" alt="Carrusel <?= $i ?>">
-            </div>
-        <?php endfor; ?>
+<div class="container-fluid" style="min-height: 100vh; background-color: black;">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <?php for ($i = 0; $i < 6; $i++): ?>
+                <li data-target="#carouselExampleIndicators" data-slide-to="<?= $i ?>"
+                    class="<?= $i === 0 ? 'active' : '' ?>">
+                </li>
+            <?php endfor; ?>
+        </ol>
+        <div class="carousel-inner">
+            <?php for ($i = 1; $i <= 5; $i++): ?>
+                <div class="carousel-item <?= $i === 1 ? 'active' : '' ?>">
+                    <img src="img/carrusel<?= $i ?>.png" class="d-block w-100" alt="Carrusel <?= $i ?>">
+                </div>
+            <?php endfor; ?>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+    <div style="text-align: center; margin-top: 10px;">
+        <a href="#" class="arrow-down" style="text-decoration: none;">
+            <span class="material-icons" style="font-size: 48px;">arrow_downward</span>
+        </a>
+    </div>
 </div>
 
 
-<div style="text-align: center; margin-top: 10px;">
-    <a href="#" class="arrow-down" style="text-decoration: none;">
-        <span class="material-icons" style="font-size: 48px;">arrow_downward</span>
-    </a>
-</div>
 
 
 
@@ -68,7 +68,7 @@ ob_start();
     });
 </script>
 
-<div id="scroll-target" style="min-height: 100vh; padding-top: 150px;">
+<div id="scroll-target" style="min-height: 100vh; padding-top: 150px; background-color: black;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">

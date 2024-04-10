@@ -46,17 +46,17 @@ class PeliculaSA
         return $pelicula;
     }
 
-    public function filtrarPeliculasPorGenero($genero)
+    public function filtrarPeliculasPorGenero($genero, $skip)
     {
         $peliculaDAO = new PeliculaDAO();
-        $peliculas = $peliculaDAO->filtrarPeliculasPorGenero($genero);
+        $peliculas = $peliculaDAO->filtrarPeliculasPorGenero($genero, $skip);
         return $peliculas;
     }
 
-    public function obtenerListaPeliculas()
+    public function obtenerListaPeliculas($skip)
     {
         $peliculaDAO = new PeliculaDAO();
-        $pelicula = $peliculaDAO->obtenerListaPeliculas();
+        $pelicula = $peliculaDAO->obtenerListaPeliculas($skip);
         return $pelicula;
     }
 

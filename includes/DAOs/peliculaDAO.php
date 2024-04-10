@@ -159,11 +159,11 @@ class PeliculaDAO
         }
     }
 
-    public function filtrarPeliculasPorGenero($genero)
+    public function filtrarPeliculasPorGenero($genero, $skip)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
         if ($genero == "Todos") {
-            return $this->obtenerListaPeliculas();
+            return $this->obtenerListaPeliculas($skip);
         }
         // Consulta SQL para obtener todas las películas del género especificado
         $query = "SELECT * FROM peliculas WHERE genero = ?";
@@ -207,10 +207,11 @@ class PeliculaDAO
         return $peliculas;
     }
 
-    public function obtenerListaPeliculas()
+    public function obtenerListaPeliculas($skip)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM peliculas";
+        $query = "SELECT * FROM peliculas LIMIT 5 OFFSET $skip";
+
         $statement = $this->conexion->prepare($query);
 
         if (!$statement) {
