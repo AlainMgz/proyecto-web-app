@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../DAOs/PeliculaDAO.php';
 require_once __DIR__ . '/../DTOs/PeliculaDTO.php';
-require_once __DIR__ . '/../DAOS/reviewDAO.php';
+require_once __DIR__ . '/../DAOs/reviewDAO.php';
 class PeliculaSA
 {
     public function __construct()
