@@ -25,28 +25,39 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         // Preparar la consulta SQL
         $query = "INSERT INTO reviews (usuario, titulo, critica, puntuacion, pelicula) VALUES (?, ?, ?, ?, ?)";
         $statement = $this->conexion->prepare($query);
-
+    
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
+    
         // Obtener los valores de la review
         $valores = $review->getReview();
-
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $usuario = htmlspecialchars($valores['usuario']);
+        $usuario = $this->conexion->real_escape_string($usuario);
+    
+        $titulo = htmlspecialchars($valores['titulo']);
+        $titulo = $this->conexion->real_escape_string($titulo);
+    
+        $critica = htmlspecialchars($valores['critica']);
+        $critica = $this->conexion->real_escape_string($critica);
+    
         // Ejecutar la consulta con los valores proporcionados
-        $statement->bind_param("sssis", $valores['usuario'], $valores['titulo'], $valores['critica'], $valores['puntuacion'], $valores['pelicula']);
+        $statement->bind_param("sssis", $usuario, $titulo, $critica, $valores['puntuacion'], $valores['pelicula']);
         $statement->execute();
-
+    
         // Verificar si se insertó alguna fila
         $rows_affected = $statement->affected_rows;
-
+    
         // Cerrar la declaración
         $statement->close();
-
+    
         // Retornar verdadero si se insertó alguna fila, falso de lo contrario
         return $rows_affected > 0;
     }
+    
 
     public function borrarReview($ID)
     {
@@ -143,11 +154,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         return $reviews;
     }
 
-    /*COMPLETAR*/
-    public function modificarReview(ReviewDTO $review)
-    {
-        $this->conexion = Aplicacion::getInstance()->getConexionBd();
-    }
+   
     public function obtenerReviewPorID($id)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
@@ -178,146 +185,246 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
 
     }
 
+    public function modificarReview(ReviewDTO $review)
+    {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+        // Preparar la consulta SQL
+        $query = "UPDATE reviews SET usuario=?, titulo=?, critica=?, puntuacion=?, pelicula=? WHERE ID=?";
+        $statement = $this->conexion->prepare($query);
+    
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+    
+        // Obtener los valores de la review
+        $valores = $review->getReview();
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $usuario = htmlspecialchars($valores['usuario']);
+        $usuario = $this->conexion->real_escape_string($usuario);
+    
+        $titulo = htmlspecialchars($valores['titulo']);
+        $titulo = $this->conexion->real_escape_string($titulo);
+    
+        $critica = htmlspecialchars($valores['critica']);
+        $critica = $this->conexion->real_escape_string($critica);
+    
+        $puntuacion = htmlspecialchars($valores['puntuacion']);
+        $puntuacion = $this->conexion->real_escape_string($puntuacion);
+    
+        $pelicula = htmlspecialchars($valores['pelicula']);
+        $pelicula = $this->conexion->real_escape_string($pelicula);
+    
+        $id = $valores['ID'];
+    
+        // Ejecutar la consulta con los valores proporcionados
+        $statement->bind_param("sssisi", $usuario, $titulo, $critica, $puntuacion, $pelicula, $id);
+        $statement->execute();
+    
+        // Verificar si se modificó alguna fila
+        $rows_affected = $statement->affected_rows;
+    
+        // Cerrar la declaración
+        $statement->close();
+    
+        // Retornar verdadero si se modificó alguna fila, falso de lo contrario
+        return $rows_affected > 0;
+    }
+    
     public function obtenerReviewPorUsuario($usuario)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        // Consulta SQL para obtener todas las películas del género especificado
-        $query = "SELECT * FROM reviews WHERE usuario   = ?";
-
-
+        // Consulta SQL para obtener todas las reviews del usuario especificado
+        $query = "SELECT * FROM reviews WHERE usuario = ?";
+    
         // Preparar la consulta SQL
         $statement = $this->conexion->prepare($query);
-
+    
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
-        // Ejecutar la consulta con el género proporcionado
-        $statement->bind_param("s", $usuario); // "s" indica que $genero es una cadena
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $usuario = htmlspecialchars($usuario);
+        $usuario = $this->conexion->real_escape_string($usuario);
+    
+        // Ejecutar la consulta con el usuario proporcionado
+        $statement->bind_param("s", $usuario); // "s" indica que $usuario es una cadena
         $statement->execute();
-
+    
         // Obtener el resultado de la consulta
         $result = $statement->get_result();
-
-        // Crear un array para almacenar las películas del género especificado
+    
+        // Crear un array para almacenar las reviews del usuario especificado
         $reviews = array();
-
+    
         while ($row = $result->fetch_assoc()) {
-            $review = new reviewDTO(
+            // Filtrar los datos antes de crear el objeto ReviewDTO
+            $usuario = htmlspecialchars($row['usuario']);
+            $titulo = htmlspecialchars($row['titulo']);
+            $critica = htmlspecialchars($row['critica']);
+            $puntuacion = htmlspecialchars($row['puntuacion']);
+            $pelicula = htmlspecialchars($row['pelicula']);
+    
+            // Crear un nuevo objeto ReviewDTO con los datos filtrados
+            $review = new ReviewDTO(
                 $row['ID'],
-                $row['usuario'],
-                $row['titulo'],
-                $row['critica'],
-                $row['puntuacion'],
-                $row['pelicula']
+                $usuario,
+                $titulo,
+                $critica,
+                $puntuacion,
+                $pelicula
             );
-            // Agregar la película al array
+    
+            // Agregar la review al array
             $reviews[] = $review;
         }
+    
+        // Retornar el array de reviews del usuario especificado
         return $reviews;
     }
-
-    public function obtenerReviewPorPelicula($pelicula) //pelicula es el nombre de la pelicula
+    
+    public function obtenerReviewPorPelicula($pelicula)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        // Consulta SQL para obtener todas las películas del género especificado
-        $query = "SELECT * FROM reviews WHERE pelicula  = ?";
-
+        // Consulta SQL para obtener todas las reviews de la película especificada
+        $query = "SELECT * FROM reviews WHERE pelicula = ?";
+    
         // Preparar la consulta SQL
         $statement = $this->conexion->prepare($query);
-
+    
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
-        // Ejecutar la consulta con el género proporcionado
-        $statement->bind_param("s", $pelicula); // "s" indica que $genero es una cadena
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $pelicula = htmlspecialchars($pelicula);
+        $pelicula = $this->conexion->real_escape_string($pelicula);
+    
+        // Ejecutar la consulta con la película proporcionada
+        $statement->bind_param("s", $pelicula); // "s" indica que $pelicula es una cadena
         $statement->execute();
-
+    
         // Obtener el resultado de la consulta
         $result = $statement->get_result();
-
-        // Crear un array para almacenar las películas del género especificado
+    
+        // Crear un array para almacenar las reviews de la película especificada
         $reviews = array();
-
+    
         while ($row = $result->fetch_assoc()) {
-            $review = new reviewDTO(
+            // Filtrar los datos antes de crear el objeto ReviewDTO
+            $usuario = htmlspecialchars($row['usuario']);
+            $titulo = htmlspecialchars($row['titulo']);
+            $critica = htmlspecialchars($row['critica']);
+            $puntuacion = htmlspecialchars($row['puntuacion']);
+            $pelicula = htmlspecialchars($row['pelicula']);
+    
+            // Crear un nuevo objeto ReviewDTO con los datos filtrados
+            $review = new ReviewDTO(
                 $row['ID'],
-                $row['usuario'],
-                $row['titulo'],
-                $row['critica'],
-                $row['puntuacion'],
-                $row['pelicula']
+                $usuario,
+                $titulo,
+                $critica,
+                $puntuacion,
+                $pelicula
             );
-            // Agregar la película al array
+    
+            // Agregar la review al array
             $reviews[] = $review;
         }
-
-        // Retornar el array de películas del género especificado
+    
+        // Retornar el array de reviews de la película especificada
         return $reviews;
     }
+    
     public function obtener5ReviewsPorPelicula($skip, $pelicula)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews WHERE pelicula = ? LIMIT 5 OFFSET ?";
         $statement = $this->conexion->prepare($query);
-
+    
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $pelicula = htmlspecialchars($pelicula);
+        $pelicula = $this->conexion->real_escape_string($pelicula);
+    
         $statement->bind_param("si", $pelicula, $skip);
         $statement->execute();
-
+    
         $result = $statement->get_result();
-
+    
         $reviews = array();
-
+    
         while ($row = $result->fetch_assoc()) {
-            $review = new reviewDTO(
+            // Filtrar los datos antes de crear el objeto ReviewDTO
+            $usuario = htmlspecialchars($row['usuario']);
+            $titulo = htmlspecialchars($row['titulo']);
+            $critica = htmlspecialchars($row['critica']);
+            $puntuacion = htmlspecialchars($row['puntuacion']);
+            $pelicula = htmlspecialchars($row['pelicula']);
+    
+            // Crear un nuevo objeto ReviewDTO con los datos filtrados
+            $review = new ReviewDTO(
                 $row['ID'],
-                $row['usuario'],
-                $row['titulo'],
-                $row['critica'],
-                $row['puntuacion'],
-                $row['pelicula']
+                $usuario,
+                $titulo,
+                $critica,
+                $puntuacion,
+                $pelicula
             );
             $reviews[] = $review;
         }
-
+    
         return $reviews;
     }
+    
     public function obtener5ReviewsPorUsuario($skip, $usuario)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM reviews WHERE usuario = ? LIMIT 5 OFFSET ?";
         $statement = $this->conexion->prepare($query);
-
+    
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
+    
+        // Escapar y filtrar los datos antes de ejecutar la consulta
+        $usuario = htmlspecialchars($usuario);
+        $usuario = $this->conexion->real_escape_string($usuario);
+    
         $statement->bind_param("si", $usuario, $skip);
         $statement->execute();
-
+    
         $result = $statement->get_result();
-
+    
         $reviews = array();
-
+    
         while ($row = $result->fetch_assoc()) {
-            $review = new reviewDTO(
+            // Filtrar los datos antes de crear el objeto ReviewDTO
+            $usuario = htmlspecialchars($row['usuario']);
+            $titulo = htmlspecialchars($row['titulo']);
+            $critica = htmlspecialchars($row['critica']);
+            $puntuacion = htmlspecialchars($row['puntuacion']);
+            $pelicula = htmlspecialchars($row['pelicula']);
+    
+            // Crear un nuevo objeto ReviewDTO con los datos filtrados
+            $review = new ReviewDTO(
                 $row['ID'],
-                $row['usuario'],
-                $row['titulo'],
-                $row['critica'],
-                $row['puntuacion'],
-                $row['pelicula']
+                $usuario,
+                $titulo,
+                $critica,
+                $puntuacion,
+                $pelicula
             );
             $reviews[] = $review;
         }
-
+    
         return $reviews;
     }
 

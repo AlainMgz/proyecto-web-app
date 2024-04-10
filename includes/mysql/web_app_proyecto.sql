@@ -112,12 +112,14 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `email` varchar(255) NOT NULL,
-  `role` tinyint(2) NOT NULL
+  `role` tinyint(2) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Volcado de datos para la tabla `users`

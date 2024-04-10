@@ -13,6 +13,8 @@ class PeliculaDAO
         $username = "root";
         $password = "";
         $dbname = "web_app_proyecto";
+
+        // Aquí deberías establecer la conexión a la base de datos
     }
 
     public function crearPelicula(PeliculaDTO $pelicula)
@@ -21,54 +23,42 @@ class PeliculaDAO
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
         $query = "INSERT INTO peliculas (nombre, descripcion, director, genero, caratula, trailer, numValoraciones, valoracion) VALUES (?, ?, ?, ?, ?, ?, 0, 0)";
         $statement = $this->conexion->prepare($query);
-    
+
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-    
+
         // Obtener los valores de la película y filtrarlos
         $valores = $pelicula->getPelicula();
-        $nombre = $valores['nombre'];
-        $descripcion = $valores['descripcion'];
-        $director = $valores['director'];
-        $genero = $valores['genero'];
-        $caratula = $valores['caratula'];
-        $trailer = $valores['trailer'];
-    
-        // Filtrar y escapar los datos antes de ejecutar la consulta
-        $nombre = htmlspecialchars($nombre);
+        $nombre = htmlspecialchars($valores['nombre']);
+        $descripcion = htmlspecialchars($valores['descripcion']);
+        $director = htmlspecialchars($valores['director']);
+        $genero = htmlspecialchars($valores['genero']);
+        $caratula = htmlspecialchars($valores['caratula']);
+        $trailer = htmlspecialchars($valores['trailer']);
+
+        // Escape de los valores para prevenir inyección SQL
         $nombre = $this->conexion->real_escape_string($nombre);
-    
-        $descripcion = htmlspecialchars($descripcion);
         $descripcion = $this->conexion->real_escape_string($descripcion);
-    
-        $director = htmlspecialchars($director);
         $director = $this->conexion->real_escape_string($director);
-    
-        $genero = htmlspecialchars($genero);
         $genero = $this->conexion->real_escape_string($genero);
-    
-        $caratula = htmlspecialchars($caratula);
         $caratula = $this->conexion->real_escape_string($caratula);
-    
-        $trailer = htmlspecialchars($trailer);
         $trailer = $this->conexion->real_escape_string($trailer);
-    
+
         // Ejecutar la consulta con los valores proporcionados
         $statement->bind_param("ssssss", $nombre, $descripcion, $director, $genero, $caratula, $trailer);
         $statement->execute();
-    
+
         // Verificar si se insertó alguna fila
         $rows_affected = $statement->affected_rows;
-    
+
         // Cerrar la declaración
         $statement->close();
-    
+
         // Retornar verdadero si se insertó alguna fila, falso de lo contrario
         return $rows_affected > 0;
     }
-    
 
     public function borrarPelicula($ID)
     {
@@ -112,10 +102,10 @@ class PeliculaDAO
         $statement->bind_param("i", $ID); // "i" indica que $ID es un integer
         $statement->execute();
         $result = $statement->get_result();
-
+    
         // Obtener la fila de resultados como un array asociativo
         $peliculaData = $result->fetch_assoc();
-
+    
         if ($peliculaData != null) {
             // Crear un nuevo objeto PeliculaDTO con los datos recuperados
             $peliculaDTO = new PeliculaDTO(
@@ -129,12 +119,13 @@ class PeliculaDAO
                 $peliculaData['numValoraciones'],
                 $peliculaData['valoracion']
             );
-
+    
             return $peliculaDTO;
         } else {
             return null; // Opcional: Manejo de caso en el que no se encuentra ninguna película con el nombre especificado
         }
     }
+    
 
     public function obtenerPeliculaPorNombre($nombre)
     {
@@ -348,6 +339,5 @@ class PeliculaDAO
         // Retornar verdadero si se modificó alguna fila, falso de lo contrario
         return $rows_affected > 0;
     }
-
 }
 

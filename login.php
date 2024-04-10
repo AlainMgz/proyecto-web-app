@@ -6,6 +6,9 @@ require_once __DIR__ . '/Formularios/FormularioLogin.php';
 $form = new FormularioLogin();
 $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Registro';
+$form = new FormularioLogin();
+$htmlFormRegistro = $form->gestiona();
+$tituloPagina = 'Registro';
 
 $contenidoPrincipal = <<<EOS
 <h1>Login</h1>
