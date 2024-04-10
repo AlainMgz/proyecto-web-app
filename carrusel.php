@@ -165,10 +165,10 @@ ob_start();
         </div>
         <div class="row justify-content-center mt-4">
             <div class="col-lg-4 text-center">
-                <button class="btn btn-secondary btn-lg btn-block" onclick="location.href='#';">Iniciar sesión</button>
+                <button class="btn btn-secondary btn-lg btn-block" onclick="location.href='login.php';">Iniciar sesión</button>
             </div>
             <div class="col-lg-4 text-center mt-2 mt-lg-0">
-                <button class="btn btn-light btn-lg btn-block" onclick="location.href='#';">Registrarse</button>
+                <button class="btn btn-light btn-lg btn-block" onclick="location.href='registro.php';">Registrarse</button>
             </div>
         </div>
     </div>
