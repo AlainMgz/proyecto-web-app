@@ -15,6 +15,22 @@
     require_once RAIZ_APP . '/session_start.php';
     require_once RAIZ_APP . '/DTOs/UsuarioDTO.php';
 
+    $current_url = $_SERVER['REQUEST_URI'];
+
+    $estrenos_url = RUTA_APP . '/estrenos.php';
+    $reviews_url = RUTA_APP . '/lastReviews.php';
+    $blog_url = RUTA_APP . '/blog.php';
+    $ranking_url = RUTA_APP . '/ranking.php';
+    $search_url = RUTA_APP . '/search.php';
+    $agregar_pelicula_url = RUTA_APP . '/funcionalidades/agregarPelicula.php';
+
+    $estrenos_active = ($current_url == $estrenos_url) ? 'active' : '';
+    $reviews_active = ($current_url == $reviews_url) ? 'active' : '';
+    $blog_active = ($current_url == $blog_url) ? 'active' : '';
+    $ranking_active = ($current_url == $ranking_url) ? 'active' : '';
+    $search_active = ($current_url == $search_url) ? 'active' : '';
+    $agregar_pelicula_active = ($current_url == $agregar_pelicula_url) ? 'active' : '';
+
     function showGreeting()
     {
         if (!isset ($_SESSION["login"]) || $_SESSION["login"] === false) {
@@ -50,25 +66,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <!-- Lista de opciones del menú -->
-                <li class="nav-item">
-                    <a href="<?= RUTA_APP ?>/estrenos.php" class="nav-link">Estrenos</a>
+                <li class="nav-item <?= $estrenos_active ?>">
+                    <a href="<?= $estrenos_url ?>" class="nav-link">Estrenos</a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= RUTA_APP ?>/lastReviews.php" class="nav-link">Reviews</a>
+                <li class="nav-item <?= $reviews_active ?>">
+                    <a href="<?= $reviews_url ?>" class="nav-link">Reviews</a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= RUTA_APP ?>/blog.php" class="nav-link">Blog</a>
+                <li class="nav-item <?= $blog_active ?>">
+                    <a href="<?= $blog_url ?>" class="nav-link">Blog</a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= RUTA_APP ?>/ranking.php" class="nav-link">Ranking</a>
+                <li class="nav-item <?= $ranking_active ?>">
+                    <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" id="searchBtn">Buscar</a>
+                <li class="nav-item <?= $search_active ?>">
+                    <a href="<?= $search_url ?>" class="nav-link" id="searchBtn">Buscar</a>
                 </li>
                 <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
-                    <li class="nav-item">
-                        <a href="<?= RUTA_APP ?>/funcionalidades/agregarPelicula.php" class="nav-link">Añadir estreno</a>
+                    <li class="nav-item <?= $agregar_pelicula_active ?>">
+                        <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
                     </li>
                 <?php endif; ?>
             </ul>

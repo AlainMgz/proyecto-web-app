@@ -38,8 +38,15 @@ $genero = "Todos";
 
 if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
 
-    $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='button'>Agregar</button></a>";
+    $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='btn btn-primary'>Agregar</button></a>";
     $selectGenero .= $agregar;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'filtrar') {
+    $genero = $_POST['gen']; // Actualizar el género si se envió el formulario de filtrado
+    // Redireccionar a la misma página con el método GET para evitar el reenvío del formulario
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit();
 }
 
 // Llama a los métodos de la clase según sea necesario
