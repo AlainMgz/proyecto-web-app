@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar con desplegable</title>
-    
+
 </head>
 
 <body>
@@ -21,15 +21,11 @@
     $reviews_url = RUTA_APP . '/lastReviews.php';
     $blog_url = RUTA_APP . '/blog.php';
     $ranking_url = RUTA_APP . '/ranking.php';
-    $search_url = RUTA_APP . '/search.php';
-    $agregar_pelicula_url = RUTA_APP . '/funcionalidades/agregarPelicula.php';
 
     $estrenos_active = ($current_url == $estrenos_url) ? 'active' : '';
     $reviews_active = ($current_url == $reviews_url) ? 'active' : '';
     $blog_active = ($current_url == $blog_url) ? 'active' : '';
     $ranking_active = ($current_url == $ranking_url) ? 'active' : '';
-    $search_active = ($current_url == $search_url) ? 'active' : '';
-    $agregar_pelicula_active = ($current_url == $agregar_pelicula_url) ? 'active' : '';
 
     function showGreeting()
     {
@@ -78,17 +74,18 @@
                 <li class="nav-item <?= $ranking_active ?>">
                     <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
                 </li>
-                <li class="nav-item <?= $search_active ?>">
-                    <a href="<?= $search_url ?>" class="nav-link" id="searchBtn">Buscar</a>
-                </li>
-                <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
-                    <li class="nav-item <?= $agregar_pelicula_active ?>">
-                        <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
-                    </li>
-                <?php endif; ?>
             </ul>
-
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="/proyecto-web-app/reviewPelicula.php" method="get">
+                        <li>
+                            <input class="form-control mr-sm-2" type="search" name="nombre" placeholder="Buscar">
+                        </li>
+                        <li>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        </li>
+                    </form>
+                </li>
                 <li class="nav-item">
                     <?php showGreeting(); ?>
                 </li>

@@ -3,7 +3,6 @@ require_once __DIR__ . '/includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
-require_once RAIZ_APP.'/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 
 $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
