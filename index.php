@@ -13,100 +13,6 @@ $contenidoPrincipal = '';
 ob_start();
 ?>
 
-<style>
-    /* Estilos personalizados para el carrusel */
-    body {
-        background-color: black;
-        margin: 0;
-        /* Elimina el margen predeterminado del body */
-        padding: 0;
-        /* Elimina el relleno predeterminado del body */
-    }
-
-    .carousel-item img {
-        object-fit: cover;
-        /* Ajusta la imagen al contenedor sin distorsionarla */
-        max-height: 80vh;
-        /* Altura máxima del 75% del viewport height */
-        width: 100%;
-        /* Asegura que la imagen ocupe todo el ancho del contenedor */
-        margin: auto;
-        /* Centra las imágenes horizontalmente */
-        transition: opacity 0.5s ease;
-        /* Transición suave de opacidad */
-    }
-
-    #carouselExampleIndicators {
-
-        height: 80vh;
-        /* Establece una altura del 75% del viewport height para el carrusel */
-    }
-
-    .carousel-caption {
-        background-color: rgba(0, 0, 0, 0.5);
-        /* Fondo semi-transparente para la descripción */
-        padding: 10px;
-        /* Espaciado interno */
-        bottom: 0;
-        /* Alinear la descripción en la parte inferior */
-        left: 0;
-        /* Alinear la descripción a la izquierda */
-        width: 100%;
-        /* Ancho completo */
-    }
-
-    .carousel-caption h5,
-    .carousel-caption p {
-        color: white;
-        /* Color del texto */
-        margin: 0;
-        /* Elimina el margen predeterminado */
-    }
-
-    .carousel-caption p {
-        font-size: 14px;
-        /* Tamaño del texto de la descripción */
-    }
-
-    .carousel-indicators {
-        position: absolute;
-        /* Hace que los indicadores sean posicionados absolutamente */
-        bottom: 10px;
-        /* Ajusta la distancia desde la parte inferior */
-        left: 0;
-        /* Alinea los indicadores a la izquierda */
-        right: 0;
-        /* Alinea los indicadores a la derecha */
-        margin-left: auto;
-        /* Centra los indicadores horizontalmente */
-        margin-right: auto;
-        /* Centra los indicadores horizontalmente */
-        z-index: 1;
-        /* Asegura que los indicadores estén por encima de las imágenes */
-    }
-
-    .arrow-down {
-        display: inline-block;
-        text-decoration: none;
-        color: #555;
-        padding: 10px;
-        border: 2px solid #555;
-        border-radius: 50%;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    .arrow-down:hover {
-        background-color: #555;
-        color: white;
-    }
-
-    .material-icons {
-        font-size: 24px;
-        vertical-align: middle;
-    }
-</style>
-
-
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <?php for ($i = 0; $i < 6; $i++): ?>
@@ -151,30 +57,43 @@ ob_start();
                 scrollTop: $("#scroll-target").offset().top
             }, 500); // Duración de la animación en milisegundos
         });
+
+        $(".arrow-up").click(function (event) {
+            event.preventDefault();
+
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
+        });
     });
 </script>
 
-<div id="scroll-target" style="min-height: 100vh; padding-top: 200px;">
+<div id="scroll-target" style="min-height: 100vh; padding-top: 150px;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h1 class="mb-4">¡Únete ya a esta gran comunidad y comparte tus gustos!</h1>
-                <p class="lead">En FEEL, puedes compartir tus opiniones sobre tus películas favoritas, conocer personas
-                    afines a ti y mucho más.</p>
+                <h1 class="mb-4 text-light">¡Únete ya a esta gran comunidad y comparte tus gustos!</h1>
+                <p class="lead text-light">En FEEL, puedes compartir tus opiniones sobre tus películas favoritas,
+                    conocer personas afines a ti y mucho más.</p>
             </div>
         </div>
         <div class="row justify-content-center mt-4">
             <div class="col-lg-4 text-center">
-                <button class="btn btn-secondary btn-lg btn-block" onclick="location.href='login.php';">Iniciar sesión</button>
+                <button class="btn btn-secondary btn-lg btn-block" onclick="location.href='login.php';">Iniciar
+                    sesión</button>
             </div>
             <div class="col-lg-4 text-center mt-2 mt-lg-0">
-                <button class="btn btn-light btn-lg btn-block" onclick="location.href='registro.php';">Registrarse</button>
+                <button class="btn btn-light btn-lg btn-block"
+                    onclick="location.href='registro.php';">Registrarse</button>
             </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="#" class="arrow-up" style="text-decoration: none;">
+                <span class="material-icons" style="font-size: 48px;">arrow_upward</span>
+            </a>
         </div>
     </div>
 </div>
-
-
 
 
 <?php
