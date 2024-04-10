@@ -28,32 +28,8 @@ $contenidoPrincipal = '<!DOCTYPE html>
 $contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
 
 $contenidoPrincipal .= '
-<div id="pagination">
-    <button id="prevPage">&#9664;</button>
-    <div id="pageNumbers">' . ($paginaActual + 1) . '</div>
-    <button id="nextPage">&#9654;</button>
-</div>';
-
-$contenidoPrincipal .= '
 </body>
 </html>';
 
-require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+require RAIZ_APP . '/vistas/plantillas/plantillaPaginacion.php';
 ?>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var paginaActual = <?php echo $paginaActual; ?>;
-
-  document.getElementById("prevPage").addEventListener("click", function() {
-    if (paginaActual > 0) {
-      paginaActual--;
-      window.location.href =  "lastReviews.php?pagina=" + paginaActual;
-    }
-  });
-
-  document.getElementById("nextPage").addEventListener("click", function() {
-    paginaActual++;
-    window.location.href = "lastReviews.php?pagina=" + paginaActual;
-  });
-});
-</script>

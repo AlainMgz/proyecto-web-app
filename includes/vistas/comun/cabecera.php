@@ -82,7 +82,7 @@
                             <input class="form-control mr-sm-2" type="search" name="nombre" placeholder="Buscar">
                         </li>
                         <li>
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
                         </li>
                     </form>
                 </li>
