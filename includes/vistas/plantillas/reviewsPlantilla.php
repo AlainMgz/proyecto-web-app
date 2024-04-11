@@ -7,12 +7,12 @@ function renderizarReviews($reviews_mostradas) {
         $borrar = '';
         if (isset($_SESSION["user_obj"])) {
             if (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario) {
-                $editar = '<a href="funcionalidades/modificarReview.php?id=' . $review->ID . '"><button class="boton-editar">Editar</button></a>';
+                $editar = '<a href="funcionalidades/modificarReview.php?id=' . $review->ID . '"><button class="btn btn-outline-success">Editar</button></a>';
             }
             if (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $review->usuario ||
                 unserialize($_SESSION["user_obj"])->getRole() == 1 ||
                 unserialize($_SESSION["user_obj"])->getRole() == 2) {
-                $borrar = '<a href="includes/borrarReview.php?id=' . $review->ID . '"><button class="boton-borrar">Borrar</button></a>';
+                $borrar = '<a href="includes/borrarReview.php?id=' . $review->ID . '"><button class="btn btn-outline-danger">Borrar</button></a>';
             }
         }
 
