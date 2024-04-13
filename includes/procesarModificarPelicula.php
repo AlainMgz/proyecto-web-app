@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/PeliculaSA.php';
 require_once __DIR__ . '/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 
 // Verifica si se han enviado datos mediante el método POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
