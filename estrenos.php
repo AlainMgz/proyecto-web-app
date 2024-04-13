@@ -11,6 +11,8 @@ $genero = "";
 $listaPeliculas = array();
 $generos = $peliculaSA->getGeneros();
 $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
+$skip = $pagina * 5; // Si estás mostrando 5 películas por página
+
 // Inicializar el selector
 $selectGenero = <<<EOS
     <form method="post" action="">
@@ -36,9 +38,7 @@ EOS;
 
 $genero = "Todos";
 
-
 if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
-
     $agregar = "<a href='funcionalidades/agregarPelicula.php'><button type='btn btn-primary'>Agregar</button></a>";
     $selectGenero .= $agregar;
 }
@@ -72,7 +72,7 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
         $genero = $_POST['gen']; // Actualizar el género si se envió el formulario de filtrado
     }
     // Si no se proporciona un argumento de búsqueda, obtener la lista completa de películas
-    $listaPeliculas = $peliculaSA->filtrarPeliculasPorGenero($genero, $pagina * 10);
+    $listaPeliculas = $peliculaSA->filtrarPeliculasPorGenero($genero, $skip);
     // Generar el contenido principal con las carátulas de las películas
     $contenidoPrincipal = '<h1>Lista de películas</h1>';
     if (!empty($listaPeliculas)) {
@@ -91,3 +91,4 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
 
 // Incluir la plantilla principal para mostrar el contenido
 require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
+
