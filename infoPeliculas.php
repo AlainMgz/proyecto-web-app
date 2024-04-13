@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 
@@ -72,5 +72,5 @@ if (isset($_GET['id'])) {
     echo '<p>Error: No se proporcionó un ID de película.</p>';
 }
 
-require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
 

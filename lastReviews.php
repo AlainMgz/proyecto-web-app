@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
 require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
-require_once RAIZ_APP.'/DTOs/UsuarioDTO.php';
+require_once BASE_APP.'/includes/DTOs/UsuarioDTO.php';
 
 $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $paginaActual = $pagina;// Usar el operador de fusión de null para proporcionar un valor predeterminado
@@ -31,5 +31,5 @@ $contenidoPrincipal .= '
 </body>
 </html>';
 
-require RAIZ_APP . '/vistas/plantillas/plantillaPaginacion.php';
-?>
+require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
+

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
@@ -90,5 +90,4 @@ if (isset($_GET['argBusqueda']) && $_GET['argBusqueda'] != '') {
 }
 
 // Incluir la plantilla principal para mostrar el contenido
-require RAIZ_APP . '/vistas/plantillas/plantillaPaginacion.php';
-?>
+require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
