@@ -8,10 +8,10 @@ require_once __DIR__.'/Aplicacion.php';
 /**
  * Parámetros de conexión a la BD
  */
-define('BD_HOST', 'vm022.db.swarm.test');
+define('BD_HOST', 'localhost');
 define('BD_NAME', 'web_app_proyecto');
-define('BD_USER', 'grupo1');
-define('BD_PASS', '12345');
+define('BD_USER', 'root');
+define('BD_PASS', '');
 
 /**
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
