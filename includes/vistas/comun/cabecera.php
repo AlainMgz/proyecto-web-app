@@ -56,54 +56,54 @@
     }
     ?>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="<?= RUTA_APP ?>/index.php">
-            <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item <?= $estrenos_active ?>">
-                    <a href="<?= $estrenos_url ?>" class="nav-link">Estrenos</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" href="<?= RUTA_APP ?>/index.php">
+        <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item <?= $estrenos_active ?>">
+                <a href="<?= $estrenos_url ?>" class="nav-link">Estrenos</a>
+            </li>
+            <li class="nav-item <?= $reviews_active ?>">
+                <a href="<?= $reviews_url ?>" class="nav-link">Reviews</a>
+            </li>
+            <li class="nav-item <?= $blog_active ?>">
+                <a href="<?= $blog_url ?>" class="nav-link">Blog</a>
+            </li>
+            <li class="nav-item <?= $ranking_active ?>">
+                <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
+            </li>
+            <li class="nav-item <?= $search_active ?>">
+                <a href="#" class="nav-link" id="searchBtn">Buscar</a>
+            </li>
+            <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
+                <li class="nav-item <?= $agregar_pelicula_active ?>">
+                    <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
                 </li>
-                <li class="nav-item <?= $reviews_active ?>">
-                    <a href="<?= $reviews_url ?>" class="nav-link">Reviews</a>
-                </li>
-                <li class="nav-item <?= $blog_active ?>">
-                    <a href="<?= $blog_url ?>" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item <?= $ranking_active ?>">
-                    <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
-                </li>
-                <li class="nav-item <?= $search_active ?>">
-                    <a href="#" class="nav-link" id="searchBtn">Buscar</a>
-                </li>
-                <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
-                    <li class="nav-item <?= $agregar_pelicula_active ?>">
-                        <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
+            <?php endif; ?>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0" action="/proyecto-web-app/reviewPelicula.php" method="get">
+                    <li>
+                        <input class="form-control mr-sm-2" type="search" name="nombre" placeholder="Buscar">
                     </li>
-                <?php endif; ?>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0" action="/proyecto-web-app/reviewPelicula.php" method="get">
-                        <li>
-                            <input class="form-control mr-sm-2" type="search" name="nombre" placeholder="Buscar">
-                        </li>
-                        <li>
-                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
-                        </li>
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <?php showGreeting(); ?>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                    <li>
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                    </li>
+                </form>
+            </li>
+            <li class="nav-item">
+                <?php showGreeting(); ?>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 </body>
 
