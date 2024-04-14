@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 
-// Crea una instancia de la clase PeliculaSA
+// Crear una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
 
 // Verificar si se ha proporcionado un ID de película en la URL
@@ -12,13 +12,12 @@ if (isset($_GET['id'])) {
     // Obtener el ID de la película de la URL
     $idPelicula = $_GET['id'];
 
-    // Aquí puedes utilizar $idPelicula para realizar cualquier acción que necesites, como buscar la información de la película en la base de datos, etc.
-
-    // Por ejemplo, puedes utilizar PeliculaSA para obtener la información de la película
+    // Obtener la información de la película
     $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
     $peliculaSA->realizarMedia($pelicula);
     $contenidoPrincipal = '';
 
+    // Verificar si el usuario tiene permisos para borrar o modificar la película
     if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
         $contenidoPrincipal .= '
         <div class="container text-center mb-4">
@@ -28,6 +27,7 @@ if (isset($_GET['id'])) {
         ';
     }
 
+    // Generar el contenido principal con la información de la película
     $contenidoPrincipal .= '
     <div class="container">
         <div class="row">
@@ -40,7 +40,9 @@ if (isset($_GET['id'])) {
                 <p><strong>Género:</strong> ' . $pelicula->getGenero() . '</p>
                 <p><strong>Descripción:</strong> ' . $pelicula->getDescripcion() . '</p>
                 <p><strong>Valoración:</strong> ' . $pelicula->getValoracion() . '</p>
-                <iframe width="100%" height="315" src="' . $pelicula->getTrailer() . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="' . $pelicula->getTrailer() . '" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </div>
@@ -79,5 +81,6 @@ if (isset($_GET['id'])) {
     echo '<p>Error: No se proporcionó un ID de película.</p>';
 }
 
-require RAIZ_APP . '/vistas/plantillas/plantilla.php';
+// Incluir la plantilla principal para mostrar el contenido
+require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
 ?>

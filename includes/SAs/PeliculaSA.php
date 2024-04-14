@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../DAOs/PeliculaDAO.php';
+require_once BASE_APP . '/includes/DAOs/PeliculaDAO.php';
 require_once __DIR__ . '/../DTOs/PeliculaDTO.php';
 require_once __DIR__ . '/../DAOs/reviewDAO.php';
 class PeliculaSA

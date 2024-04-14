@@ -12,7 +12,7 @@ class FormularioRegistro extends Formulario
 {
         public function __construct()
     {
-        parent::__construct('formRegistro', ['urlRedireccion' => 'estrenos.php']);
+        parent::__construct('formRegistro', ['urlRedireccion' => '../estrenos.php']);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
@@ -83,7 +83,7 @@ class FormularioRegistro extends Formulario
            }
            else{
           $usuarioSA->crea($username, $password, $email, 0);
-                header("Location: estrenos.php"); // Redirige al usuario después del inicio de sesión exitoso
+          header("Location: estrenos.php"); // Redirige al usuario después del inicio de sesión exitoso
                 exit(); // Detiene la ejecución del script después de la redirección
         }
         }

@@ -1,15 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 
 // Crear una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
 $tituloPagina = "Estrenos";
-$contenidoPrincipal = '';
-
-$pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 0;
 
 // Obtener el género seleccionado
 $genero = isset($_POST['gen']) ? $_POST['gen'] : 'Todos';
@@ -28,14 +25,23 @@ if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole(
     $selectGenero .= $agregar;
 }
 
-// Obtener las películas según el género seleccionado
-$listaPeliculas = $peliculaSA->filtrarPeliculasPorGenero($genero, $pagina * 10);
+// Obtener la página actual
+$pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 0;
+$skip = $pagina * 5; // Si estás mostrando 5 películas por página
+
+// Obtener la lista de películas según el género seleccionado
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'filtrar') {
+    $genero = $_POST['gen']; // Actualizar el género si se envió el formulario de filtrado
+}
+// Si no se proporciona un argumento de búsqueda, obtener la lista completa de películas
+$listaPeliculas = $peliculaSA->filtrarPeliculasPorGenero($genero, $skip);
 
 // Generar el contenido principal con las carátulas de las películas
-$contenidoPrincipal .= '<h1>Lista de películas</h1>';
+$contenidoPrincipal = '<h1>Lista de películas</h1>';
 if (!empty($listaPeliculas)) {
     $contenidoPrincipal .= '<div class="peliculas">';
     foreach ($listaPeliculas as $pelicula) {
+        // Mostrar la carátula de la película con un enlace a los detalles
         $contenidoPrincipal .= '<a href="infoPeliculas.php?id=' . $pelicula->getId() . '">';
         $contenidoPrincipal .= '<img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getCaratula() . '"class="caratula">';
         $contenidoPrincipal .= '</a>';
@@ -46,5 +52,5 @@ if (!empty($listaPeliculas)) {
 }
 
 // Incluir la plantilla principal para mostrar el contenido
-require RAIZ_APP . '/vistas/plantillas/plantillaPaginacion.php';
+require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
 ?>

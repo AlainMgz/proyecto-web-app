@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
 require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
@@ -31,5 +31,5 @@ $contenidoPrincipal .= '
 </body>
 </html>';
 
-require RAIZ_APP . '/vistas/plantillas/plantillaPaginacion.php';
-?>
+require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
+
