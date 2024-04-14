@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 $peliculaSA = new PeliculaSA();
 
 // Verificar si se ha proporcionado un ID de película en la URL
-if (isset($_GET['id'])) {
+if (isset ($_GET['id'])) {
     // Obtener el ID de la película de la URL
     $idPelicula = $_GET['id'];
 
@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
     $contenidoPrincipal = '';
 
     // Verificar si el usuario tiene permisos para borrar o modificar la película
-    if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
+    if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
         $contenidoPrincipal .= '
         <div class="container text-center mb-4">
             <a href="includes/borrarPelicula.php?id=' . $pelicula->getId() . '"><button class="btn btn-danger">Borrar Película</button></a>
@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getNombre() . '" class="img-fluid">
+                <img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getNombre() . '" class="img-fluid caratula-img">
             </div>
             <div class="col-md-8">
                 <h1>' . $pelicula->getNombre() . '</h1>
@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
                 <p><strong>Género:</strong> ' . $pelicula->getGenero() . '</p>
                 <p><strong>Descripción:</strong> ' . $pelicula->getDescripcion() . '</p>
                 <p><strong>Valoración:</strong> ' . $pelicula->getValoracion() . '</p>
-                <div class="embed-responsive embed-responsive-16by9">
+                <div class="embed-responsive embed-responsive-16by9" style="max-width: 560px; max-height: 315px;">
                     <iframe class="embed-responsive-item" src="' . $pelicula->getTrailer() . '" allowfullscreen></iframe>
                 </div>
             </div>
@@ -50,21 +50,21 @@ if (isset($_GET['id'])) {
         <div class="rating-container">
             <p><strong>Valoración:</strong></p>
             <div class="rating-stars">';
-            // Obtener la valoración de la película
-            $valoracion = $pelicula->getValoracion();
-            // Redondear la valoración al número entero más cercano
-            $valoracionRedondeada = round($valoracion);
-            // Mostrar la valoración en forma de estrellas
-            for ($i = 1; $i <= 5; $i++) {
-                // Si la posición actual es menor o igual que la valoración redondeada, muestra una estrella completa
-                if ($i <= $valoracionRedondeada) {
-                    $contenidoPrincipal .= '<span>&#9733;</span>';
-                } else {
-                    // De lo contrario, muestra una estrella vacía
-                    $contenidoPrincipal .= '<span>&#9734;</span>';
-                }
-            }
-            $contenidoPrincipal .= '</div>
+    // Obtener la valoración de la película
+    $valoracion = $pelicula->getValoracion();
+    // Redondear la valoración al número entero más cercano
+    $valoracionRedondeada = round($valoracion);
+    // Mostrar la valoración en forma de estrellas
+    for ($i = 1; $i <= 5; $i++) {
+        // Si la posición actual es menor o igual que la valoración redondeada, muestra una estrella completa
+        if ($i <= $valoracionRedondeada) {
+            $contenidoPrincipal .= '<span>&#9733;</span>';
+        } else {
+            // De lo contrario, muestra una estrella vacía
+            $contenidoPrincipal .= '<span>&#9734;</span>';
+        }
+    }
+    $contenidoPrincipal .= '</div>
         </div>
         
         <div class="row justify-content-center mt-4">

@@ -656,3 +656,10 @@ textarea {
     font-size: 24px;
     vertical-align: middle;
 }
+
+.caratula-img {
+    width: 200px; /* Tamaño fijo para todas las imágenes de las carátulas */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+}
