@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
 
-
-
 </head>
 
 <body>

@@ -25,22 +25,36 @@ class FormularioAgregarReview extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $contenidoPrincipal = <<<EOS
-            <div class="film-container">
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" name="titulo" required>
-                <label for="critica">Crítica:</label>
-                <input type="text" id="critica" name="critica" required>
-                <label for="puntuacion">Puntuación:</label>
-                <select id="puntuacion" name="puntuacion" required>
-                    <option value="">Selecciona una puntuación</option>
-                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                    <option value="3">&#9733;&#9733;&#9733;</option>
-                    <option value="2">&#9733;&#9733;</option>
-                    <option value="1">&#9733;</option>
-                </select>
-                <button type="submit">Agregar</button>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="film-container">
+                        <form action="tu_ruta_de_destino.php" method="POST">
+                            <div class="form-group">
+                                <label for="titulo">Título:</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="critica">Crítica:</label>
+                                <textarea class="form-control" id="critica" name="critica" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="puntuacion">Puntuación:</label>
+                                <select class="form-control" id="puntuacion" name="puntuacion" required>
+                                    <option value="">Selecciona una puntuación</option>
+                                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                                    <option value="3">&#9733;&#9733;&#9733;</option>
+                                    <option value="2">&#9733;&#9733;</option>
+                                    <option value="1">&#9733;</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Agregar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </div>
         EOS;
         return $contenidoPrincipal;
     }

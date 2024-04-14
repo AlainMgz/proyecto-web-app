@@ -210,7 +210,7 @@ class PeliculaDAO
     public function obtenerListaPeliculas($skip)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM peliculas LIMIT 5 OFFSET $skip";
+        $query = "SELECT * FROM peliculas LIMIT 10 OFFSET $skip";
 
         $statement = $this->conexion->prepare($query);
 
