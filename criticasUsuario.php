@@ -8,11 +8,10 @@ require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // In
 $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $reviewSA = new ReviewSA();
 $username = unserialize($_SESSION['user_obj'])->getNombreUsuario();
-$reviews = $reviewSA->obtener5ReviewsPorUsuario($paginaActual, $username);
+$reviews = $reviewSA->obtener5ReviewsPorUsuario($paginaActual * 5, $username);
 
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
-$reviews_mostradas = array_slice($reviews, 0, $num_reviews_mostrar);
 
 // Construir el contenido principal
 $contenidoPrincipal = '<!DOCTYPE html>
@@ -25,35 +24,11 @@ $contenidoPrincipal = '<!DOCTYPE html>
 <body>
     <h1>Últimas reviews</h1>';
 
-$contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
-
-$contenidoPrincipal .= '
-<div id="pagination">
-    <button id="prevPage">&#9664;</button>
-    <div id="pageNumbers">' . ($paginaActual + 1) . '</div>
-    <button id="nextPage">&#9654;</button>
-</div>';
+$contenidoPrincipal .= renderizarReviews($reviews); // Renderizar las reviews usando la plantilla
 
 $contenidoPrincipal .= '
 </body>
 </html>';
 
-require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
+require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
 ?>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var paginaActual = <?php echo $paginaActual; ?>;
-
-  document.getElementById("prevPage").addEventListener("click", function() {
-    if (paginaActual > 0) {
-      paginaActual--;
-      window.location.href =  "lastReviews.php?pagina=" + paginaActual;
-    }
-  });
-
-  document.getElementById("nextPage").addEventListener("click", function() {
-    paginaActual++;
-    window.location.href = "lastReviews.php?pagina=" + paginaActual;
-  });
-});
-</script>

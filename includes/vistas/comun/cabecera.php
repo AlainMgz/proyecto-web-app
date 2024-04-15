@@ -78,9 +78,6 @@
             <li class="nav-item <?= $ranking_active ?>">
                 <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
             </li>
-            <li class="nav-item <?= $search_active ?>">
-                <a href="#" class="nav-link" id="searchBtn">Buscar</a>
-            </li>
             <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
                 <li class="nav-item <?= $agregar_pelicula_active ?>">
                     <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>

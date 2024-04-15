@@ -31,7 +31,7 @@ if (isset ($_GET['id'])) {
     $contenidoPrincipal .= '
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
                 <img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getNombre() . '" class="img-fluid caratula-img">
             </div>
             <div class="col-md-8">

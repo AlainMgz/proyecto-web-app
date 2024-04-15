@@ -10,7 +10,7 @@ $contenidoPrincipal = '';
 ob_start();
 ?>
 
-<div id="carrusel" class="carousel slide" data-ride="carousel" style="background-color: black; min-width: 200px; min-height: 200px;">
+<div id="carrusel" class="carousel slide" data-ride="carousel" style="background-color: black;">
     <!-- Indicadores (aparecen como rayitas) -->
     <ul class="carousel-indicators">
         <?php for ($i = 0; $i < 5; $i++): ?>
@@ -36,14 +36,14 @@ ob_start();
         <span class="sr-only">Siguiente</span>
     </a>
 </div>
-<div class="text-center" style="background-color: black;">
+<div class="text-center" style="background-color: black; padding-top: 1vh;">
     <a href="#scroll-target" class="arrow-down">
         <span class="material-icons" style="font-size: 48px;">arrow_downward</span>
     </a>
 </div>
 
 <!-- Contenido después del Carrusel -->
-<div id="scroll-target" class="container-fluid" style="min-height: 100vh; padding-top: 150px; background-color: black;">
+<div id="scroll-target" class="container-fluid" style="min-height: 110vh; padding-top: 35vh; background-color: black;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
@@ -63,7 +63,7 @@ ob_start();
                     onclick="location.href='registro.php';">Registrarse</button>
             </div>
         </div>
-        <div class="text-center" style="margin-top: 20px;">
+        <div class="text-center" style="margin-top: 10vh;">
             <a href="#" class="arrow-up">
                 <span class="material-icons" style="font-size: 48px;">arrow_upward</span>
             </a>
