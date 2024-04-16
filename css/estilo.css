@@ -660,3 +660,8 @@ textarea {
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
 }
+
+.form_errors {
+    color: rgb(255, 101, 101);
+    font-weight: bold;
+}
