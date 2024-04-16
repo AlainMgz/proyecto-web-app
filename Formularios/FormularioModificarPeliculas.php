@@ -118,10 +118,22 @@ EOS;
         if (!$genero || mb_strlen($genero) > 30) {
             $this->errores['genero'] = 'El genero debe tener menos de 30 caracteres';
         }
-        $caratula = trim($datos['caratula'] ?? '');
-        $caratula = filter_var($caratula, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$caratula || mb_strlen($caratula) > 100) {
-            $this->errores['caratula'] = 'La URL de la caratula no puede superar los 100 caracteres';
+        if (isset($_FILES['caratula']) && $_FILES['caratula']['error'] == 0) {
+            $targetDir = __DIR__ . '/../img/';
+            $targetFile = $targetDir . basename($_FILES['caratula']['name']);
+            
+            $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+            $allowedTypes = array('png', 'jpg', 'jpeg', 'gif');
+
+            if (!in_array($fileType, $allowedTypes)) {
+                $this->errores['caratula'] = 'Solo se permiten archivos de tipo PNG, JPG, JPEG y GIF';
+            } else {
+                if (move_uploaded_file($_FILES['caratula']['tmp_name'], $targetFile)) {
+                    $caratula = basename($_FILES['caratula']['name']);
+                } else {
+                    $this->errores['caratula'] = 'Ha habido un error al subir la imagen';
+                }
+            }
         }
         $trailer = trim($datos['trailer'] ?? '');
         $trailer = filter_var($trailer, FILTER_SANITIZE_FULL_SPECIAL_CHARS);

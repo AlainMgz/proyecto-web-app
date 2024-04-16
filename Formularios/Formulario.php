@@ -204,7 +204,7 @@ abstract class Formulario
         }
 
         if ($this->urlRedireccion !== null) {
-            header("Location: {$this->urlRedireccion}");
+            //header("Location: {$this->urlRedireccion}");
             exit();
         }
     }
@@ -260,6 +260,8 @@ abstract class Formulario
     {
         $htmlCamposFormularios = $this->generaCamposFormulario($datos);
 
+        $erroresGlobales = self::generaListaErroresGlobales($this->errores);
+
         $classAtt = $this->classAtt != null ? "class=\"{$this->classAtt}\"" : '';
 
         $enctypeAtt = $this->enctype != null ? "enctype=\"{$this->enctype}\"" : '';
@@ -267,6 +269,7 @@ abstract class Formulario
         $htmlForm = <<<EOS
         <form method="{$this->method}" action="{$this->action}" id="{$this->formId}" {$classAtt} {$enctypeAtt}>
             <input type="hidden" name="formId" value="{$this->formId}" />
+            $erroresGlobales
             $htmlCamposFormularios
         </form>
         EOS;
