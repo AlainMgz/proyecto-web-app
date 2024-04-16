@@ -12,11 +12,16 @@ class FormularioRegistro extends Formulario
 {
         public function __construct()
     {
-        parent::__construct('formRegistro', ['urlRedireccion' => '../estrenos.php']);
+        $campos = ['username', 'password', 'email'];
+        parent::__construct('formRegistro', ['urlRedireccion' => '../estrenos.php', 'campos' => $campos]);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
+
+        $erroresCampos = self::generaErroresCampos($this->campos, $this->errores);
+        $erroresGlobal = self::generaListaErroresGlobales($this->errores);
+
         if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
             $contenidoPrincipal = <<<EOS
             <div class="login-content">
@@ -31,19 +36,20 @@ class FormularioRegistro extends Formulario
             <div class="login-content">
                 <div class="login-container">
                     <h2>Create account</h2>
-                    <form action="includes/Procesamiento/procesarRegistro.php" method="post">
+                        <span class="form_errors">$erroresGlobal</span>
+                        <span class="form_errors">{$erroresCampos['username']}</span>
                         <label for="username">Username:</label>
                         <input type="text" id="username" name="username" required>
         
+                        <span class="form_errors">{$erroresCampos['email']}</span>
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
         
+                        <span class="form_errors">{$erroresCampos['password']}</span>
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required>
         
-                        <button type="submit">Submit</button>
-                    </form>
-        
+                        <button type="submit">Submit</button>        
                     <div class="create-account-link">
                         <p>If you already have an account, <a href="login.php">login</a>.</p>
                     </div>
@@ -61,19 +67,19 @@ class FormularioRegistro extends Formulario
     {
         $this->errores = [];
 
-        $username = trim($datos['username'] ?? ''); // Corregido el índice
+        $username = trim($datos['username'] ?? ''); 
         if (empty($username)) {
-            $this->errores[] = 'El nombre del usuario no puede estar vacío'; // Añadido al array sin clave específica
+            $this->errores['username'] = 'El nombre del usuario no puede estar vacío'; 
         }
     
-        $password = trim($datos['password'] ?? ''); // Corregido el índice
+        $password = trim($datos['password'] ?? ''); 
         if (empty($password)) {
-            $this->errores[] = 'La contraseña no puede estar vacía'; // Añadido al array sin clave específica
+            $this->errores['password'] = 'La contraseña no puede estar vacía'; 
         }
 
-        $email = trim($datos['email'] ?? ''); // Corregido el índice
-        if (empty($password)) {
-            $this->errores[] = 'El email no puede estar vacio'; // Añadido al array sin clave específica
+        $email = trim($datos['email'] ?? ''); 
+        if (empty($email)) {
+            $this->errores['email'] = 'El email no puede estar vacio'; 
         }
     
         if (count($this->errores) === 0) {

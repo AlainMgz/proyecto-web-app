@@ -9,7 +9,6 @@ class UsuarioDAO
         if ($usuario && $usuario->compruebaPassword($password)) {
             return $usuario;
         }
-        echo "user not found or incorrect password";
         return false;
     }
     
@@ -29,8 +28,6 @@ class UsuarioDAO
             $fila = $rs->fetch_assoc();
             if ($fila) {
                 $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id']);
-            } else {
-                echo "user not found\n";
             }
             $rs->free();
         } else {

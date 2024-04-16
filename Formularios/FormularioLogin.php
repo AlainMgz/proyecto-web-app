@@ -16,24 +16,31 @@ class FormularioLogin extends Formulario
 
     public function __construct()
     {
-        parent::__construct('formLogin', ['urlRedireccion' => '../estrenos.php']);
+        $campos = ['username', 'password'];
+        parent::__construct('formLogin', ['urlRedireccion' => '../estrenos.php', 'campos' => $campos]);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
     {
+
+        $erroresCampos = self::generaErroresCampos($this->campos, $this->errores);
+
+        $erroresGlobal = self::generaListaErroresGlobales($this->errores);
+
         $contenidoPrincipal = <<<EOS
         <div class="login-content">
             <div class="login-container">
                 <h2>Login</h2>
-                <form action="includes/Procesamiento/procesarLogin.php" method="post">
+                <span class="form_errors">$erroresGlobal</span>
+                    <span class="form_errors">{$erroresCampos['username']}</span>
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
     
+                    <span class="form_errors">{$erroresCampos['password']}</span>
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
     
                     <button type="submit">Login</button>
-                </form>
     
                 <div class="create-account-link">
                     <p>If you don't have an account, <a href="registro.php">create one</a>.</p>
@@ -53,12 +60,12 @@ class FormularioLogin extends Formulario
 
     $username = trim($datos['username'] ?? ''); // Corregido el índice
     if (empty($username)) {
-        $this->errores[] = 'El nombre del usuario no puede estar vacío'; // Añadido al array sin clave específica
+        $this->errores['username'] = 'El nombre del usuario no puede estar vacío'; // Añadido al array sin clave específica
     }
 
     $password = trim($datos['password'] ?? ''); // Corregido el índice
     if (empty($password)) {
-        $this->errores[] = 'La contraseña no puede estar vacía'; // Añadido al array sin clave específica
+        $this->errores['password'] = 'La contraseña no puede estar vacía'; // Añadido al array sin clave específica
     }
 
     if (count($this->errores) === 0) {

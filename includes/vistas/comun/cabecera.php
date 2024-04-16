@@ -25,6 +25,7 @@
     $ranking_url = RUTA_APP . '/ranking.php';
     $search_url = RUTA_APP . '/includes/vistas/comun/buscador.php';
     $agregar_pelicula_url = RUTA_APP . '/funcionalidades/agregarPelicula.php';
+    $logout_url = RUTA_APP . '/includes/logout.php';
 
     $estrenos_active = ($current_url == $estrenos_url) ? 'active' : '';
     $reviews_active = ($current_url == $reviews_url) ? 'active' : '';
@@ -37,20 +38,21 @@
             echo '<li class="nav-item"><a href="login.php" class="nav-link">Unknown user. Login</a></li>';
         } else {
             $username = unserialize($_SESSION['user_obj'])->getNombreUsuario();
-            echo '
+            echo <<<EOS
                 <ul class="navbar-nav mr-auto ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hello ' . $username . '
+                            Hello $username
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="includes/logout.php" class="nav-link">Logout</a>
+                        <a href="{$logout_url}" class="nav-link">Logout</a>
                     </li>
-                </ul>';
+                </ul>
+                EOS;
         }
         return;
     }
@@ -96,7 +98,25 @@
                 </form>
             </li>
             <li class="nav-item">
-                <?php showGreeting(); ?>
+                <?php if (!isset ($_SESSION["login"]) || $_SESSION["login"] === false): ?>
+                    <li class="nav-item"><a href="login.php" class="nav-link">Unknown user. Login</a></li>
+                <?php else:
+                        $username = unserialize($_SESSION['user_obj'])->getNombreUsuario(); ?>
+                        <ul class="navbar-nav mr-auto ml-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Hello <?= $username ?>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= $logout_url ?> " class="nav-link">Logout</a>
+                            </li>
+                        </ul>
+                <?php endif; ?>
+
             </li>
         </ul>
     </div>

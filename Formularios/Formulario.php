@@ -104,6 +104,11 @@ abstract class Formulario
     protected $errores;
 
     /**
+     * @param string[] Array con los campos del formulario.
+     */
+    protected $campos;
+
+    /**
      * Crea un nuevo formulario.
      *
      * Posibles opciones:
@@ -153,7 +158,7 @@ abstract class Formulario
     {
         $this->formId = $formId;
 
-        $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => null, 'urlRedireccion' => null);
+        $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => null, 'urlRedireccion' => null, 'campos' => null);
         $opciones = array_merge($opcionesPorDefecto, $opciones);
 
         $this->action = $opciones['action'];
@@ -161,6 +166,7 @@ abstract class Formulario
         $this->classAtt = $opciones['class'];
         $this->enctype  = $opciones['enctype'];
         $this->urlRedireccion = $opciones['urlRedireccion'];
+        $this->campos = $opciones['campos'];
 
         if (!$this->action) {
             $this->action = htmlspecialchars($_SERVER['REQUEST_URI']);
@@ -260,8 +266,6 @@ abstract class Formulario
     {
         $htmlCamposFormularios = $this->generaCamposFormulario($datos);
 
-        $erroresGlobales = self::generaListaErroresGlobales($this->errores);
-
         $classAtt = $this->classAtt != null ? "class=\"{$this->classAtt}\"" : '';
 
         $enctypeAtt = $this->enctype != null ? "enctype=\"{$this->enctype}\"" : '';
@@ -269,7 +273,6 @@ abstract class Formulario
         $htmlForm = <<<EOS
         <form method="{$this->method}" action="{$this->action}" id="{$this->formId}" {$classAtt} {$enctypeAtt}>
             <input type="hidden" name="formId" value="{$this->formId}" />
-            $erroresGlobales
             $htmlCamposFormularios
         </form>
         EOS;
