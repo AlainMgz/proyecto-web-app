@@ -11,7 +11,7 @@ class FormularioAgregarPeliculas extends Formulario
 {
     public function __construct()
     {
-        parent::__construct('formAgregarPelicula', ['urlRedireccion' => '../index.php']);
+        parent::__construct('formAgregarPelicula', ['urlRedireccion' => '../index.php', 'enctype' => 'multipart/form-data']);
     }
     // Método para generar los campos del formulario
     protected function generaCamposFormulario(&$datos)
@@ -25,7 +25,7 @@ class FormularioAgregarPeliculas extends Formulario
         foreach ($opcionesGenero as $opcion) {
             $opciones .= '<option value="' . $opcion . '">' . $opcion . '</option>';
         }
-
+        //print_r($this->errores);
         // Contenido del formulario con el selector de género
         $contenidoPrincipal = <<<EOS
             <div class="film-container">
@@ -41,7 +41,7 @@ class FormularioAgregarPeliculas extends Formulario
                     $opciones
                 </select>
                 <label for="caratula">Carátula:</label>
-                <input type="file" id="caratula" name="caratula" accept=".png" required>
+                <input type="file" id="caratula" name="caratula" accept=".png, .jpg, .jpeg, .gif" required>
                 <label for="trailer">Tráiler:</label>
                 <input type="text" id="trailer" name="trailer" required>
                 <button type="submit">Agregar</button>
@@ -59,7 +59,7 @@ class FormularioAgregarPeliculas extends Formulario
         $nombrePelicula = trim($datos['nombrePelicula'] ?? '');
         $nombrePelicula = filter_var($nombrePelicula, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$nombrePelicula || mb_strlen($nombrePelicula) > 20) {
-            $this->errores['nombrePelicula'] = 'El nombre de la pelicula no puede tener ms de 20 caracteres.';
+            $this->errores['nombrePelicula'] = 'El nombre de la pelicula no puede tener mas de 20 caracteres.';
         }
 
         $descripcion = trim($datos['descripcion'] ?? '');
@@ -71,7 +71,7 @@ class FormularioAgregarPeliculas extends Formulario
         $director = trim($datos['director'] ?? '');
         $director = filter_var($director, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$director || mb_strlen($director) < 5 || mb_strlen($director) > 20) {
-            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres y de menos de 20.';
+            $this->errores['password'] = 'El nombre del director tiene que tener una longitud de al menos 5 caracteres y de menos de 20.';
         }
 
         $genero = trim($datos['genero'] ?? '');
@@ -79,10 +79,27 @@ class FormularioAgregarPeliculas extends Formulario
         if (!$genero || mb_strlen($genero) > 30) {
             $this->errores['genero'] = 'El genero debe tener menos de 30 caracteres';
         }
-        $caratula = trim($datos['caratula'] ?? '');
-        $caratula = filter_var($caratula, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$caratula || mb_strlen($caratula) > 100) {
-            $this->errores['caratula'] = 'La URL de la caratula no puede superar los 100 caracteres';
+        if (isset($_FILES['caratula']) && $_FILES['caratula']['error'] == 0) {
+            $targetDir = __DIR__ . '/../img/';
+            $fileType = strtolower(pathinfo($_FILES['caratula']['name'], PATHINFO_EXTENSION));
+            $targetFile = $targetDir . $nombrePelicula . $fileType;
+            $allowedTypes = array('png', 'jpg', 'jpeg', 'gif');
+            $maxFileSize = 10 * 1024 * 1024; // 10MB
+            
+            if (!in_array($fileType, $allowedTypes)) {
+                echo $fileType;
+                $this->errores['caratula'] = 'Solo se permiten archivos de tipo PNG, JPG, JPEG y GIF';
+            } elseif ($_FILES['caratula']['size'] > $maxFileSize) {
+                $this->errores['caratula'] = 'El tamaño de la imagen no puede superar los 10MB';
+            } elseif (move_uploaded_file($_FILES['caratula']['tmp_name'], $targetFile)) {
+                $caratula = $nombrePelicula . "." . $fileType;
+            } else {
+                echo 'Error al subir la imagen';
+                $this->errores['caratula'] = 'Ha habido un error al subir la imagen';
+            }
+        } else {
+            echo 'No se ha subido la imagen';
+            $this->errores['caratula'] = 'No se ha subido la imagen';
         }
         $trailer = trim($datos['trailer'] ?? '');
         $trailer = filter_var($trailer, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
