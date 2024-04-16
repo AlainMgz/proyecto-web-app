@@ -67,10 +67,14 @@ if (isset ($_GET['id'])) {
     $contenidoPrincipal .= '</div>
         </div>
         
-        <div class="row justify-content-center mt-4">
+        <div class="row justify-content-center mt-4">';
+        if(isset($_SESSION["user_obj"]) != null) {
+            $contenidoPrincipal .='
             <div class="col-md-4">
                 <a href="funcionalidades/agregarReseña.php?id=' . $pelicula->getId() . '" class="btn btn-success btn-block">Realizar review</a>
-            </div>
+            </div>';
+        }
+        $contenidoPrincipal .='
             <div class="col-md-4">
                 <a href="reviewPelicula.php?nombre=' . urlencode($pelicula->getNombre()) . '" class="btn btn-primary btn-block">Ver Reviews</a>
             </div>
