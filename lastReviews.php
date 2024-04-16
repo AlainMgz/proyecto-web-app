@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/config.php';
 require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
-require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
+require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 require_once BASE_APP.'/includes/DTOs/UsuarioDTO.php';
 
 $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
