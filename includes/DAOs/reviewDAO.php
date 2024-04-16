@@ -35,14 +35,13 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $valores = $review->getReview();
     
         // Escapar y filtrar los datos antes de ejecutar la consulta
-        $usuario = htmlspecialchars($valores['usuario']);
+        $usuario = html_entity_decode($valores['usuario']);
         $usuario = $this->conexion->real_escape_string($usuario);
     
-        $titulo = htmlspecialchars($valores['titulo']);
+        $titulo = html_entity_decode($valores['titulo']);
         $titulo = $this->conexion->real_escape_string($titulo);
     
-        $critica = htmlspecialchars($valores['critica']);
-        $critica = $this->conexion->real_escape_string($critica);
+        $critica = html_entity_decode($valores['critica']);
     
         // Ejecutar la consulta con los valores proporcionados
         $statement->bind_param("sssis", $usuario, $titulo, $critica, $valores['puntuacion'], $valores['pelicula']);
@@ -203,19 +202,19 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $valores = $review->getReview();
     
         // Escapar y filtrar los datos antes de ejecutar la consulta
-        $usuario = htmlspecialchars($valores['usuario']);
+        $usuario = html_entity_decode($valores['usuario']);
         $usuario = $this->conexion->real_escape_string($usuario);
     
-        $titulo = htmlspecialchars($valores['titulo']);
+        $titulo = html_entity_decode($valores['titulo']);
         $titulo = $this->conexion->real_escape_string($titulo);
     
-        $critica = htmlspecialchars($valores['critica']);
+        $critica = html_entity_decode($valores['critica']);
         $critica = $this->conexion->real_escape_string($critica);
     
-        $puntuacion = htmlspecialchars($valores['puntuacion']);
+        $puntuacion = html_entity_decode($valores['puntuacion']);
         $puntuacion = $this->conexion->real_escape_string($puntuacion);
     
-        $pelicula = htmlspecialchars($valores['pelicula']);
+        $pelicula = html_entity_decode($valores['pelicula']);
         $pelicula = $this->conexion->real_escape_string($pelicula);
     
         $id = $valores['ID'];
