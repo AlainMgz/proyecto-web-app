@@ -17,16 +17,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
 
-
-
 </head>
 
 <body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <?php
-    require RAIZ_APP . '/vistas/comun/cabecera.php';
-    require RAIZ_APP . '/vistas/comun/buscador.php';
+    require BASE_APP . '/includes/vistas/comun/cabecera.php';
+    require BASE_APP . '/includes/vistas/comun/buscador.php';
     ?>
     <!-- Cabecera secundaria -->
 	<?php if (isset($selectGenero)) : ?>

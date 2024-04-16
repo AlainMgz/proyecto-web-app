@@ -28,23 +28,45 @@ class FormularioAgregarPeliculas extends Formulario
         //print_r($this->errores);
         // Contenido del formulario con el selector de género
         $contenidoPrincipal = <<<EOS
-            <div class="film-container">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombrePelicula" name="nombrePelicula" required>
-                <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" name="descripcion" required>
-                <label for="director">Director:</label>
-                <input type="text" id="director" name="director" required>
-                <label for="genero">Género:</label>
-                <select id="genero" name="genero" required>
-                    <option value="" disabled selected>Selecciona un género</option>
-                    $opciones
-                </select>
-                <label for="caratula">Carátula:</label>
-                <input type="file" id="caratula" name="caratula" accept=".png, .jpg, .jpeg, .gif" required>
-                <label for="trailer">Tráiler:</label>
-                <input type="text" id="trailer" name="trailer" required>
-                <button type="submit">Agregar</button>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="film-container">
+                            <form action="tu_ruta_de_destino.php" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="nombrePelicula">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombrePelicula" name="nombrePelicula" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion">Descripción:</label>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                                    </div>
+                                <div class="form-group">
+                                    <label for="director">Director:</label>
+                                    <input type="text" class="form-control" id="director" name="director" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="genero">Género:</label>
+                                    <select class="form-control" id="genero" name="genero" required>
+                                        <option value="" disabled selected>Selecciona un género</option>
+                                        $opciones
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="caratula">Carátula:</label>
+                                    <input type="file" class="form-control-file" id="caratula" name="caratula" accept=".png" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="trailer">Tráiler:</label>
+                                    <input type="text" class="form-control" id="trailer" name="trailer" required>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         EOS;
         return $contenidoPrincipal;

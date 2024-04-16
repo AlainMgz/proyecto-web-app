@@ -3,8 +3,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: black;
-
+    background-color: white;
 }
 
 #contenedor {
@@ -41,12 +40,11 @@ body {
     /* La imagen ocupará el 50% del ancho de la pantalla */
     height: 80%;
 }
-
 .caratula {
     width: 100%;
     /* Ancho completo */
     height: auto;
-    /* Altura automática para mantener la proporción */
+    object-fit: cover; /* Escalar la imagen para cubrir el contenedor manteniendo la relación de aspecto */
     border-radius: 10px;
     /* Bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -489,20 +487,6 @@ textarea {
     font-size: 16px;
 }
 
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049;
-}
 
 .review {
     margin-bottom: 20px;
@@ -525,29 +509,30 @@ button[type="submit"]:hover {
     left: 0;
     right: 0;
     text-align: center;
-  }
-  
-  #pagination button {
+}
+
+#pagination button {
     cursor: pointer;
     padding: 5px 10px;
     margin: 0 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  #prevPage {
+}
+
+#prevPage {
     float: left;
-  }
-  
-  #nextPage {
+}
+
+#nextPage {
     float: right;
-  }
-  .dropdown-content {
+}
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -558,11 +543,18 @@ button[type="submit"]:hover {
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
 
 .carousel-item img {
     object-fit: cover;
@@ -580,7 +572,7 @@ button[type="submit"]:hover {
 
 #carouselExampleIndicators {
 
-    height: 80vh;
+    height: 100vh;
     /* Establece una altura del 75% del viewport height para el carrusel */
 }
 
@@ -660,4 +652,11 @@ button[type="submit"]:hover {
 .material-icons {
     font-size: 24px;
     vertical-align: middle;
+}
+
+.caratula-img {
+    width: 200px; /* Tamaño fijo para todas las imágenes de las carátulas */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
 }

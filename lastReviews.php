@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once RAIZ_APP . '/session_start.php';
+require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/SAs/reviewSA.php';
-require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
-require_once RAIZ_APP.'/DTOs/UsuarioDTO.php';
+require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
+require_once BASE_APP.'/includes/DTOs/UsuarioDTO.php';
 
-$paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
+$paginaActual = $pagina;// Usar el operador de fusión de null para proporcionar un valor predeterminado
 $reviewSA = new ReviewSA();
 $reviews = $reviewSA->obtener5Reviews($paginaActual * 5);
 
@@ -24,36 +25,11 @@ $contenidoPrincipal = '<!DOCTYPE html>
 <body>
     <h1>Últimas reviews</h1>';
 
-    $contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
+$contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
 
-    $contenidoPrincipal .= '
-    <div id="pagination">
-        <button id="prevPage">&#9664;</button>
-        <div id="pageNumbers">' . ($paginaActual + 1) . '</div>
-        <button id="nextPage">&#9654;</button>
-    </div>';
-    
-    $contenidoPrincipal .= '
-    </body>
-    </html>';
-    
-    require RAIZ_APP . '/vistas/plantillas/plantilla.php';
-    ?>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var paginaActual = <?php echo $paginaActual; ?>;
-    
-      document.getElementById("prevPage").addEventListener("click", function() {
-        if (paginaActual > 0) {
-          paginaActual--;
-          window.location.href =  "lastReviews.php?pagina=" + paginaActual;
-        }
-      });
-    
-      document.getElementById("nextPage").addEventListener("click", function() {
-        paginaActual++;
-        window.location.href = "lastReviews.php?pagina=" + paginaActual;
-      });
-    });
-    </script>
-    
+$contenidoPrincipal .= '
+</body>
+</html>';
+
+require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
+

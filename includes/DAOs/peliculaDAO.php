@@ -31,12 +31,12 @@ class PeliculaDAO
 
         // Obtener los valores de la película y filtrarlos
         $valores = $pelicula->getPelicula();
-        $nombre = htmlspecialchars($valores['nombre']);
-        $descripcion = htmlspecialchars($valores['descripcion']);
-        $director = htmlspecialchars($valores['director']);
-        $genero = htmlspecialchars($valores['genero']);
-        $caratula = htmlspecialchars($valores['caratula']);
-        $trailer = htmlspecialchars($valores['trailer']);
+        $nombre = html_entity_decode($valores['nombre']);
+        $descripcion = html_entity_decode($valores['descripcion']);
+        $director = html_entity_decode($valores['director']);
+        $genero = html_entity_decode($valores['genero']);
+        $caratula = html_entity_decode($valores['caratula']);
+        $trailer = html_entity_decode($valores['trailer']);
 
         // Escape de los valores para prevenir inyección SQL
         $nombre = $this->conexion->real_escape_string($nombre);
@@ -159,11 +159,11 @@ class PeliculaDAO
         }
     }
 
-    public function filtrarPeliculasPorGenero($genero)
+    public function filtrarPeliculasPorGenero($genero, $skip)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
         if ($genero == "Todos") {
-            return $this->obtenerListaPeliculas();
+            return $this->obtenerListaPeliculas($skip);
         }
         // Consulta SQL para obtener todas las películas del género especificado
         $query = "SELECT * FROM peliculas WHERE genero = ?";
@@ -207,10 +207,11 @@ class PeliculaDAO
         return $peliculas;
     }
 
-    public function obtenerListaPeliculas()
+    public function obtenerListaPeliculas($skip)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM peliculas";
+        $query = "SELECT * FROM peliculas LIMIT 10 OFFSET $skip";
+
         $statement = $this->conexion->prepare($query);
 
         if (!$statement) {
