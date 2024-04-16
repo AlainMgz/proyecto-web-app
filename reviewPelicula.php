@@ -8,11 +8,10 @@ require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // In
 $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $reviewSA = new ReviewSA();
 $nombre = $_GET['nombre'];
-$reviews = $reviewSA->obtener5ReviewsPorPelicula($paginaActual,$nombre);
+$reviews = $reviewSA->obtener5ReviewsPorPelicula($paginaActual * 5,$nombre);
 
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
-$reviews_mostradas = array_slice($reviews, 0, $num_reviews_mostrar);
 
 // Crear el contenido de la página usando la plantilla de reviews
 $contenidoPrincipal = '<!DOCTYPE html>
@@ -25,7 +24,7 @@ $contenidoPrincipal = '<!DOCTYPE html>
 <body>
     <h1>Últimas reviews</h1>';
 
-$contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
+$contenidoPrincipal .= renderizarReviews($reviews); // Renderizar las reviews usando la plantilla
 
 $contenidoPrincipal .= '
 </body>

@@ -70,14 +70,14 @@
         event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
         if (paginaActual > 0) {
           paginaActual--;
-          window.location.href = currentUrl + "?pagina=" + paginaActual + "?nombre=" + nombre; // Utiliza "&" para separar variables en la URL
+          window.location.href = currentUrl + "?nombre=" + nombre + "&pagina=" + paginaActual; // Utiliza "&" para separar variables en la URL
         }
       });
 
       document.getElementById("nextPage").addEventListener("click", function (event) {
         event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
         paginaActual++;
-        window.location.href = currentUrl + "?pagina=" + paginaActual + "?nombre=" + nombre; // Utiliza "&" para separar variables en la URL
+        window.location.href = currentUrl + "?nombre=" + nombre + "&pagina=" + paginaActual; // Utiliza "&" para separar variables en la URL
       });
     });
   </script>
