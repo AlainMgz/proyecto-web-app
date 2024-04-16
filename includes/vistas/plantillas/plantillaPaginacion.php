@@ -33,7 +33,7 @@
 
   // Definir $pagina con un valor predeterminado si no está definido
   $pagina = isset ($_GET['pagina']) ? intval($_GET['pagina']) : 0;
-
+  $nombre = isset ($_GET['nombre']) ? $_GET['nombre'] : '';
   $current_url = $_SERVER['REQUEST_URI'];
   ?>
 
@@ -64,19 +64,20 @@
     document.addEventListener("DOMContentLoaded", function () {
       var paginaActual = <?= $pagina ?>;
       var currentUrl = "<?= strtok($current_url, '?') ?>"; // Obtener la URL base sin parámetros
+      var nombre = "<?= $nombre ?>"; // Agregar comillas para que se interprete como una cadena
 
       document.getElementById("prevPage").addEventListener("click", function (event) {
         event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
         if (paginaActual > 0) {
           paginaActual--;
-          window.location.href = currentUrl + "?pagina=" + paginaActual; // Utiliza "&" en lugar de "?"
+          window.location.href = currentUrl + "?pagina=" + paginaActual + "?nombre=" + nombre; // Utiliza "&" para separar variables en la URL
         }
       });
 
       document.getElementById("nextPage").addEventListener("click", function (event) {
         event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
         paginaActual++;
-        window.location.href = currentUrl + "?pagina=" + paginaActual; // Utiliza "&" en lugar de "?"
+        window.location.href = currentUrl + "?pagina=" + paginaActual + "?nombre=" + nombre; // Utiliza "&" para separar variables en la URL
       });
     });
   </script>
