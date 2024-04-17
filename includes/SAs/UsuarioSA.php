@@ -20,7 +20,6 @@ class UsuarioSA {
         if ($usuario && $usuario->compruebaPassword($password)) {
             return $usuario;
         }
-        echo "user not found or incorrect password";
         return false;
     }
 

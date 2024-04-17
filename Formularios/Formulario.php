@@ -104,6 +104,11 @@ abstract class Formulario
     protected $errores;
 
     /**
+     * @param string[] Array con los campos del formulario.
+     */
+    protected $campos;
+
+    /**
      * Crea un nuevo formulario.
      *
      * Posibles opciones:
@@ -153,7 +158,7 @@ abstract class Formulario
     {
         $this->formId = $formId;
 
-        $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => null, 'urlRedireccion' => null);
+        $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => null, 'urlRedireccion' => null, 'campos' => null);
         $opciones = array_merge($opcionesPorDefecto, $opciones);
 
         $this->action = $opciones['action'];
@@ -161,6 +166,7 @@ abstract class Formulario
         $this->classAtt = $opciones['class'];
         $this->enctype  = $opciones['enctype'];
         $this->urlRedireccion = $opciones['urlRedireccion'];
+        $this->campos = $opciones['campos'];
 
         if (!$this->action) {
             $this->action = htmlspecialchars($_SERVER['REQUEST_URI']);
@@ -204,7 +210,7 @@ abstract class Formulario
         }
 
         if ($this->urlRedireccion !== null) {
-            header("Location: {$this->urlRedireccion}");
+            //header("Location: {$this->urlRedireccion}");
             exit();
         }
     }
