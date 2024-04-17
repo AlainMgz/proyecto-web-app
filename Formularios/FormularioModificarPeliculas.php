@@ -152,6 +152,7 @@ EOS;
             $peliculaSA = new PeliculaSA();
             $peliculaSA->borrarPelicula($this->id);
             $peliculaSA->crearPelicula(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
+            header("Location: ../estrenos.php");
         }
     }
 

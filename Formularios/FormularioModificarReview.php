@@ -96,6 +96,7 @@ class FormularioModificarReview extends Formulario{
                 $reviewSA = new reviewSA();
                 $reviewSA->borrarReview($this->id);
                 $reviewSA->crearReview($this->id, $this->review->getUsuario(), $tituloReview, $critica, $puntuacion, $this->review->getPelicula());
+                header("Location: ../estrenos.php");
         }
     }
 

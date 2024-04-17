@@ -137,7 +137,9 @@ class FormularioAgregarPeliculas extends Formulario
             $pelicula = new PeliculaDTO(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer, 0, 0);
             $peliculaSA = new PeliculaSA();
             $peliculaSA->crearPelicula(0, $nombrePelicula, $descripcion, $director, $genero, $caratula, $trailer);
+        
         }
+        header("Location: ../estrenos.php");
     }
 
     // Método para mostrar el formulario

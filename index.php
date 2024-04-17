@@ -48,7 +48,7 @@ ob_start();
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <h1 class="mb-4 text-light">¡Únete ya a esta gran comunidad y comparte tus gustos!</h1>
-                <p class="lead text-light">En FEEL, puedes compartir tus opiniones sobre tus películas
+                <p class="lead text-light">En FEELM, puedes compartir tus opiniones sobre tus películas
                     favoritas,
                     conocer personas afines a ti y mucho más.</p>
             </div>

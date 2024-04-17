@@ -89,9 +89,7 @@ class FormularioRegistro extends Formulario
            }
            else{
          $usuario= $usuarioSA->crea($username, $password, $email, 0);
-          $_SESSION['login'] = true;
-          $_SESSION['user_obj'] = serialize($usuario);
-          header("Location: estrenos.php"); // Redirige al usuario después del inicio de sesión exitoso
+          header("Location: login.php"); // Redirige al usuario después del inicio de sesión exitoso
                 exit(); // Detiene la ejecución del script después de la redirección
         }
         }
