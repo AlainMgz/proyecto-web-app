@@ -83,7 +83,7 @@ class FormularioAgregarReview extends Formulario
         if (!$critica) {
             $this->errores['critica'] = 'La crítica no puede estar vacía.';
         }
-        if (strlen($critica) > 300) {
+        if (strlen($critica) > 1000) {
             $this->errores['critica'] = 'La crítica debe tener menos de 300 caracteres.';
         }
         $puntuacion = trim($datos['puntuacion'] ?? '');
