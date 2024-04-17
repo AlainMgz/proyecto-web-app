@@ -83,7 +83,6 @@ class FormularioAgregarReview extends Formulario
         }
 
         if (count($this->errores) === 0) {
-
             $reviewSA = new reviewSA();
             $peliculaSA = new peliculaSA();
             $this->pelicula = $peliculaSA->obtenerPeliculaPorID($this->ID);

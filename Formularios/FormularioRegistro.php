@@ -82,7 +82,9 @@ class FormularioRegistro extends Formulario
             $this->errores[] = "El usuario ya existe"; // Corregido el mensaje de error
            }
            else{
-          $usuarioSA->crea($username, $password, $email, 0);
+         $usuario= $usuarioSA->crea($username, $password, $email, 0);
+          $_SESSION['login'] = true;
+          $_SESSION['user_obj'] = serialize($usuario);
           header("Location: estrenos.php"); // Redirige al usuario después del inicio de sesión exitoso
                 exit(); // Detiene la ejecución del script después de la redirección
         }
