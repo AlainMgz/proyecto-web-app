@@ -21,8 +21,11 @@ class UsuarioDAO
     public static function buscaUsuario($nombreUsuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM users WHERE username='%s'", $conn->real_escape_string($nombreUsuario));
-        $rs = $conn->query($query);
+        $query = "SELECT * FROM users WHERE username=?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $nombreUsuario);
+        $stmt->execute();
+        $rs = $stmt->get_result();
         $result = false;
         if ($rs) {
             $fila = $rs->fetch_assoc();
@@ -40,7 +43,9 @@ class UsuarioDAO
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM users WHERE id=%d", $idUsuario);
-        $rs = $conn->query($query);
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $rs = $stmt->get_result();
         $result = false;
         if ($rs) {
             $fila = $rs->fetch_assoc();
@@ -63,44 +68,37 @@ class UsuarioDAO
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
 
-        $checkQuery = sprintf("SELECT * FROM users WHERE username = '%s' OR email = '%s'"
-            , $conn->real_escape_string($usuario->getNombreUsuario())
-            , $conn->real_escape_string($usuario->getEmail()));
-        $result = $conn->query($checkQuery);
+        $checkQuery = "SELECT * FROM users WHERE username = ? OR email = ?";
+        $stmt = $conn->prepare($checkQuery);
+        $stmt->bind_param("ss", $usuario->getNombreUsuario(), $usuario->getEmail());
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             // User already exists
             echo "User with the provided username or email already exists.";
             return false;
         } else {
-            $query=sprintf("INSERT INTO users (username, email, password, role) VALUES ('%s', '%s', '%s', %d)"
-                , $conn->real_escape_string($usuario->getNombreUsuario())
-                , $conn->real_escape_string($usuario->getEmail())
-                , $usuario->getPassword()
-                , $usuario->getRole()
-            );
-            if ( $conn->query($query) ) {
-                $usuario->addId($conn->insert_id);
+            $insertQuery = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($insertQuery);
+            $stmt->bind_param("sssi", $usuario->getNombreUsuario(), $usuario->getEmail(), $usuario->getPassword(), $usuario->getRole());
+            if ($stmt->execute()) {
+                $usuario->addId($stmt->insert_id);
                 return $usuario;
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
                 return false;
             }
-        }
-
-        
+        } 
     }
     
     private static function actualiza(UsuarioDTO $usuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE users SET username = '%s', email='%s', password='%s' WHERE id=%d"
-            , $conn->real_escape_string($usuario->nombreUsuario)
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->hashPassword($usuario->password)
-            , $usuario->getId()
-        );
-        if ( $conn->query($query) ) {
+        $query = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("sssi", $usuario->getNombreUsuario(), $usuario->getEmail(), self::hashPassword($usuario->getPassword()), $usuario->getId());
+        if ($stmt->execute()) {
             return true;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -120,11 +118,11 @@ class UsuarioDAO
             return false;
         }
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM users WHERE id = %d"
-            , $idUsuario
-        );
-        if ( ! $conn->query($query) ) {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        $query = "DELETE FROM users WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $idUsuario);
+        if (!$stmt->execute()) {
+            error_log("Error BD ({$stmt->errno}): {$stmt->error}");
             return false;
         }
         return true;

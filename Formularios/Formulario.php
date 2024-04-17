@@ -210,7 +210,7 @@ abstract class Formulario
         }
 
         if ($this->urlRedireccion !== null) {
-            //header("Location: {$this->urlRedireccion}");
+            header("Location: {$this->urlRedireccion}");
             exit();
         }
     }
