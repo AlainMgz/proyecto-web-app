@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/session_start.php';
-require_once __DIR__ . '/../includes/SAs/ReviewSA.php';
+require_once __DIR__ . '/../includes/SAs/reviewSA.php';
 require_once __DIR__ . '/Formulario.php';
 
 $tituloPagina = 'ModificarPelicula';
