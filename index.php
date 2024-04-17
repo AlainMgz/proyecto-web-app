@@ -10,7 +10,7 @@ $contenidoPrincipal = '';
 ob_start();
 ?>
 
-<div id="carrusel" class="carousel slide" data-ride="carousel" style="background-color: black;">
+<div id="carrusel" data-interval="3000" class="carousel slide" data-ride="carousel" style="background-color: black;">
     <!-- Indicadores (aparecen como rayitas) -->
     <ul class="carousel-indicators">
         <?php for ($i = 0; $i < 5; $i++): ?>
@@ -92,6 +92,15 @@ ob_start();
             }, 500);
         });
     });
+
+    $(document).ready(function() {
+    // Pre-cargar imágenes
+    var images = [];
+    for (var i = 1; i <= 5; i++) {
+        images[i] = new Image();
+        images[i].src = 'img/carrusel' + i + '.png';
+    }
+});
 </script>
 
 <?php
