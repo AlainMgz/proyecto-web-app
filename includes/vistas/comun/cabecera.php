@@ -26,6 +26,7 @@
     $search_url = RUTA_APP . '/includes/vistas/comun/buscador.php';
     $agregar_pelicula_url = RUTA_APP . '/funcionalidades/agregarPelicula.php';
     $logout_url = RUTA_APP . '/includes/logout.php';
+    $login_url = RUTA_APP . '/login.php';
 
     $estrenos_active = ($current_url == $estrenos_url) ? 'active' : '';
     $reviews_active = ($current_url == $reviews_url) ? 'active' : '';
@@ -99,7 +100,7 @@
             </li>
             <li class="nav-item">
                 <?php if (!isset ($_SESSION["login"]) || $_SESSION["login"] === false): ?>
-                    <li class="nav-item"><a href="login.php" class="nav-link">Unknown user. Login</a></li>
+                    <li class="nav-item"><a href="<?= $login_url ?>" class="nav-link">Unknown user. Login</a></li>
                 <?php else:
                         $username = unserialize($_SESSION['user_obj'])->getNombreUsuario(); ?>
                         <ul class="navbar-nav mr-auto ml-auto">
@@ -112,7 +113,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= $logout_url ?> " class="nav-link">Logout</a>
+                                <a href="<?= $logout_url ?>" class="nav-link">Logout</a>
                             </li>
                         </ul>
                 <?php endif; ?>
