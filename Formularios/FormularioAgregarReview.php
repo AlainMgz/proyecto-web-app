@@ -100,6 +100,7 @@ class FormularioAgregarReview extends Formulario
             $review = $reviewSA->crearReview($this->ID, $username, $titulo, $critica, $puntuacion, $this->pelicula->getNombre());
             $peliculaSA->realizarMedia($peliculaSA->obtenerPeliculaPorID($this->ID));
         }
+        header('Location: ../estrenos.php');
     }
 
     // Método para mostrar el formulario
