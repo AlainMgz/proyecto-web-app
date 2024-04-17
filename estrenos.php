@@ -27,7 +27,7 @@ if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole(
 
 // Obtener la página actual
 $pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 0;
-$skip = $pagina * 6; // Si estás mostrando 5 películas por página
+$skip = $pagina * 12; // Si estás mostrando 5 películas por página
 
 // Obtener la lista de películas según el género seleccionado
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'filtrar') {
