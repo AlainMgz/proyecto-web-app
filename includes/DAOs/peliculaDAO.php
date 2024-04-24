@@ -340,5 +340,44 @@ class PeliculaDAO
         // Retornar verdadero si se modificó alguna fila, falso de lo contrario
         return $rows_affected > 0;
     }
+
+    public function buscarPeliculasQueEmpecienPor($term){
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+    $query = "SELECT * FROM peliculas WHERE nombre LIKE ? LIMIT 10;";
+
+    $statement = $this->conexion->prepare($query);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta: " . $this->conexion->error);
+    }
+
+    // No necesitas vincular ningún parámetro en este caso
+
+    $term = '%' . $term . '%';
+    $statement->bind_param("s", $term);
+        $statement->execute();
+
+        $result = $statement->get_result();
+
+        $peliculas = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $pelicula = new PeliculaDTO(
+                $row['ID'],
+                $row['nombre'],
+                $row['descripcion'],
+                $row['director'],
+                $row['genero'],
+                $row['caratula'],
+                $row['trailer'],
+                $row['numValoraciones'],
+                $row['valoracion']
+            );
+            $peliculas[] = $pelicula;
+        }
+
+        return $peliculas;
+    }
 }
 

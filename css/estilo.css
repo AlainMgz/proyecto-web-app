@@ -53,6 +53,11 @@ body {
     /* Transición suave */
 }
 
+.caratula-pequena {
+    width: 100px; /* Ancho de la imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+}
+
 .caratula:hover {
     transform: scale(1.05);
     /* Aumentar tamaño al pasar el ratón */
@@ -664,4 +669,11 @@ textarea {
 .form_errors {
     color: rgb(255, 101, 101);
     font-weight: bold;
+}
+
+#searchResultsTab {
+    position: absolute;
+    top: 100%; /* O la posición deseada */
+    left: 0;
+    z-index: 9999;
 }

@@ -76,5 +76,11 @@ class PeliculaSA
         $peliculaDAO->realizarMedia($pelicula,$reviews );
         return true;
     }
+
+    public function buscarPeliculasQueEmpecienPor($term){
+        $peliculaDAO = new PeliculaDAO();
+        $pelicula = $peliculaDAO->buscarPeliculasQueEmpecienPor($term);
+        return $pelicula;
+    }
 }
 

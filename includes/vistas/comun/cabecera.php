@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar con desplegable</title>
-    
-    
+
+
 
 </head>
 
@@ -16,6 +16,7 @@
     require_once __DIR__ . '/../../config.php';
     require_once RAIZ_APP . '/session_start.php';
     require_once RAIZ_APP . '/DTOs/UsuarioDTO.php';
+    require_once RAIZ_APP . '/SAs/PeliculaSA.php';
 
     $current_url = $_SERVER['REQUEST_URI'];
 
@@ -35,7 +36,7 @@
 
     function showGreeting()
     {
-        if (!isset ($_SESSION["login"]) || $_SESSION["login"] === false) {
+        if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
             echo '<li class="nav-item"><a href="login.php" class="nav-link">Unknown user. Login</a></li>';
         } else {
             $username = unserialize($_SESSION['user_obj'])->getNombreUsuario();
@@ -59,70 +60,106 @@
     }
     ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="<?= RUTA_APP ?>/index.php">
-        <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item <?= $estrenos_active ?>">
-                <a href="<?= $estrenos_url ?>" class="nav-link">Estrenos</a>
-            </li>
-            <li class="nav-item <?= $reviews_active ?>">
-                <a href="<?= $reviews_url ?>" class="nav-link">Reviews</a>
-            </li>
-            <li class="nav-item <?= $blog_active ?>">
-                <a href="<?= $blog_url ?>" class="nav-link">Blog</a>
-            </li>
-            <li class="nav-item <?= $ranking_active ?>">
-                <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
-            </li>
-            <?php if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
-                <li class="nav-item <?= $agregar_pelicula_active ?>">
-                    <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="<?= RUTA_APP ?>/index.php">
+            <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item <?= $estrenos_active ?>">
+                    <a href="<?= $estrenos_url ?>" class="nav-link">Estrenos</a>
                 </li>
-            <?php endif; ?>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0" action="/proyecto-web-app/reviewPelicula.php" method="get">
-                    <li>
-                        <input class="form-control mr-sm-2" type="search" name="nombre" placeholder="Buscar">
+                <li class="nav-item <?= $reviews_active ?>">
+                    <a href="<?= $reviews_url ?>" class="nav-link">Reviews</a>
+                </li>
+                <li class="nav-item <?= $blog_active ?>">
+                    <a href="<?= $blog_url ?>" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item <?= $ranking_active ?>">
+                    <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
+                </li>
+                <?php if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
+                    <li class="nav-item <?= $agregar_pelicula_active ?>">
+                        <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
                     </li>
-                    <li>
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
-                    </li>
+                <?php endif; ?>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form id="searchForm" class="form-inline my-2 my-lg-0" action="/proyecto-web-app/infoPeliculas.php" method="get"
+                        autocomplete="off">
+                <li>
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" name="nombre"
+                        placeholder="Buscar">
+                </li>
+                <li>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                </li>
                 </form>
-            </li>
-            <li class="nav-item">
-                <?php if (!isset ($_SESSION["login"]) || $_SESSION["login"] === false): ?>
+                </li>
+                <li class="nav-item">
+                    <?php if (!isset($_SESSION["login"]) || $_SESSION["login"] === false): ?>
                     <li class="nav-item"><a href="<?= $login_url ?>" class="nav-link">Unknown user. Login</a></li>
                 <?php else:
                         $username = unserialize($_SESSION['user_obj'])->getNombreUsuario(); ?>
-                        <ul class="navbar-nav mr-auto ml-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Hello <?= $username ?>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= $logout_url ?>" class="nav-link">Logout</a>
-                            </li>
-                        </ul>
+                    <ul class="navbar-nav mr-auto ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hello <?= $username ?>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $logout_url ?>" class="nav-link">Logout</a>
+                        </li>
+                    </ul>
                 <?php endif; ?>
 
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div id="searchResults"></div> <!-- Aquí se mostrarán los resultados de búsqueda -->
+            <button id="closeSearch">Cerrar</button>
+        </div>
     </div>
-</nav>
 
 </body>
 
+
 </html>
+
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("input", function () {
+            if ($(this).val().length >= 2) {
+                $("#searchOverlay").fadeIn();
+                $.ajax({
+                    url: '/proyecto-web-app/includes/buscador.php',
+                    method: 'GET',
+                    data: $('#searchForm').serialize(),
+                    success: function (response) {
+                        $('#searchResults').html(response);
+                    }
+                });
+            } else{
+                $("#searchOverlay").fadeOut();
+            }
+        });
+
+        $("#closeSearch").click(function () {
+            $("#searchOverlay").fadeOut();
+        });
+    });
+</script>
