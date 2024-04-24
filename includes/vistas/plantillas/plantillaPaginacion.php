@@ -21,6 +21,8 @@
   <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     integrity="sha384-..." crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 </head>
@@ -29,7 +31,6 @@
   <?php
   // Incluir la cabecera y el buscador
   require RAIZ_APP . '/vistas/comun/cabecera.php';
-  require RAIZ_APP . '/vistas/comun/buscador.php';
 
   // Definir $pagina con un valor predeterminado si no está definido
   $pagina = isset ($_GET['pagina']) ? intval($_GET['pagina']) : 0;

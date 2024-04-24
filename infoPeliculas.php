@@ -8,6 +8,8 @@ require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 $peliculaSA = new PeliculaSA();
 
 // Verificar si se ha proporcionado un ID de película en la URL
+$contenidoPrincipal = '';
+
 if (isset ($_GET['id'])) {
     // Obtener el ID de la película de la URL
     $idPelicula = $_GET['id'];
@@ -15,7 +17,6 @@ if (isset ($_GET['id'])) {
     // Obtener la información de la película
     $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
     $peliculaSA->realizarMedia($pelicula);
-    $contenidoPrincipal = '';
 
     // Verificar si el usuario tiene permisos para borrar o modificar la película
     if (isset ($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1) {
@@ -87,4 +88,3 @@ if (isset ($_GET['id'])) {
 
 // Incluir la plantilla principal para mostrar el contenido
 require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
-?>
