@@ -19,40 +19,91 @@ class postDAO
     /*
 FIX: Ahora todas las conexiones se hacen desde las funciones.
     */
-    
+
 
     public function creaPost(postDTO $postDTO)
     {
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+        if ($this->conexion->connect_error) {
+            die("Error de conexión a la base de datos: " . $this->conexion->connect_error);
+        }
+
+        // Obtener los valores del postDTO
         $id = $postDTO->getID();
         $usuario = $postDTO->getUsuario();
         $titulo = $postDTO->getTitulo();
         $texto = $postDTO->getTexto();
         $likes = $postDTO->getLikes();
-        $esComentario= $postDTO->getEsComentario();
-        $IDPadre= $postDTO->getIDPadre();
-    
+        $esComentario = $postDTO->getEsComentario();
+        $IDPadre = $postDTO->getIDPadre();
+
         // Preparar la consulta SQL
-        $stmt = $this->conexion->prepare("INSERT INTO post (ID, usuario, titulo, texto, likes, esComentario, IDPadre) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        if ($stmt === false) {
+        $query = "INSERT INTO post (ID, usuario, titulo, texto, likes, esComentario, IDPadre) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $statement = $this->conexion->prepare($query);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-    
+
         // Bind parameters
-        $stmt->bind_param("issisii", $id, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
-    
+        $statement->bind_param("issisii", $id, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
+
         // Ejecutar la consulta
-        $stmt->execute();
-    
+        $statement->execute();
+
         // Verificar si se insertó correctamente
-        if ($stmt->affected_rows === 1) {
+        if ($statement->affected_rows === 1) {
             echo "Post insertado correctamente.";
         } else {
             echo "Error al insertar el post: " . $this->conexion->error;
         }
-    
+
         // Cerrar la declaración
-        $stmt->close();
+        $statement->close();
+
+        // Cerrar la conexión
+        $this->conexion->close();
+    }
+
+    public function buscarPosts(){
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+    
+        // Preparar la consulta SQL
+        $query = "SELECT * FROM post";
+        $result = $this->conexion->query($query);
+    
+        // Verificar si la consulta fue exitosa
+        if (!$result) {
+            die("Error al ejecutar la consulta: " . $this->conexion->error);
+        }
+    
+        // Crear un array para almacenar los posts
+        $posts = array();
+    
+        // Obtener los resultados y mapearlos a objetos postDTO
+        while ($row = $result->fetch_assoc()) {
+            $post = new postDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['texto'],
+                $row['likes'],
+                $row['esComentario'],
+                $row['IDPadre']
+            );
+            $posts[] = $post;
+        }
+    
+        // Cerrar la conexión
+     
+    
+        // Retornar el array de posts
+        return $posts;
     }
     
+
 }
 

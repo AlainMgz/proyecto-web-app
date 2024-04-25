@@ -14,8 +14,14 @@ class postSA
     {
         $postDAO = new postDAO();
         $postDTO = new postDTO($ID, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
-        $postDAO->crearPost($postDTO);
+        $postDAO->creaPost($postDTO);
         return $postDTO;
+    }
+
+    public function buscarPosts(){
+        $postDAO = new postDAO();
+        $posts = $postDAO->buscarPosts();
+        return $posts;
     }
 
     
