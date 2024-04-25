@@ -21,13 +21,15 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
     */
     
 
-    public function creaPost(postDTO $postDTO, bool $esComentario, int $IDPadre)
+    public function creaPost(postDTO $postDTO)
     {
         $id = $postDTO->getID();
         $usuario = $postDTO->getUsuario();
         $titulo = $postDTO->getTitulo();
         $texto = $postDTO->getTexto();
         $likes = $postDTO->getLikes();
+        $esComentario= $postDTO->getEsComentario();
+        $IDPadre= $postDTO->getIDPadre();
     
         // Preparar la consulta SQL
         $stmt = $this->conexion->prepare("INSERT INTO post (ID, usuario, titulo, texto, likes, esComentario, IDPadre) VALUES (?, ?, ?, ?, ?, ?, ?)");
