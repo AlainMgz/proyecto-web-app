@@ -122,6 +122,7 @@ CREATE TABLE `users` (
   `password` text NOT NULL,
   `email` varchar(255) NOT NULL,
   `role` tinyint(2) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
