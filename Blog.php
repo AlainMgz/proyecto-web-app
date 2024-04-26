@@ -7,12 +7,38 @@ require_once __DIR__ . '/includes/DTOS/postDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 
 // Si se envió el formulario para crear un nuevo post
+// Si se envió el formulario para crear un nuevo post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
+    // Obtener los datos del formulario
+    $titulo = $_POST['titulo'] ?? '';
+    $contenido = $_POST['contenido'] ?? '';
+    $username='';
+    if ( isset($_SESSION["user_obj"])){
+        $username = unserialize($_SESSION["user_obj"])->getNombreUsuario();
+    } 
+    // Validar los datos
+    if (empty($titulo) || empty($contenido)) {
+        // Si falta alguno de los campos, puedes mostrar un mensaje de error o redireccionar a otra página
+        echo '<div class="alert alert-danger" role="alert">Por favor, completa todos los campos.</div>';
+    } else {
+        // Crear un objeto postDTO con los datos del formulario
+        $postDTO = new postDTO(0, $username, $titulo, $contenido, 0, false, -1);
+
+        // Crear una instancia del SA de Post
+        $postSA = new postSA();
+
+        // Llamar al método creaPost del SA de Post para guardar el nuevo post en la base de datos
+        $postSA->crearPost(0, $username, $titulo, $contenido, 0, false, -1);
+
+        // Redireccionar a esta misma página para actualizar la lista de posts
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
 }
 
 // Obtener el nombre de usuario de la sesión
-$usuario = unserialize($_SESSION["user_obj"])->getNombreUsuario();
+
+if(isset($_SESSION["user_obj"]))$usuario = unserialize($_SESSION["user_obj"])->getNombreUsuario();
 
 // Contenido del formulario para crear un nuevo post
 $formularioNuevoPost = '
@@ -39,7 +65,7 @@ $posts = $postSA->buscarPosts();
 // Contenido de los posts existentes
 $contenidoPosts = '
     <div class="container mt-3">
-        <h2>Posts existentes</h2>
+      
 ';
 
 foreach ($posts as $post) {
@@ -56,10 +82,14 @@ foreach ($posts as $post) {
 }
 
 $contenidoPosts .= '</div>';
-
+$contenidoPrincipal='';
 // Contenido completo de la página
-$contenidoPrincipal = $formularioNuevoPost . $contenidoPosts;
+if (isset($_SESSION["user_obj"]) ){
+    $contenidoPrincipal = $formularioNuevoPost;
+}
+$contenidoPrincipal.=$contenidoPosts;
+
 
 // Incluir la plantilla principal para mostrar el contenido
 require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
-?>
+
