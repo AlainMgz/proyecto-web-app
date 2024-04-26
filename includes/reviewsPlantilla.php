@@ -1,5 +1,5 @@
 <?php
-    require RAIZ_APP . '/DTOs/UsuarioDTO.php';
+    require_once RAIZ_APP . '/DTOs/UsuarioDTO.php';
 function renderizarReviews($reviews_mostradas) {
     $html = '';
     foreach ($reviews_mostradas as $review) {

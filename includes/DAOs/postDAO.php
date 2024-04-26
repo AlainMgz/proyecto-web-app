@@ -67,22 +67,23 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $this->conexion->close();
     }
 
-    public function buscarPosts(){
+    public function buscarPosts()
+    {
         // Establecer la conexión a la base de datos
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-    
+
         // Preparar la consulta SQL
         $query = "SELECT * FROM post";
         $result = $this->conexion->query($query);
-    
+
         // Verificar si la consulta fue exitosa
         if (!$result) {
             die("Error al ejecutar la consulta: " . $this->conexion->error);
         }
-    
+
         // Crear un array para almacenar los posts
         $posts = array();
-    
+
         // Obtener los resultados y mapearlos a objetos postDTO
         while ($row = $result->fetch_assoc()) {
             $post = new postDTO(
@@ -96,14 +97,66 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
             );
             $posts[] = $post;
         }
-    
+
         // Cerrar la conexión
-     
-    
+        // $this->conexion->close(); // Eliminar esta línea
+
         // Retornar el array de posts
         return $posts;
     }
-    
 
+    public function buscarPostsPorUsuario($usuario)
+    {
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+        // Preparar la consulta SQL
+        $query = "SELECT * FROM post WHERE usuario = ?";
+        $statement = $this->conexion->prepare($query);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        // Bind parameter
+        $statement->bind_param("s", $usuario);
+
+        // Ejecutar la consulta
+        $statement->execute();
+
+        // Obtener el resultado de la consulta
+        $result = $statement->get_result();
+
+        // Verificar si la consulta fue exitosa
+        if (!$result) {
+            die("Error al ejecutar la consulta: " . $this->conexion->error);
+        }
+
+        // Crear un array para almacenar los posts
+        $posts = array();
+
+        // Obtener los resultados y mapearlos a objetos postDTO
+        while ($row = $result->fetch_assoc()) {
+            $post = new postDTO(
+                $row['ID'],
+                $row['usuario'],
+                $row['titulo'],
+                $row['texto'],
+                $row['likes'],
+                $row['esComentario'],
+                $row['IDPadre']
+            );
+            $posts[] = $post;
+        }
+
+        // Cerrar la declaración
+        $statement->close();
+
+        // Cerrar la conexión
+     
+
+        // Retornar el array de posts
+        return $posts;
+    }
 }
-

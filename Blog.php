@@ -12,10 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
     $titulo = $_POST['titulo'] ?? '';
     $contenido = $_POST['contenido'] ?? '';
-    $username='';
-    if ( isset($_SESSION["user_obj"])){
+    $username = '';
+    if (isset($_SESSION["user_obj"])) {
         $username = unserialize($_SESSION["user_obj"])->getNombreUsuario();
-    } 
+    }
     // Validar los datos
     if (empty($titulo) || empty($contenido)) {
         // Si falta alguno de los campos, puedes mostrar un mensaje de error o redireccionar a otra página
@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Obtener el nombre de usuario de la sesión
 
-if(isset($_SESSION["user_obj"]))$usuario = unserialize($_SESSION["user_obj"])->getNombreUsuario();
+if (isset($_SESSION["user_obj"]))
+    $usuario = unserialize($_SESSION["user_obj"])->getNombreUsuario();
 
 // Contenido del formulario para crear un nuevo post
 $formularioNuevoPost = '
@@ -46,10 +47,10 @@ $formularioNuevoPost = '
         <h2>Escribe un nuevo post</h2>
         <form action="" method="post">
             <div class="form-group">
-            <textarea class="form-control" id="titulo" name="titulo" rows="1" placeholder="titulo" onclick="if(this.value==\'Exprese su opinión\') this.value=\'\'" required>Titulo del post</textarea>
+            <textarea class="form-control" id="titulo" name="titulo" rows="1" placeholder="titulo" onclick="if(this.value==\'Exprese su opinión\') this.value=\'\'" required></textarea>
             </div>
             <div class="form-group">
-                <textarea class="form-control" id="contenido" name="contenido" rows="3" placeholder="Exprese su opinión" onclick="if(this.value==\'Exprese su opinión\') this.value=\'\'" required>Exprese su opinión</textarea>
+            <textarea class="form-control" id="contenido" name="contenido" rows="3" placeholder="contenido" onclick="if(this.value==\'Exprese su opinión\') this.value=\'\'" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Publicar</button>
         </form>
@@ -73,7 +74,7 @@ foreach ($posts as $post) {
     $contenidoPosts .= '
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">' . $post->getUsuario() . '</h5>
+                <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . $post->getUsuario() . '</a></h5>
                 <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>
                 <p class="card-text">' . $post->getTexto() . '</p>
             </div>
@@ -81,13 +82,14 @@ foreach ($posts as $post) {
     ';
 }
 
+
 $contenidoPosts .= '</div>';
-$contenidoPrincipal='';
+$contenidoPrincipal = '';
 // Contenido completo de la página
-if (isset($_SESSION["user_obj"]) ){
+if (isset($_SESSION["user_obj"])) {
     $contenidoPrincipal = $formularioNuevoPost;
 }
-$contenidoPrincipal.=$contenidoPosts;
+$contenidoPrincipal .= $contenidoPosts;
 
 
 // Incluir la plantilla principal para mostrar el contenido

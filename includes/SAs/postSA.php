@@ -24,6 +24,10 @@ class postSA
         return $posts;
     }
 
-    
+    public function buscarPostsPorUsuario($usuario){
+        $postDAO=new postDAO();
+        $posts= $postDAO->buscarPostsPorUsuario($usuario);
+        return $posts;
+    }
 }
 
