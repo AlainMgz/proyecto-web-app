@@ -18,16 +18,42 @@ class postSA
         return $postDTO;
     }
 
-    public function buscarPosts(){
+    public function borraPost($id_post)
+    {
+        $postDAO = new postDAO();
+        return $postDAO->borrarPost($id_post);
+    }
+
+    public function buscarPosts()
+    {
         $postDAO = new postDAO();
         $posts = $postDAO->buscarPosts();
         return $posts;
     }
 
-    public function buscarPostsPorUsuario($usuario){
-        $postDAO=new postDAO();
-        $posts= $postDAO->buscarPostsPorUsuario($usuario);
+    public function buscarPostsPorUsuario($usuario)
+    {
+        $postDAO = new postDAO();
+        $posts = $postDAO->buscarPostsPorUsuario($usuario);
         return $posts;
+    }
+
+    public function agregarComentario($comentario)
+    {
+        $postDAO = new postDAO();
+        $postDAO->agregarComentario($comentario);
+        return true;
+    }
+
+    public function borrarComentario($id_comentario){
+        $postDAO=new postDAO();
+        return $postDAO->borrarComentario($id_comentario);
+    }
+    public function buscarComentarios($id_post)
+    {
+        $postDAO = new postDAO();
+        $comentarios = $postDAO->buscarComentarios($id_post);
+        return $comentarios;
     }
 }
 
