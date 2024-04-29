@@ -47,5 +47,17 @@ class UsuarioSA {
     public function borraPorId($idUsuario) {
         return UsuarioDAO::borraPorId($idUsuario);
     }
+
+    public function seguirUsuario($nombreUsuario, $nombreUsuarioSeguir) {
+        return UsuarioDAO::seguirUsuario($nombreUsuario, $nombreUsuarioSeguir);
+    }
+
+    public function dejarDeSeguirUsuario($nombreUsuario, $nombreUsuarioSeguir) {
+        return UsuarioDAO::dejarDeSeguirUsuario($nombreUsuario, $nombreUsuarioSeguir);
+    }
+
+    public function buscarUsuariosQueEmpiecenPor($term) {
+        return UsuarioDAO::buscarUsuariosQueEmpiecenPor($term);
+    }
 }
 

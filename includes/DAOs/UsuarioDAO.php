@@ -30,7 +30,27 @@ class UsuarioDAO
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id']);
+                $query_followers = "SELECT * FROM followers WHERE follows=?";
+                $stmt_followers = $conn->prepare($query_followers);
+                $stmt_followers->bind_param("s", $fila['id']);
+                $stmt_followers->execute();
+                $rs_followers = $stmt_followers->get_result();
+                $followers = array();
+                while ($fila_followers = $rs_followers->fetch_assoc()) {
+                    array_push($followers, $fila_followers['user']);
+                }
+                $rs_followers->free();
+                $query_following = "SELECT * FROM followers WHERE user=?";
+                $stmt_following = $conn->prepare($query_following);
+                $stmt_following->bind_param("s", $fila['id']);
+                $stmt_following->execute();
+                $rs_following = $stmt_following->get_result();
+                $following = array();
+                while ($fila_following = $rs_following->fetch_assoc()) {
+                    array_push($following, $fila_following['follows']);
+                }
+                $rs_following->free();
+                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following);
             }
             $rs->free();
         } else {
@@ -50,7 +70,27 @@ class UsuarioDAO
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id']);
+                $query_followers = "SELECT * FROM followers WHERE follows=?";
+                $stmt_followers = $conn->prepare($query_followers);
+                $stmt_followers->bind_param("s", $fila['id']);
+                $stmt_followers->execute();
+                $rs_followers = $stmt_followers->get_result();
+                $followers = array();
+                while ($fila_followers = $rs_followers->fetch_assoc()) {
+                    array_push($followers, $fila_followers['user']);
+                }
+                $rs_followers->free();
+                $query_following = "SELECT * FROM followers WHERE user=?";
+                $stmt_following = $conn->prepare($query_following);
+                $stmt_following->bind_param("s", $fila['id']);
+                $stmt_following->execute();
+                $rs_following = $stmt_following->get_result();
+                $following = array();
+                while ($fila_following = $rs_following->fetch_assoc()) {
+                    array_push($following, $fila_following['follows']);
+                }
+                $rs_following->free();
+                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following);
             }
             $rs->free();
         } else {
@@ -70,7 +110,9 @@ class UsuarioDAO
 
         $checkQuery = "SELECT * FROM users WHERE username = ? OR email = ?";
         $stmt = $conn->prepare($checkQuery);
-        $stmt->bind_param("ss", $usuario->getNombreUsuario(), $usuario->getEmail());
+        $username = $usuario->getNombreUsuario();
+        $email = $usuario->getEmail();
+        $stmt->bind_param("ss", $username, $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -81,7 +123,9 @@ class UsuarioDAO
         } else {
             $insertQuery = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("sssi", $usuario->getNombreUsuario(), $usuario->getEmail(), $usuario->getPassword(), $usuario->getRole());
+            $password = $usuario->getPassword();
+            $role = $usuario->getRole();
+            $stmt->bind_param("sssi", $username, $email, $password, $role);
             if ($stmt->execute()) {
                 $usuario->addId($stmt->insert_id);
                 return $usuario;
@@ -134,6 +178,83 @@ class UsuarioDAO
             return self::actualiza($user);
         }
         return self::inserta($user);
+    }
+
+    public static function seguirUsuario($nombreUsuario, $nombreUsuarioSeguir)
+    {
+        $usuario = self::buscaUsuario($nombreUsuario);
+        $usuarioSeguir = self::buscaUsuario($nombreUsuarioSeguir);
+        
+        if ($usuario && $usuarioSeguir) {
+            $usuarioId = $usuario->getId();
+            $usuarioSeguirId = $usuarioSeguir->getId();
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            if (in_array($usuarioSeguir->getId(), $usuario->getFollowing()) || $usuario->getId() == $usuarioSeguir->getId()) {
+                echo "You are already following this user.";
+                return false;
+            }
+            $query = "INSERT INTO followers (user, follows, since) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($query);
+            $date = date("Y-m-d H:i:s");
+            $stmt->bind_param("iis", $usuarioId, $usuarioSeguirId, $date);
+            
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+                return false;
+            }
+        }
+        
+        return false;
+    }
+
+    public static function dejarDeSeguirUsuario($nombreUsuario, $nombreUsuarioSeguir)
+    {
+        $usuario = self::buscaUsuario($nombreUsuario);
+        $usuarioSeguir = self::buscaUsuario($nombreUsuarioSeguir);
+        
+        if ($usuario && $usuarioSeguir) {
+            $usuarioId = $usuario->getId();
+            $usuarioSeguirId = $usuarioSeguir->getId();
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            if (!in_array($usuarioSeguir->getId(), $usuario->getFollowing()) || $usuario->getId() == $usuarioSeguir->getId()) {
+                echo "You are not following this user.";
+                return false;
+            }
+            $query = "DELETE FROM followers WHERE user = ? AND follows = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $usuarioId, $usuarioSeguirId);
+            
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+                return false;
+            }
+        }
+        
+        return false;
+    }
+
+    public static function buscarUsuariosQueEmpiecenPor($term) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = "SELECT * FROM users WHERE username LIKE ?";
+        $stmt = $conn->prepare($query);
+        $term = $term . "%";
+        $stmt->bind_param("s", $term);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $result = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($result, $fila['username']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
 
 }

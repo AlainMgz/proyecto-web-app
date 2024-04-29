@@ -677,3 +677,99 @@ textarea {
     left: 0;
     z-index: 9999;
 }
+
+.follow-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 2.5%;
+    margin-top: -20px;
+    outline: none;
+    box-shadow: 0 0 5px #007bff;
+    transition: 0.5s ease;
+    width: 20%;
+}
+
+.follow-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 10px #007bff,
+                0 0 20px #007bff;
+    transition: 0.5s ease;
+}
+
+.following-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -20px;
+    margin-left: 2.5%;
+    transition: 0.5s ease;
+    width: 20%;
+}
+
+.following-btn:hover {
+    background-color: #dc3545; /* Red color */
+}
+
+.following-btn:hover::after {
+    content: "Unfollow"; /* Change button text on hover */
+}
+
+.following-btn::after {
+    content: "Following"; /* Default button text */
+}
+
+.following-btn:focus {
+    background-color: #dc3545; /* Red color */
+    color: #fff; /* Text color change on focus */
+}
+
+.following-btn:focus::after {
+    content: "Unfollow"; /* Change button text on focus */
+}
+
+.container-btn {
+    display: flex;
+    align-items: center;
+}
+
+.profile-container {
+    max-width: 45%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    align-items: center;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.profile-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+/* Optional: Add some styling to the values */
+.value {
+    color: #007bff; /* Blue color */
+}

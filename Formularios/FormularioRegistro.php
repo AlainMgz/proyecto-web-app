@@ -84,14 +84,13 @@ class FormularioRegistro extends Formulario
     
         if (count($this->errores) === 0) {
             $usuarioSA = new UsuarioSA();
-           if($usuarioSA->buscaUsuario($username)){
-            $this->errores[] = "El usuario ya existe"; // Corregido el mensaje de error
-           }
-           else{
-         $usuario= $usuarioSA->crea($username, $password, $email, 0);
-          header("Location: login.php"); // Redirige al usuario después del inicio de sesión exitoso
+            if($usuarioSA->buscaUsuario($username)){
+                $this->errores[] = "El usuario ya existe"; // Corregido el mensaje de error
+            } else{
+                $usuario= $usuarioSA->crea($username, $password, $email, 0);
+                header("Location: login.php"); // Redirige al usuario después del inicio de sesión exitoso
                 exit(); // Detiene la ejecución del script después de la redirección
-        }
+            }
         }
     }
 

@@ -19,7 +19,7 @@ function renderizarReviews($reviews_mostradas) {
         $html .= '
             <div class="review">
                 <h2>' . $review->titulo . '</h2>
-                <p><strong>Usuario:</strong> ' . $review->usuario . '</p>
+                <p><strong>Usuario:</strong> <a href="usuario.php?nombre=' . $review->usuario . '">' . $review->usuario . '</a></p>
                 <p><strong>Critica:</strong> ' . $review->critica . '</p>
                 <p><strong>Puntuación:</strong> ' . $review->puntuacion . '</p>
                 <p><strong>Película:</strong> ' . $review->pelicula . '</p>
