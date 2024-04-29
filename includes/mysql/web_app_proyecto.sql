@@ -117,15 +117,16 @@ INSERT INTO `peliculas` (`ID`, `nombre`, `descripcion`, `director`, `genero`, `c
 -- Table structure for table `post`
 --
 
-CREATE TABLE `post` (
-  `ID` int(11) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `texto` text NOT NULL,
-  `likes` int(11) DEFAULT 0,
-  `esComentario` tinyint(1) DEFAULT 0,
-  `IDPadre` int(11) DEFAULT -1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE post (
+    `ID` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario` VARCHAR(255) NOT NULL,
+    `titulo` VARCHAR(255) NOT NULL,
+    `texto` TEXT NOT NULL,
+    `likes` INT DEFAULT 0,
+    `esComentario` BOOLEAN DEFAULT FALSE,
+    `IDPadre` INT DEFAULT -1,
+    INDEX `idx_post_id` (`ID`)
+);
 
 -- --------------------------------------------------------
 
@@ -153,6 +154,21 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `comentarios`
+--
+CREATE TABLE `comentarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_post` int(11) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `contenido` text NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id_post` (`id_post`),
+  CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 --
 -- Table structure for table `users`
 --
@@ -203,6 +219,13 @@ ALTER TABLE `post`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `idx_post_id` (`ID`);
 
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`ID`);
+
 --
 -- Indexes for table `users`
 --
@@ -212,6 +235,13 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+
+--
+-- AUTO_INCREMENT for table `peliculas`
+--
+ALTER TABLE `peliculas`
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `followers`
