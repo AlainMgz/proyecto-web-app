@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
 require_once __DIR__ . '/../DTOs/reviewDTO.php';
-require_once __DIR__ . '/../DTOs/comentarioDTO';
+require_once __DIR__ . '/../DTOs/comentarioDTO.php';
 
 class postDAO
 {

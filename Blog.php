@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/config.php';
 require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAS/postSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
-require_once __DIR__ . '/includes/DTOs/comentarioDTO';
+require_once __DIR__ . '/includes/DTOs/comentarioDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 
 // Si se envió el formulario para crear un nuevo post
