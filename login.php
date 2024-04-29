@@ -8,7 +8,7 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Registro';
 $form = new FormularioLogin();
 $htmlFormRegistro = $form->gestiona();
-$tituloPagina = 'Registro';
+$tituloPagina = 'Login';
 
 $contenidoPrincipal = <<<EOS
 <h1>Login</h1>

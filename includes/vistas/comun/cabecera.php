@@ -34,30 +34,6 @@
     $blog_active = ($current_url == $blog_url) ? 'active' : '';
     $ranking_active = ($current_url == $ranking_url) ? 'active' : '';
 
-    function showGreeting()
-    {
-        if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
-            echo '<li class="nav-item"><a href="login.php" class="nav-link">Unknown user. Login</a></li>';
-        } else {
-            $username = unserialize($_SESSION['user_obj'])->getNombreUsuario();
-            echo <<<EOS
-                <ul class="navbar-nav mr-auto ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hello $username
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{$logout_url}" class="nav-link">Logout</a>
-                    </li>
-                </ul>
-                EOS;
-        }
-        return;
-    }
     ?>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -114,6 +90,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
+                                <a class="dropdown-item" href="usuario.php?nombre=<?= $username ?>">Perfil</a>
                             </div>
                         </li>
                         <li class="nav-item">

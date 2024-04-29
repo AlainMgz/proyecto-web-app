@@ -11,17 +11,23 @@ class UsuarioDTO {
 
     private $role;
 
-    public function __construct($nombreUsuario, $password, $email, $role = 0, $id = null)
+    private $followers = [];
+
+    private $following = [];
+
+    public function __construct($nombreUsuario, $password, $email, $role = 0, $id = null, $followers = [], $following = [])
     {
-        $this->setUser($nombreUsuario, $password, $email, $role, $id);
+        $this->setUser($nombreUsuario, $password, $email, $role, $id, $followers, $following);
     }
 
-    private function setUser($nombreUsuario, $password, $email, $role = 0, $id = null) {
+    private function setUser($nombreUsuario, $password, $email, $role = 0, $id = null, $followers = [], $following = []) {
         $this->id = $id;
         $this->nombreUsuario = $nombreUsuario;
         $this->password = $password;
         $this->email = $email;
         $this->role = $role;
+        $this->followers = $followers;
+        $this->following = $following;
     }
 
     public function getId()
@@ -49,9 +55,20 @@ class UsuarioDTO {
         return $this->role;
     }
 
-    public function compruebaPassword($password)
+    public function getFollowers()
     {
-        return password_verify($password, $this->password);
+        return $this->followers;
+    }
+
+    public function getFollowing()
+    {
+        return $this->following;
+    }
+
+    public function compruebaPassword($password)
+    {  
+        $password_check = password_verify($password, $this->password);
+        return $password_check;
     }
 
     public function cambiaPassword($nuevoPassword)
