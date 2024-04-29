@@ -97,7 +97,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
                             success: function(response){
                                 // Handle the response from the server
                                 if (response) { 
-                                    alert("Error following user:\n" . response);
+                                    alert("Error following user:\n" + response);
                                 }
                                 location.reload();
                             }
@@ -140,7 +140,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
                             success: function(response){
                                 // Handle the response from the server
                                 if (response) { 
-                                    alert("Error unfollowing user:\n" . response);
+                                    alert("Error unfollowing user:\n" + response);
                                 }
                                 location.reload();
                             }

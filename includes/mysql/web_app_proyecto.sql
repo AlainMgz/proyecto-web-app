@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `followers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) AUTO_INCREMENT PRIMARY KEY,
   `user` int(11) NOT NULL,
   `follows` int(11) NOT NULL,
   `since` date NOT NULL
@@ -78,7 +78,7 @@ INSERT INTO `generos` (`genero`) VALUES
 --
 
 CREATE TABLE `peliculas` (
-  `ID` int(10) UNSIGNED NOT NULL,
+  `ID` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `nombre` varchar(20) NOT NULL,
   `descripcion` text NOT NULL,
   `director` varchar(20) NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE post (
 --
 
 CREATE TABLE `reviews` (
-  `ID` int(20) UNSIGNED NOT NULL,
+  `ID` int(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `usuario` varchar(20) NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `critica` varchar(300) NOT NULL,
@@ -158,7 +158,7 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 -- Table structure for table `comentarios`
 --
 CREATE TABLE `comentarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `id_post` int(11) NOT NULL,
   `usuario` varchar(255) NOT NULL,
   `contenido` text NOT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE `comentarios` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `email` varchar(255) NOT NULL,

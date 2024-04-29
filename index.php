@@ -4,6 +4,7 @@ require_once BASE_APP . '/includes/session_start.php';
 require_once BASE_APP . '/includes/DTOs/UsuarioDTO.php';
 require_once BASE_APP . '/includes/SAs/PeliculaSA.php';
 
+$tituloPagina = 'FEELM - Home Page';
 $contenidoPrincipal = '';
 
 // Empieza a capturar el contenido principal
