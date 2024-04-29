@@ -72,7 +72,7 @@ class FormularioLogin extends Formulario
         $usuarioSA = new UsuarioSA();
         $usuario = $usuarioSA->login($username, $password);
         if (!$usuario) {
-            $this->errores[] = "El usuario o la contraseña no coincide "; // Corregido el mensaje de error
+            $this->errores[] = "El usuario o la contraseña no coinciden"; // Corregido el mensaje de error
         } else {
             $_SESSION['login'] = true;
             $_SESSION['user_obj'] = serialize($usuario);
