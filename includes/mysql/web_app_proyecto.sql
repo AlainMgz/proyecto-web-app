@@ -143,6 +143,18 @@ CREATE TABLE `users` (
   `role` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+CREATE TABLE `comentarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_post` int(11) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `contenido` text NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id_post` (`id_post`),
+  CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Volcado de datos para la tabla `users`
 --

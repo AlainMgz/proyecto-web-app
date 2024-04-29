@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
 require_once __DIR__ . '/../DTOs/reviewDTO.php';
+require_once __DIR__ . '/../DTOs/comentarioDTO';
 
 class postDAO
 {
@@ -154,9 +155,190 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $statement->close();
 
         // Cerrar la conexión
-     
+
 
         // Retornar el array de posts
         return $posts;
+    }
+
+    public function agregarComentario($comentarioDTO)
+    {
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+        // Obtener los valores del comentarioDTO
+        $id_post = $comentarioDTO->getIdPost();
+        $usuario = $comentarioDTO->getUsuario();
+        $contenido = $comentarioDTO->getContenido();
+
+        // Preparar la consulta SQL
+        $query = "INSERT INTO comentarios (id_post, usuario, contenido) VALUES (?, ?, ?)";
+        $statement = $this->conexion->prepare($query);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        // Bind parameters
+        $statement->bind_param("iss", $id_post, $usuario, $contenido);
+
+        // Ejecutar la consulta
+        $statement->execute();
+
+        // Verificar si se insertó correctamente
+        if ($statement->affected_rows === 1) {
+            echo "Comentario insertado correctamente.";
+        } else {
+            echo "Error al insertar el comentario: " . $this->conexion->error;
+        }
+
+        // Cerrar la declaración
+        $statement->close();
+
+    }
+
+    public function borrarPost($id_post)
+    {
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+        // Eliminar todos los comentarios asociados al post
+        $queryDeleteComments = "DELETE FROM comentarios WHERE id_post = ?";
+        $statementDeleteComments = $this->conexion->prepare($queryDeleteComments);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statementDeleteComments) {
+            die("Error al preparar la consulta para eliminar comentarios: " . $this->conexion->error);
+        }
+
+        // Bind parameter
+        $statementDeleteComments->bind_param("i", $id_post);
+
+        // Ejecutar la consulta
+        $statementDeleteComments->execute();
+
+        // Verificar si se eliminaron los comentarios correctamente
+        if ($statementDeleteComments->affected_rows < 0) {
+            echo "Error al eliminar comentarios asociados al post: " . $this->conexion->error;
+        }
+
+        // Cerrar la declaración
+        $statementDeleteComments->close();
+
+        // Preparar la consulta SQL para eliminar el post
+        $queryDeletePost = "DELETE FROM post WHERE ID = ?";
+        $statementDeletePost = $this->conexion->prepare($queryDeletePost);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statementDeletePost) {
+            die("Error al preparar la consulta para eliminar el post: " . $this->conexion->error);
+        }
+
+        // Bind parameter
+        $statementDeletePost->bind_param("i", $id_post);
+
+        // Ejecutar la consulta
+        $statementDeletePost->execute();
+
+        // Verificar si se eliminó el post correctamente
+        if ($statementDeletePost->affected_rows === 1) {
+            echo "Post eliminado correctamente.";
+        } else {
+            echo "Error al eliminar el post: " . $this->conexion->error;
+        }
+
+        // Cerrar la declaración
+        $statementDeletePost->close();
+
+        // Cerrar la conexión
+        $this->conexion->close();
+    }
+
+    public function buscarComentarios($id_post)
+    {
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+        // Array para almacenar los comentarios
+        $comentarios = array();
+
+        // Preparar la consulta SQL
+        $query = "SELECT * FROM comentarios WHERE id_post = ?";
+        $statement = $this->conexion->prepare($query);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $this->conexion->error);
+        }
+
+        // Bind parameter
+        $statement->bind_param("i", $id_post);
+
+        // Ejecutar la consulta
+        $statement->execute();
+
+        // Obtener el resultado de la consulta
+        $result = $statement->get_result();
+
+        // Verificar si la consulta fue exitosa
+        if (!$result) {
+            die("Error al ejecutar la consulta: " . $this->conexion->error);
+        }
+
+        // Obtener los resultados y mapearlos a objetos comentarioDTO
+        while ($row = $result->fetch_assoc()) {
+            $comentario = new comentarioDTO(
+                $row['id'],
+                $row['id_post'],
+                $row['usuario'],
+                $row['contenido'],
+                $row['fecha']
+            );
+            $comentarios[] = $comentario;
+        }
+
+        // Cerrar la declaración
+        $statement->close();
+
+        // Cerrar la conexión
+        // $this->conexion->close(); // Eliminar esta línea si la conexión se cierra en otro lugar
+
+        // Retornar el array de comentarios
+        return $comentarios;
+    }
+
+    public function borrarComentario($id_comentario)
+    {
+        // Establecer la conexión a la base de datos
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+        // Preparar la consulta SQL para eliminar el comentario
+        $query = "DELETE FROM comentarios WHERE id = ?";
+        $statement = $this->conexion->prepare($query);
+
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement) {
+            die("Error al preparar la consulta para eliminar el comentario: " . $this->conexion->error);
+        }
+
+        // Bind parameter
+        $statement->bind_param("i", $id_comentario);
+
+        // Ejecutar la consulta
+        $statement->execute();
+
+        // Verificar si se eliminó el comentario correctamente
+        if ($statement->affected_rows === 1) {
+            echo "Comentario eliminado correctamente.";
+        } else {
+            echo "Error al eliminar el comentario: " . $this->conexion->error;
+        }
+
+        // Cerrar la declaración
+        $statement->close();
+
+        // Cerrar la conexión
+        $this->conexion->close();
     }
 }
