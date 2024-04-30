@@ -158,7 +158,7 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 -- Table structure for table `comentarios`
 --
 CREATE TABLE `comentarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_post` int(11) NOT NULL,
   `usuario` varchar(255) NOT NULL,
   `contenido` text NOT NULL,
@@ -167,6 +167,7 @@ CREATE TABLE `comentarios` (
   KEY `id_post` (`id_post`),
   CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 --
@@ -181,6 +182,14 @@ CREATE TABLE `users` (
   `role` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `likes` (
+  `id` int(11) AUTO_INCREMENT PRIMARY KEY,
+  `id_post` int(11) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`),
+  UNIQUE KEY `unique_like` (`id_post`, `usuario`)
+);
 --
 -- Dumping data for table `users`
 --

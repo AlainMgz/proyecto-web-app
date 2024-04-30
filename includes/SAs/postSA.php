@@ -55,5 +55,15 @@ class postSA
         $comentarios = $postDAO->buscarComentarios($id_post);
         return $comentarios;
     }
+
+    public function agregarLike($id_post){
+        $postDAO= new PostDAO();
+        return $postDAO->agregarLike($id_post);
+    }
+
+    public function usuarioDioLike($id,$usuario){
+        $postDAO= new postDAO();
+        return $postDAO->usuarioDioLike($id, $usuario);
+    }
 }
 

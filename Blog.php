@@ -99,6 +99,9 @@ $posts = $postSA->buscarPosts();
 // Contenido de los posts existentes
 $contenidoPosts = '<div class="container mt-3">';
 foreach ($posts as $post) {
+    // Verificar si el usuario actual ya le dio like al post
+    $yaDioLike = $postSA->usuarioDioLike($post->getID(), $usuario);
+
     // Formatear cada post
     $contenidoPosts .= '
         <div class="card mb-3">
@@ -106,6 +109,22 @@ foreach ($posts as $post) {
                 <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . $post->getUsuario() . '</a></h5>
                 <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>
                 <p class="card-text">' . $post->getTexto() . '</p>
+                <p class="card-text">Likes: ' . $post->getLikes() . '</p>';
+    
+    // Mostrar el botón de like si el post no es del usuario actual y si el usuario no le dio like aún
+    if ($usuario !== $post->getUsuario() && !$yaDioLike) {
+        $contenidoPosts .= '
+            <!-- Botón para dar like -->
+            <form action="" method="post">
+                <input type="hidden" name="id_post_like" value="' . $post->getID() . '">
+                <button type="submit" class="btn btn-primary">Like</button>
+            </form>';
+    } elseif ($yaDioLike) {
+        $contenidoPosts .= '<p class="text-muted">Ya has dado like a este post.</p>';
+    }
+
+    // Continuación del formateo del post
+    $contenidoPosts .= '
                 <!-- Botón para mostrar/ocultar comentarios -->
                 <button class="btn btn-link" onclick="toggleComments(' . $post->getID() . ')">Mostrar/ocultar comentarios</button>
                 <!-- Formulario para agregar comentarios -->
@@ -119,7 +138,6 @@ foreach ($posts as $post) {
                 <!-- Contenedor de comentarios -->
                 <div id="comments-' . $post->getID() . '" style="display: none;">';
 
-                
     // Mostrar comentarios existentes para este post
     $comments = $postSA->buscarComentarios($post->getID());
     foreach ($comments as $comment) {
@@ -142,6 +160,19 @@ foreach ($posts as $post) {
 }
 
 $contenidoPosts .= '</div>';
+
+// Si se envió el formulario para dar like a un post
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_like'])) {
+    // Obtener el ID del post al que se le dará like
+    $id_post_like = $_POST['id_post_like'];
+
+    // Llamar al método para agregar like del SA de Post
+    $postSA->agregarLike($id_post_like);
+
+    // Redireccionar a esta misma página para actualizar la lista de posts
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+}
 
 // JavaScript para mostrar/ocultar comentarios y enviar comentarios
 $script = '
