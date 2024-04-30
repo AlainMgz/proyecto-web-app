@@ -10,11 +10,11 @@ require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla
 $tituloPagina = 'Perfil de Usuario';
 
 if (!isset($_GET['nombre'])) {
-    header(__DIR__ . 'Location: index.php');
+    header('Location: index.php');
 }
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] == false || !isset($_SESSION['user_obj'])) { // Si no está logueado, redirigir a login porque no puede ver perfiles
-    header(__DIR__ . 'Location: login.php');
+    header('Location: login.php');
 }
 
 $usuarioSA = new UsuarioSA();
