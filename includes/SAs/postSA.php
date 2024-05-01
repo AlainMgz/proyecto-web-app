@@ -56,14 +56,14 @@ class postSA
         return $comentarios;
     }
 
-    public function agregarLike($id_post){
+    public function agregarLike($id_post, $id_usuario){
         $postDAO= new PostDAO();
-        return $postDAO->agregarLike($id_post);
+        return $postDAO->agregarLike($id_post, $id_usuario);
     }
 
-    public function usuarioDioLike($id,$usuario){
+    public function usuarioDioLike($id,$id_usuario){
         $postDAO= new postDAO();
-        return $postDAO->usuarioDioLike($id, $usuario);
+        return $postDAO->usuarioDioLike($id, $id_usuario);
     }
 }
 

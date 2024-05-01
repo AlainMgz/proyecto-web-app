@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
 require_once __DIR__ . '/../DTOs/reviewDTO.php';
-require_once __DIR__ . '/../DTOs/comentarioDTO';
+require_once __DIR__ . '/../DTOs/comentarioDTO.php';
 
 class postDAO
 {
@@ -342,77 +342,110 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $this->conexion->close();
     }
 
-    public function agregarLike($IDpost)
+    public function agregarLike($IDpost, $id_usuario)
     {
         // Establecer la conexión a la base de datos
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-
-        // Preparar la consulta SQL para actualizar el número de likes
-        $query = "UPDATE post SET likes = likes + 1 WHERE ID = ?";
-        $statement = $this->conexion->prepare($query);
-
+    
+        // Iniciar una transacción
+        $this->conexion->begin_transaction();
+    
+        // Preparar la consulta SQL para insertar el like en la tabla likes
+        $query_likes = "INSERT INTO likes (id, id_post) VALUES (?, ?)";
+        $statement_likes = $this->conexion->prepare($query_likes);
+    
         // Verificar si la preparación de la consulta fue exitosa
-        if (!$statement) {
+        if (!$statement_likes) {
             die("Error al preparar la consulta para agregar like: " . $this->conexion->error);
         }
-
-        // Bind parameter
-        $statement->bind_param("i", $IDpost);
-
-        // Ejecutar la consulta
-        $statement->execute();
-
-        // Verificar si se actualizó el post correctamente
-        if ($statement->affected_rows === 1) {
+    
+        // Bind parameters para la tabla likes
+        $statement_likes->bind_param("ii", $id_usuario, $IDpost);
+    
+        // Ejecutar la consulta para la tabla likes
+        $statement_likes->execute();
+    
+        // Verificar si se insertó el like correctamente en la tabla likes
+        if ($statement_likes->affected_rows === 1) {
             echo "Like agregado correctamente al post con ID $IDpost.";
         } else {
             echo "Error al agregar like al post con ID $IDpost: " . $this->conexion->error;
         }
-
-        // Cerrar la declaración
-        $statement->close();
-
+    
+        // Cerrar la declaración de la tabla likes
+        $statement_likes->close();
+    
+        // Preparar la consulta SQL para actualizar el número de likes en la tabla post
+        $query_post = "UPDATE post SET likes = likes + 1 WHERE ID = ?";
+        $statement_post = $this->conexion->prepare($query_post);
+    
+        // Verificar si la preparación de la consulta fue exitosa
+        if (!$statement_post) {
+            die("Error al preparar la consulta para agregar like: " . $this->conexion->error);
+        }
+    
+        // Bind parameter para la tabla post
+        $statement_post->bind_param("i", $IDpost);
+    
+        // Ejecutar la consulta para la tabla post
+        $statement_post->execute();
+    
+        // Verificar si se actualizó el post correctamente
+        if ($statement_post->affected_rows === 1) {
+            echo "Like agregado correctamente al post con ID $IDpost.";
+        } else {
+            echo "Error al agregar like al post con ID $IDpost: " . $this->conexion->error;
+        }
+    
+        // Cerrar la declaración de la tabla post
+        $statement_post->close();
+    
+        // Hacer commit de la transacción
+        $this->conexion->commit();
+    
         // Cerrar la conexión
         $this->conexion->close();
     }
+    
 
-    public function usuarioDioLike($id_post, $usuario)
-    {
-        // Establecer la conexión a la base de datos
-        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+    public function usuarioDioLike($id_post, $id_usuario)
+{
+    // Establecer la conexión a la base de datos
+    $this->conexion = Aplicacion::getInstance()->getConexionBd();
 
-        // Preparar la consulta SQL para verificar si el usuario ya dio like al post
-        $query = "SELECT COUNT(*) as count FROM likes WHERE id_post = ? AND usuario = ?";
-        $statement = $this->conexion->prepare($query);
+    // Preparar la consulta SQL para verificar si el usuario ya dio like al post
+    $query = "SELECT COUNT(*) as count FROM likes WHERE id_post = ? AND id = ?";
+    $statement = $this->conexion->prepare($query);
 
-        // Verificar si la preparación de la consulta fue exitosa
-        if (!$statement) {
-            die("Error al preparar la consulta para verificar si el usuario dio like: " . $this->conexion->error);
-        }
-
-        // Bind parameters
-        $statement->bind_param("is", $id_post, $usuario);
-
-        // Ejecutar la consulta
-        $statement->execute();
-
-        // Obtener el resultado de la consulta
-        $result = $statement->get_result();
-
-        // Verificar si la consulta fue exitosa
-        if (!$result) {
-            die("Error al ejecutar la consulta para verificar si el usuario dio like: " . $this->conexion->error);
-        }
-
-        // Obtener el número de filas afectadas
-        $row = $result->fetch_assoc();
-        $count = $row['count'];
-
-        // Cerrar la declaración
-        $statement->close();
-
-        // Retornar true si el usuario ya dio like, false en caso contrario
-        return ($count > 0);
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta para verificar si el usuario dio like: " . $this->conexion->error);
     }
+
+    // Bind parameters
+    $statement->bind_param("ii", $id_post, $id_usuario);
+
+    // Ejecutar la consulta
+    $statement->execute();
+
+    // Obtener el resultado de la consulta
+    $result = $statement->get_result();
+
+    // Verificar si la consulta fue exitosa
+    if (!$result) {
+        die("Error al ejecutar la consulta para verificar si el usuario dio like: " . $this->conexion->error);
+    }
+
+    // Obtener el número de filas afectadas
+    $row = $result->fetch_assoc();
+    $count = $row['count'];
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar true si el usuario ya dio like, false en caso contrario
+    return ($count > 0);
+}
+
 
 }

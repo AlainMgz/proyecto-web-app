@@ -185,10 +185,8 @@ CREATE TABLE `users` (
 CREATE TABLE `likes` (
   `id` int(11) AUTO_INCREMENT PRIMARY KEY,
   `id_post` int(11) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`),
-  UNIQUE KEY `unique_like` (`id_post`, `usuario`)
+  UNIQUE KEY `unique_like` (`id_post`)
 );
 --
 -- Dumping data for table `users`

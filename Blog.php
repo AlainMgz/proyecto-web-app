@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/config.php';
 require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAS/postSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
-require_once __DIR__ . '/includes/DTOs/comentarioDTO';
+require_once __DIR__ . '/includes/DTOs/comentarioDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 
 // Si se envió el formulario para crear un nuevo post
@@ -79,7 +79,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post'])) {
         exit();
     }
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_delete'])) {
+    // Obtener el ID del post a eliminar
+    $id_post_delete = $_POST['id_post_delete'];
 
+    // Llamar al método para eliminar el post del SA de Post
+    $postSA->borraPost($id_post_delete);
+
+    // Redireccionar a esta misma página para actualizar la lista de posts
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+}
 // Si se envió el formulario para eliminar un comentario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_comment_delete'])) {
     // Obtener el ID del comentario a eliminar
@@ -109,7 +119,12 @@ foreach ($posts as $post) {
                 <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . $post->getUsuario() . '</a></h5>
                 <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>
                 <p class="card-text">' . $post->getTexto() . '</p>
-                <p class="card-text">Likes: ' . $post->getLikes() . '</p>';
+                <p class="card-text">Likes: ' . $post->getLikes() . '</p>
+                <!-- Formulario para eliminar el post -->
+                <form action="" method="post">
+                    <input type="hidden" name="id_post_delete" value="' . $post->getID() . '">
+                    <button type="submit" class="btn btn-danger">Borrar Post</button>
+                </form>';
     
     // Mostrar el botón de like si el post no es del usuario actual y si el usuario no le dio like aún
     if ($usuario !== $post->getUsuario() && !$yaDioLike) {
@@ -157,9 +172,11 @@ foreach ($posts as $post) {
         ';
     }
 
+    // Continuación del formateo del post
+    $contenidoPosts .= '</div>';
 }
 
-$contenidoPosts .= '</div>';
+$contenidoPosts .= '</div>'; // Cerrar el div container abierto al inicio del bucle foreach
 
 // Si se envió el formulario para dar like a un post
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_like'])) {
@@ -167,7 +184,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_like'])) {
     $id_post_like = $_POST['id_post_like'];
 
     // Llamar al método para agregar like del SA de Post
-    $postSA->agregarLike($id_post_like);
+    if(!$postSA->usuarioDioLike($id_post_like, unserialize($_SESSION["user_obj"])->getID())){
+    $postSA->agregarLike($id_post_like, unserialize($_SESSION["user_obj"])->getID());
+    }
 
     // Redireccionar a esta misma página para actualizar la lista de posts
     header('Location: ' . $_SERVER['PHP_SELF']);
