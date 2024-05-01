@@ -59,5 +59,9 @@ class UsuarioSA {
     public function buscarUsuariosQueEmpiecenPor($term) {
         return UsuarioDAO::buscarUsuariosQueEmpiecenPor($term);
     }
+
+    public function buscaNombrePorId($idUsuario) {
+        return UsuarioDAO::buscaNombrePorId($idUsuario);
+    }
 }
 

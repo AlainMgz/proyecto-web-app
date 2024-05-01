@@ -32,6 +32,20 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     $seguidores= $usuario->getFollowers();
     $seguidos= $usuario->getFollowing();
 
+    $seguidoresDropdown = '<div class="dropdown-content-followers">';
+    foreach ($seguidores as $seguidor) {
+        $seguidorNombre = $usuarioSA->buscaNombrePorId($seguidor);
+        $seguidoresDropdown .= '<span><a href="usuario.php?nombre=' . $seguidorNombre . '">' . $seguidorNombre . '</a></span>';
+    }
+    $seguidoresDropdown .= '</div>';
+
+    $seguidosDropdown = '<div class="dropdown-content-followers">';
+    foreach ($seguidos as $seguido) {
+        $seguidoNombre = $usuarioSA->buscaNombrePorId($seguido);
+        $seguidosDropdown .= '<span><a href="usuario.php?nombre=' . $seguidoNombre . '">' . $seguidoNombre . '</a></span>';
+    }
+    $seguidosDropdown .= '</div>';
+
     // Contenido de la información del usuario
     $infoUsuario = '
     <div class="profile-container">
@@ -43,11 +57,15 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
             </div>
             <div class="profile-detail">
                 <span class="label">Seguidores:</span>
-                <span class="value">' . count($seguidores) . '</span>
+                <span class="dropdown-followers">
+                    <span class="value">' . count($seguidores) . '</span>' . $seguidoresDropdown . '
+                </span>
             </div>
             <div class="profile-detail">
                 <span class="label">Seguidos:</span>
-                <span class="value">' . count($seguidos) . '</span>
+                <span class="dropdown-followers">
+                    <span class="value">' . count($seguidos) . '</span>' . $seguidosDropdown . '
+                </span>
             </div>
         </div>
     </div>
