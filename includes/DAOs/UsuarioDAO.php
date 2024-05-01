@@ -98,6 +98,26 @@ class UsuarioDAO
         }
         return $result;
     }
+
+    public static function buscaNombrePorId($idUsuario)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT username FROM users WHERE id=%d", $idUsuario);
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = $fila['username'];
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
     
     private static function hashPassword($password)
     {
