@@ -430,5 +430,62 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
     }
 
 
+    public static function obtenerTotalReviews(){
+
+        $conexion = Aplicacion::getInstance()->getConexionBd();
+        
+        $query = "SELECT COUNT(*) AS total FROM reviews";
+        $statement = $conexion->prepare($query);
+
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+        
+        $statement->execute();
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
+    }
+
+    public static function obtenerTotalReviewsUsuario($usuario){
+
+        $conexion = Aplicacion::getInstance()->getConexionBd();
+         
+        $query = "SELECT COUNT(*) AS total FROM reviews WHERE usuario = ?";
+        $statement = $conexion->prepare($query);
+
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+        
+        $statement->bind_param("s", $usuario);
+        $statement->execute();
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
+    }
+
+    public static function obtenerTotalReviewsPelicula($pelicula){
+
+        $conexion = Aplicacion::getInstance()->getConexionBd();
+        
+        $query = "SELECT COUNT(*) AS total FROM reviews WHERE pelicula = ?";
+        $statement = $conexion->prepare($query);
+
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+        
+        $statement->bind_param("s", $pelicula);
+        $statement->execute();
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
+    }
+
+
 }
 

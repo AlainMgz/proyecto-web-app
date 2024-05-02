@@ -21,7 +21,7 @@
   <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     integrity="sha384-..." crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 
@@ -33,13 +33,36 @@
   require RAIZ_APP . '/vistas/comun/cabecera.php';
 
   // Definir $pagina con un valor predeterminado si no está definido
-  $pagina = isset ($_GET['pagina']) ? intval($_GET['pagina']) : 0;
-  $nombre = isset ($_GET['nombre']) ? $_GET['nombre'] : '';
-  $current_url = $_SERVER['REQUEST_URI'];
+  $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 0;
+  $nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
+  $numElementos;
+
+  $current_url = explode('?', $_SERVER['REQUEST_URI'])[0];
+
+  $estrenos_url = RUTA_APP . '/estrenos.php';
+  $reviews_url = RUTA_APP . '/lastReviews.php';
+  $review_pelicula_url = RUTA_APP . '/reviewPelicula.php';
+  $review_usuario_url = RUTA_APP . '/criticasUsuario.php';
+
+  if ($current_url == $reviews_url) {
+    $numElementos = ReviewDAO::obtenerTotalReviews();
+    $numPaginas = ceil($numElementos / 5);
+  } else if ($current_url == $estrenos_url) {
+    $numElementos = PeliculaDAO::obtenerTotalPeliculas();
+    $numPaginas = ceil($numElementos / 12);
+  }
+  else if ($current_url == $review_pelicula_url) {
+    $numElementos = ReviewDAO::obtenerTotalReviewsPelicula($nombre);
+    $numPaginas = ceil($numElementos / 5);
+  }
+  else if ($current_url == $review_usuario_url) {
+    $numElementos = ReviewDAO::obtenerTotalReviewsUsuario(unserialize($_SESSION['user_obj'])->getNombreUsuario());
+    $numPaginas = ceil($numElementos / 5);
+  }
   ?>
 
   <!-- Cabecera secundaria -->
-  <?php if (isset ($selectGenero)): ?>
+  <?php if (isset($selectGenero)): ?>
     <header class="cabecera_secundaria">
       <?= $selectGenero ?>
     </header>
@@ -48,17 +71,20 @@
   <!-- Contenido principal -->
   <?= $contenidoPrincipal ?>
 
-  <div id="pagination" class="d-flex justify-content-center align-items-center">
-    <button id="prevPage" class="btn btn-outline-secondary mr-2">
+  <div id="pagination" class="d-flex justify-content-center align-items-center" style="pointer-events: none;">
+    <button id="prevPage" class="btn btn-outline-secondary mr-2"
+      style="display: <?= $pagina > 0 ? 'flex' : 'none' ?> ; pointer-events: auto;">
       <span aria-hidden="true" class="fas fa-arrow-alt-circle-left"></span>
     </button>
     <div id="pageNumbers" class="mx-3">
       <?= $pagina ?>
     </div>
-    <button id="nextPage" class="btn btn-outline-secondary ml-2">
+    <button id="nextPage" class="btn btn-outline-secondary ml-2"
+      style="display: <?= $pagina < $numPaginas - 1 ? 'flex' : 'none' ?> ; pointer-events: auto;">
       <span aria-hidden="true" class="fas fa-arrow-alt-circle-right"></span>
     </button>
   </div>
+
 
   <!-- Script para manejar la paginación -->
   <script>
