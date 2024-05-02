@@ -379,5 +379,23 @@ class PeliculaDAO
 
         return $peliculas;
     }
+
+    public static function obtenerTotalPeliculas(){
+
+        $conexion = Aplicacion::getInstance()->getConexionBd();
+        
+        $query = "SELECT COUNT(*) AS total FROM peliculas";
+        $statement = $conexion->prepare($query);
+
+        if (!$statement) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+        
+        $statement->execute();
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
+    }
 }
 

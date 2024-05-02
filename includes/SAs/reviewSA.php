@@ -77,4 +77,11 @@ class ReviewSA
         return $reviews;
     }
 
+    public function obtenerTotalReviews(){
+        $reviewDAO = new reviewDAO();
+
+        $num = $reviewDAO->obtenerTotalReviews();
+        return $num;
+    }
+
 }
