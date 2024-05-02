@@ -29,7 +29,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         if ($this->conexion->connect_error) {
             die("Error de conexión a la base de datos: " . $this->conexion->connect_error);
         }
-
+    
         // Obtener los valores del postDTO
         $id = $postDTO->getID();
         $usuario = $postDTO->getUsuario();
@@ -38,36 +38,36 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $likes = $postDTO->getLikes();
         $esComentario = $postDTO->getEsComentario();
         $IDPadre = $postDTO->getIDPadre();
-
+    
         // Preparar la consulta SQL
         $query = "INSERT INTO post (ID, usuario, titulo, texto, likes, esComentario, IDPadre) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $statement = $this->conexion->prepare($query);
-
+    
         // Verificar si la preparación de la consulta fue exitosa
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
+    
         // Bind parameters
-        $statement->bind_param("issisii", $id, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
-
+        $statement->bind_param("isssiii", $id, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
+    
         // Ejecutar la consulta
         $statement->execute();
-
+    
         // Verificar si se insertó correctamente
         if ($statement->affected_rows === 1) {
             echo "Post insertado correctamente.";
         } else {
             echo "Error al insertar el post: " . $this->conexion->error;
         }
-
+    
         // Cerrar la declaración
         $statement->close();
-
+    
         // Cerrar la conexión
         $this->conexion->close();
     }
-
+    
     public function buscarPosts()
     {
         // Establecer la conexión a la base de datos
@@ -447,5 +447,33 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
     return ($count > 0);
 }
 
+//se encarga del borrado de todos los posts cuya id coincida con $IDPost
+public function borrarLikesPorId($idPost) {
+    // Establecer la conexión a la base de datos
+    $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+    // Eliminar todos los likes asociados al post
+    $queryDeleteLikes = "DELETE FROM likes WHERE id_post = ?";
+    $statementDeleteLikes = $this->conexion->prepare($queryDeleteLikes);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statementDeleteLikes) {
+        throw new Exception("Error al preparar la consulta para eliminar likes: " . $this->conexion->error);
+    }
+
+    // Bind parameter
+    $statementDeleteLikes->bind_param("i", $idPost);
+
+    // Ejecutar la consulta
+    $statementDeleteLikes->execute();
+
+    // Verificar si se eliminaron los likes correctamente
+    if ($statementDeleteLikes->affected_rows < 0) {
+        throw new Exception("Error al eliminar likes asociados al post: " . $this->conexion->error);
+    }
+
+    // Cerrar la conexión
+
+}
 
 }

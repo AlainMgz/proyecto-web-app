@@ -21,7 +21,9 @@ class postSA
     public function borraPost($id_post)
     {
         $postDAO = new postDAO();
+        $postDAO->borrarLikesPorId($id_post);
         return $postDAO->borrarPost($id_post);
+
     }
 
     public function buscarPosts()
@@ -45,8 +47,9 @@ class postSA
         return true;
     }
 
-    public function borrarComentario($id_comentario){
-        $postDAO=new postDAO();
+    public function borrarComentario($id_comentario)
+    {
+        $postDAO = new postDAO();
         return $postDAO->borrarComentario($id_comentario);
     }
     public function buscarComentarios($id_post)
@@ -56,13 +59,15 @@ class postSA
         return $comentarios;
     }
 
-    public function agregarLike($id_post, $id_usuario){
-        $postDAO= new PostDAO();
+    public function agregarLike($id_post, $id_usuario)
+    {
+        $postDAO = new PostDAO();
         return $postDAO->agregarLike($id_post, $id_usuario);
     }
 
-    public function usuarioDioLike($id,$id_usuario){
-        $postDAO= new postDAO();
+    public function usuarioDioLike($id, $id_usuario)
+    {
+        $postDAO = new postDAO();
         return $postDAO->usuarioDioLike($id, $id_usuario);
     }
 }
