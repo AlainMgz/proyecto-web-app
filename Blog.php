@@ -105,6 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_comment_delete'])) 
 $posts = $postSA->buscarPosts();
 
 // Contenido de los posts existentes
+// Contenido de los posts existentes
 $contenidoPosts = '<div class="container mt-3">';
 foreach ($posts as $post) {
     $yaDioLike = $postSA->usuarioDioLike($post->getID(), $usuario);
@@ -123,7 +124,7 @@ foreach ($posts as $post) {
             <!-- Formulario para eliminar el post -->
             <form action="" method="post">
                 <input type="hidden" name="id_post_delete" value="' . escape($post->getID()) . '">
-                <button type="submit" class="btn btn-danger">Borrar Post</button>
+                <button type="submit" class="btn btn-danger borrar">Borrar Post</button>
             </form>';
     }
 
@@ -153,14 +154,14 @@ foreach ($posts as $post) {
     $comments = $postSA->buscarComentarios($post->getID());
     foreach ($comments as $comment) {
         $contenidoPosts .= '
-            <div class="card mt-3">
+            <div class="card mt-3 comentario">
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted">' . escape($comment->getUsuario()) . '</h6>
                     <p class="card-text">' . escape($comment->getContenido()) . '</p>
                     <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>
                     <form action="" method="post">
                         <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
-                        <button type="submit" class="btn btn-danger">Eliminar Comentario</button>
+                        <button type="submit" class="btn btn-danger borrar">Eliminar Comentario</button>
                     </form>
                 </div>
             </div>
@@ -171,6 +172,7 @@ foreach ($posts as $post) {
 }
 
 $contenidoPosts .= '</div>';
+
 
 // Si se envió el formulario para dar like a un post
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_like'])) {

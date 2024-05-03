@@ -53,4 +53,4 @@ if (!empty($listaPeliculas)) {
 
 // Incluir la plantilla principal para mostrar el contenido
 require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
-?>
+
