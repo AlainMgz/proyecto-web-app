@@ -3,6 +3,7 @@
 require_once __DIR__ . '/includes/config.php';
 require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/SAS/postSA.php';
+require_once __DIR__ . '/includes/SAS/usuarioSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/DTOs/comentarioDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
@@ -113,7 +114,11 @@ foreach ($posts as $post) {
         <div class="mt-3">
             <div class="card mb-4">
                 <div class="media px-3 pt-3">
-                    <img src="img/user_default.png" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
+                    ';
+                    $usuarioSA = new UsuarioSA();
+                    $usuarioPost = $usuarioSA->buscaUsuario($post->getUsuario());
+                    $contenidoPosts .= '
+                    <img src="img/' . $usuarioPost->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
                     <div class="media-body">
                         <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . '</a></h5>
                     </div>
@@ -174,7 +179,11 @@ foreach ($posts as $post) {
             <li class="list-group-item">
                 <div class="card-body">
                     <div class="media px-2 pt-3">
-                        <img src="img/user_default.png" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
+                        '; 
+                        $usuarioSA = new UsuarioSA();
+                        $usuarioComent = $usuarioSA->buscaUsuario($comment->getUsuario());
+                        $contenidoPosts .= '
+                        <img src="img/' . $usuarioComent->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
                         <div class="media-body">
                             <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . '</a></h5>
                         </div>
