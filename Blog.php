@@ -132,7 +132,8 @@ foreach ($posts as $post) {
 
                 <button type="submit" class="btn btn-outline-danger">
                     <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
-                </button>';
+                </button>
+            </form>';
 
     }
 
