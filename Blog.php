@@ -152,32 +152,35 @@ foreach ($posts as $post) {
                 <div id="comments-' . escape($post->getID()) . '" style="display: none;">
                     <div id="comments-body-' . escape($post->getID()) . '">
                         <form id="form-comment-' . escape($post->getID()) . '" action="" method="post">
+                        <h2>Escribe tu comentario:</h2>
                             <div class="form-group">
                                 <textarea class="form-control" name="contenido" rows="2" placeholder="Escribe tu comentario..." required></textarea>
                             </div>
                             <input type="hidden" name="id_post" value="' . escape($post->getID()) . '">
                             <button type="submit" class="btn btn-primary">Comentar</button>
                         </form>
+                        <h3>Respuestas:</h3>
                     </div>
                     <div id="comments-list-' . escape($post->getID()) . '">
     ';
 
     $comments = $postSA->buscarComentarios($post->getID());
+    $contenidoPosts .= '<ul class="list-group list-group-flush">';
     foreach ($comments as $comment) {
         $contenidoPosts .= '
-            <div class="card mt-2">
+            <li class="list-group-item">
                 <div class="card-body">
                     <div class="media px-2 pt-3">
                         <img src="img/user_default.png" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
                         <div class="media-body">
-                            <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . '</a></h5>
+                            <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . '</a></h5>
                         </div>
                     </div>
                     <p class="card-text">' . escape($comment->getContenido()) . '</p>
                     <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>
                     <form action="" method="post">
                         <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
-                        '; if($usuario === $post->getUsuario()): {
+                        '; if($usuario === $comment->getUsuario()): {
                             $contenidoPosts .= '
                             <button type="submit" class="btn btn-outline-danger">
                                 <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
@@ -186,12 +189,12 @@ foreach ($posts as $post) {
                         $contenidoPosts .= '
                     </form>
                 </div>
-            </div>
+            </li>
         ';
     }
 
     $contenidoPosts .= '
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
