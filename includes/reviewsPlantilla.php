@@ -1,7 +1,7 @@
 <?php
     require_once RAIZ_APP . '/DTOs/UsuarioDTO.php';
 function renderizarReviews($reviews_mostradas) {
-    $html = '';
+    $html = '<div class="container">';
     foreach ($reviews_mostradas as $review) {
         $editar = '';
         $borrar = '';
@@ -27,7 +27,7 @@ function renderizarReviews($reviews_mostradas) {
                 ' . $borrar . '
             </div>';
     }
-
+    $html . '</div>';
     return $html;
 }
 

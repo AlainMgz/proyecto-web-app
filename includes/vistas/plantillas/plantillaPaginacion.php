@@ -50,12 +50,10 @@
   } else if ($current_url == $estrenos_url) {
     $numElementos = PeliculaDAO::obtenerTotalPeliculas();
     $numPaginas = ceil($numElementos / 12);
-  }
-  else if ($current_url == $review_pelicula_url) {
+  } else if ($current_url == $review_pelicula_url) {
     $numElementos = ReviewDAO::obtenerTotalReviewsPelicula($nombre);
     $numPaginas = ceil($numElementos / 5);
-  }
-  else if ($current_url == $review_usuario_url) {
+  } else if ($current_url == $review_usuario_url) {
     $numElementos = ReviewDAO::obtenerTotalReviewsUsuario(unserialize($_SESSION['user_obj'])->getNombreUsuario());
     $numPaginas = ceil($numElementos / 5);
   }
@@ -72,42 +70,20 @@
   <?= $contenidoPrincipal ?>
 
   <div id="pagination" class="d-flex justify-content-center align-items-center" style="pointer-events: none;">
-    <button id="prevPage" class="btn btn-outline-secondary mr-2"
-      style="display: <?= $pagina > 0 ? 'flex' : 'none' ?> ; pointer-events: auto;">
-      <span aria-hidden="true" class="fas fa-arrow-alt-circle-left"></span>
-    </button>
-    <div id="pageNumbers" class="mx-3">
-      <?= $pagina ?>
-    </div>
-    <button id="nextPage" class="btn btn-outline-secondary ml-2"
-      style="display: <?= $pagina < $numPaginas - 1 ? 'flex' : 'none' ?> ; pointer-events: auto;">
-      <span aria-hidden="true" class="fas fa-arrow-alt-circle-right"></span>
-    </button>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li id="prevPage" class="page-item <?= $pagina > 0 ? '' : 'disabled' ?>" style="pointer-events: auto;"><a class="page-link"
+            href="<?= $pagina > 0 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina - 1) : '#' ?>">&laquo;</a></li>
+        <?php for ($i = 0; $i < $numPaginas; $i++): ?>
+          <li class="page-item <?= $pagina == $i ? 'active' : '' ?>" style="pointer-events: auto;"><a class="page-link"
+              href="<?= $current_url ?>?nombre=<?= $nombre ?>&pagina=<?= $i ?>"><?= $i ?></a></li> <?php endfor; ?>
+        <!-- Cierra el bucle for -->
+        <li id="nextPage" class="page-item <?= $pagina < $numPaginas - 1 ? '' : 'disabled' ?>" style="pointer-events: auto;"><a
+            class="page-link" href="<?= $pagina < $numPaginas - 1 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina + 1) : '#' ?>">&raquo;</a></li>
+      </ul>
+    </nav>
   </div>
 
-
-  <!-- Script para manejar la paginación -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      var paginaActual = <?= $pagina ?>;
-      var currentUrl = "<?= strtok($current_url, '?') ?>"; // Obtener la URL base sin parámetros
-      var nombre = "<?= $nombre ?>"; // Agregar comillas para que se interprete como una cadena
-
-      document.getElementById("prevPage").addEventListener("click", function (event) {
-        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
-        if (paginaActual > 0) {
-          paginaActual--;
-          window.location.href = currentUrl + "?nombre=" + nombre + "&pagina=" + paginaActual; // Utiliza "&" para separar variables en la URL
-        }
-      });
-
-      document.getElementById("nextPage").addEventListener("click", function (event) {
-        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
-        paginaActual++;
-        window.location.href = currentUrl + "?nombre=" + nombre + "&pagina=" + paginaActual; // Utiliza "&" para separar variables en la URL
-      });
-    });
-  </script>
 </body>
 
 </html>
