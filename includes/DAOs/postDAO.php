@@ -475,5 +475,140 @@ public function borrarLikesPorId($idPost) {
     // Cerrar la conexión
 
 }
+public function buscarIdsSeguidos($id_usuario)
+{
+    // Establecer la conexión a la base de datos
+    $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+    // Array para almacenar los ids de las personas seguidas
+    $ids_seguidos = array();
+
+    // Preparar la consulta SQL para obtener los ids de las personas seguidas
+    $query = "SELECT follows FROM followers WHERE user = ?";
+    $statement = $this->conexion->prepare($query);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta para obtener los usuarios seguidos: " . $this->conexion->error);
+    }
+
+    // Bind parameter
+    $statement->bind_param("i", $id_usuario);
+
+    // Ejecutar la consulta
+    $statement->execute();
+
+    // Obtener el resultado de la consulta
+    $result = $statement->get_result();
+
+    // Verificar si la consulta fue exitosa
+    if (!$result) {
+        die("Error al ejecutar la consulta para obtener los usuarios seguidos: " . $this->conexion->error);
+    }
+
+    // Obtener los ids de las personas seguidas y almacenarlos en el array
+    while ($row = $result->fetch_assoc()) {
+        $ids_seguidos[] = $row['follows'];
+    }
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar el array de ids de las personas seguidas
+    return $ids_seguidos;
+}
+
+public function buscarUsernamesSeguidos($ids) {
+    // Establecer la conexión a la base de datos
+    $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+    // Construir la parte IN de la consulta SQL
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+    // Preparar la consulta SQL
+    $query = "SELECT username FROM users WHERE id IN ($placeholders)";
+    $statement = $this->conexion->prepare($query);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta: " . $this->conexion->error);
+    }
+
+    // Bind parameters
+    $types = str_repeat('i', count($ids)); // 'i' para integer
+    $statement->bind_param($types, ...$ids);
+
+    // Ejecutar la consulta
+    $statement->execute();
+
+    // Obtener el resultado de la consulta
+    $result = $statement->get_result();
+
+    // Crear un array para almacenar los usernames de los usuarios encontrados
+    $usernames = array();
+
+    // Obtener los resultados y almacenar los usernames en el array
+    while ($row = $result->fetch_assoc()) {
+        $usernames[] = $row['username'];
+    }
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar el array con los usernames de los usuarios
+    return $usernames;
+}
+
+
+public function postsSeguidos($usernames) {
+    // Establecer la conexión a la base de datos
+    $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+    // Construir la parte IN de la consulta SQL para los usernames
+    $placeholders = implode(',', array_fill(0, count($usernames), '?'));
+
+    // Preparar la consulta SQL
+    $query = "SELECT * FROM post WHERE usuario IN (SELECT id FROM users WHERE username IN ($placeholders))";
+    $statement = $this->conexion->prepare($query);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta: " . $this->conexion->error);
+    }
+
+    // Bind parameters
+    $types = str_repeat('s', count($usernames)); // 's' para string
+    $statement->bind_param($types, ...$usernames);
+
+    // Ejecutar la consulta
+    $statement->execute();
+
+    // Obtener el resultado de la consulta
+    $result = $statement->get_result();
+
+    // Crear un array para almacenar los posts encontrados
+    $posts = array();
+
+    // Obtener los resultados y mapearlos a objetos postDTO
+    while ($row = $result->fetch_assoc()) {
+        $post = new postDTO(
+            $row['ID'],
+            $row['usuario'],
+            $row['titulo'],
+            $row['texto'],
+            $row['likes'],
+            $row['esComentario'],
+            $row['IDPadre']
+        );
+        $posts[] = $post;
+    }
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar el array con los posts de los usuarios
+    return $posts;
+}
+
 
 }

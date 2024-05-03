@@ -6,7 +6,7 @@ require_once __DIR__ . '/includes/SAS/postSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/DTOs/comentarioDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
-
+require_once __DIR__ . '/includes/vistas/filtrado_blogs.php';
 // Función para escapar los datos para evitar inyección de HTML
 function escape($data)
 {
@@ -19,6 +19,9 @@ function mostrarError($mensaje)
     echo '<div class="alert alert-danger" role="alert">' . escape($mensaje) . '</div>';
 }
 
+$filtrado= new filtrado_blogs();
+$filtrado_blogs= $filtrado->filtrar();
+$id_filtrado=0; //0 para ultimos, 1 para seguidos;
 // Si se envió el formulario para crear un nuevo post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'] ?? '';
@@ -43,14 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
-
-
-// Obtener el nombre de usuario de la sesión
 $usuario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getNombreUsuario() : '';
-
 // Contenido del formulario para crear un nuevo post
 $formularioNuevoPost = '
-    <div class="container">
+    <div class="container mt-3">
         <h2>Escribe un nuevo post</h2>
         <form action="" method="post">
     <div class="form-group">
@@ -102,8 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_comment_delete'])) 
 }
 
 // Obtener todos los posts
+if($id_filtrado==1)
+$posts = $postSA->postsSeguidos(unserialize($_SESSION["user_obj"])->getID());
+else 
 $posts = $postSA->buscarPosts();
-
 
 $contenidoPosts = '<div class="container">'; // Inicializa la variable fuera del bucle
 
@@ -128,10 +129,11 @@ foreach ($posts as $post) {
             <!-- Formulario para eliminar el post -->
             <form action="" method="post">
                 <input type="hidden" name="id_post_delete" value="' . escape($post->getID()) . '">
+
                 <button type="submit" class="btn btn-outline-danger">
                     <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
                 </button>
-            </form>';
+
     }
 
     // Mostrar el botón de "Like" solo si el usuario no es el autor del post y no ha dado like antes
@@ -180,6 +182,7 @@ foreach ($posts as $post) {
                     <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>
                     <form action="" method="post">
                         <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
+
                         '; if($usuario === $comment->getUsuario()): {
                             $contenidoPosts .= '
                             <button type="submit" class="btn btn-outline-danger">
@@ -187,6 +190,7 @@ foreach ($posts as $post) {
                             </button>';
                         }endif;
                         $contenidoPosts .= '
+
                     </form>
                 </div>
             </li>
@@ -237,8 +241,10 @@ $script = '
 echo $script;
 
 // Contenido completo de la página
-$contenidoPrincipal = $formularioNuevoPost . $contenidoPosts;
+$contenidoPrincipal =  $formularioNuevoPost . $contenidoPosts;
 
 // Incluir la plantilla principal para mostrar el contenido
+
 require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
+
 
