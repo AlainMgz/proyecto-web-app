@@ -11,6 +11,7 @@ $paginaActual = $pagina;// Usar el operador de fusión de null para proporcionar
 $reviewSA = new ReviewSA();
 $reviews = $reviewSA->obtener5Reviews($paginaActual * 5);
 
+$totalElementos = $reviewSA->obtenerTotalReviews();
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
 $reviews_mostradas = array_slice($reviews, 0, $num_reviews_mostrar);
@@ -28,8 +29,11 @@ $contenidoPrincipal = '<!DOCTYPE html>
 $contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las reviews usando la plantilla
 
 $contenidoPrincipal .= '
+
+
 </body>
 </html>';
+
 
 require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
 

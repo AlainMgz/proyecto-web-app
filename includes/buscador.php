@@ -20,23 +20,28 @@ if (isset($_GET['nombre'])) {
     $resultadosPelis = $peliculaSA->buscarPeliculasQueEmpecienPor($term);
     $resultadosUsuarios = $usuarioSA->buscarUsuariosQueEmpiecenPor($term);
 
-    $resultados = array_merge($resultadosPelis, $resultadosUsuarios);
-
-    // Mostrar los resultados como una cuadrícula
+    // Mostrar los resultados de las películas
     echo '<div class="row mt-5">';
-    foreach ($resultados as $resultado) {
+    foreach ($resultadosPelis as $pelicula) {
         echo '<div class="col-md-3 mb-4">';
-        if (!($resultado instanceof PeliculaDTO)) {
-            echo '<a href="usuario.php?nombre=' . $resultado . '">';
-            echo '<img src="img/user_default.png" alt="User Default Picture" class="img-fluid caratula">';
-            echo '<p>' . $resultado . '</p>';
-        } else {
-            echo '<a href="infoPeliculas.php?id=' . $resultado->getId() . '">';
-            echo '<img src="img/' . $resultado->getCaratula() . '" alt="' . $resultado->getCaratula() . '" class="img-fluid caratula">';
-            echo '<p>' . $resultado->getNombre() . '</p>';
-        }
+        echo '<a href="infoPeliculas.php?id=' . $pelicula->getId() . '">';
+        echo '<img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getCaratula() . '" class="img-fluid caratula">';
+        echo '<p>' . $pelicula->getNombre() . '</p>';
+        echo '</a>';
+        echo '</div>';
+    }
+    echo '</div>';
+
+    // Mostrar los resultados de los usuarios
+    echo '<div class="row mt-5">';
+    foreach ($resultadosUsuarios as $usuario) {
+        echo '<div class="col-md-3 mb-4">';
+        echo '<a href="usuario.php?nombre=' . $usuario . '">';
+        echo '<img src="img/user_default.png" alt="User Default Picture" class="img-fluid caratula">';
+        echo '<p>' . $usuario . '</p>';
         echo '</a>';
         echo '</div>';
     }
     echo '</div>';
 }
+?>

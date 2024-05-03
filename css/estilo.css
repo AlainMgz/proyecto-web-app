@@ -798,3 +798,37 @@ textarea {
     background-color: #ddd;
     cursor: pointer;
 }
+
+.search-overlay {
+    /* Estilos para el contenedor principal */
+    width: 100%; /* Ancho del contenedor */
+    height: 100%; /* Altura del contenedor */
+    position: fixed; /* Posición fija para cubrir toda la pantalla */
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    z-index: 999; /* Índice z alto para que esté por encima de otros elementos */
+}
+
+.search-container {
+    /* Estilos para el contenedor interno */
+    width: 50%; /* Ancho del contenedor interno */
+    margin: auto; /* Centrar horizontalmente */
+    padding: 20px; /* Espacio interno */
+    background-color: white; /* Fondo blanco */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+#searchResults {
+    /* Estilos para los resultados de búsqueda */
+    font-size: 16px; /* Tamaño de fuente */
+    /* Otros estilos según tus necesidades */
+}
+
+#closeSearch {
+    /* Estilos para el botón de cerrar */
+    font-size: 14px; /* Tamaño de fuente */
+    align-self: flex-end; /* Alinear el botón al final */
+    margin-top: 10px; /* Margen superior */
+    /* Otros estilos según tus necesidades */
+}
