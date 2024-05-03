@@ -104,7 +104,7 @@ class FormularioRegistro extends Formulario
                 $this->errores['profile_image'] = 'Ha habido un error al subir la imagen';
             }
         } else {
-            $profile_image = "avatar.png";
+            $profile_image = "user_default.png";
         }
     
         if (count($this->errores) === 0) {
