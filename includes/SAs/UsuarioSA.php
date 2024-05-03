@@ -23,8 +23,8 @@ class UsuarioSA {
         return false;
     }
 
-    public function crea($nombreUsuario, $password, $email, $role) {
-        $user = UsuarioDAO::crea($nombreUsuario, $password, $email, $role);
+    public function crea($nombreUsuario, $password, $email, $role, $profile_image) {
+        $user = UsuarioDAO::crea($nombreUsuario, $password, $email, $role, $profile_image);
         if (!$user) {
             echo "Error creating user";
         }     

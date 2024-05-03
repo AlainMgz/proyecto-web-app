@@ -37,7 +37,7 @@ if (isset($_GET['nombre'])) {
     foreach ($resultadosUsuarios as $usuario) {
         echo '<div class="col-md-3 mb-4">';
         echo '<a href="usuario.php?nombre=' . $usuario . '">';
-        echo '<img src="img/user_default.png" alt="User Default Picture" class="img-fluid caratula">';
+        echo '<img src="img/' . ($usuarioSA->buscaUsuario($usuario))->getProfileImage() . '" alt="User Default Picture" class="img-fluid caratula">';
         echo '<p>' . $usuario . '</p>';
         echo '</a>';
         echo '</div>';

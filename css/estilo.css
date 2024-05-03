@@ -683,6 +683,8 @@ textarea {
     box-shadow: 0 0 5px #007bff;
     transition: 0.5s ease;
     width: 20%;
+    height: 20%;
+    margin-top: 0px;
 }
 
 .follow-btn:hover {
@@ -725,11 +727,6 @@ textarea {
 
 .following-btn:focus::after {
     content: "Unfollow";
-}
-
-.container-btn {
-    display: flex;
-    align-items: center;
 }
 
 .profile-container {

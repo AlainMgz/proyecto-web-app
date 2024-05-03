@@ -114,7 +114,6 @@ class FormularioAgregarPeliculas extends Formulario
             $maxFileSize = 10 * 1024 * 1024; // 10MB
             
             if (!in_array($fileType, $allowedTypes)) {
-                echo $fileType;
                 $this->errores['caratula'] = 'Solo se permiten archivos de tipo PNG, JPG, JPEG y GIF';
             } elseif ($_FILES['caratula']['size'] > $maxFileSize) {
                 $this->errores['caratula'] = 'El tamaño de la imagen no puede superar los 10MB';

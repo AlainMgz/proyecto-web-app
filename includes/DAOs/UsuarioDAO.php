@@ -12,9 +12,9 @@ class UsuarioDAO
         return false;
     }
     
-    public static function crea($nombreUsuario, $password, $email, $role)
+    public static function crea($nombreUsuario, $password, $email, $role, $profile_image)
     {
-        $user = new UsuarioDTO($nombreUsuario, self::hashPassword($password), $email, $role);
+        $user = new UsuarioDTO($nombreUsuario, self::hashPassword($password), $email, $role, null, [], [], $profile_image);
         return self::guarda($user);
     }
 
@@ -50,7 +50,7 @@ class UsuarioDAO
                     array_push($following, $fila_following['follows']);
                 }
                 $rs_following->free();
-                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following);
+                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following, $fila['profile_image']);
             }
             $rs->free();
         } else {
@@ -90,7 +90,7 @@ class UsuarioDAO
                     array_push($following, $fila_following['follows']);
                 }
                 $rs_following->free();
-                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following);
+                $result = new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following, $fila['profile_image']);
             }
             $rs->free();
         } else {
@@ -137,15 +137,14 @@ class UsuarioDAO
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            // User already exists
-            echo "User with the provided username or email already exists.";
-            return false;
+            return false; // User already exists
         } else {
-            $insertQuery = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
+            $insertQuery = "INSERT INTO users (username, email, password, role, profile_image) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
             $password = $usuario->getPassword();
             $role = $usuario->getRole();
-            $stmt->bind_param("sssi", $username, $email, $password, $role);
+            $profile_image = $usuario->getProfileImage();
+            $stmt->bind_param("sssis", $username, $email, $password, $role, $profile_image);
             if ($stmt->execute()) {
                 $usuario->addId($stmt->insert_id);
                 return $usuario;
@@ -159,9 +158,14 @@ class UsuarioDAO
     private static function actualiza(UsuarioDTO $usuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
+        $query = "UPDATE users SET username = ?, email = ?, password = ?, profile_image = ?, WHERE id = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("sssi", $usuario->getNombreUsuario(), $usuario->getEmail(), self::hashPassword($usuario->getPassword()), $usuario->getId());
+        $nombreUsuario = $usuario->getNombreUsuario();
+        $email = $usuario->getEmail();
+        $profile_image = $usuario->getProfileImage();
+        $password = $usuario->getPassword();
+        $id = $usuario->getId();
+        $stmt->bind_param("ssssi", $nombreUsuario, $email, $password, $profile_image, $id);
         if ($stmt->execute()) {
             return true;
         } else {
