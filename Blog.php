@@ -132,7 +132,7 @@ foreach ($posts as $post) {
 
                 <button type="submit" class="btn btn-outline-danger">
                     <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
-                </button>
+                </button>';
 
     }
 
@@ -246,5 +246,4 @@ $contenidoPrincipal =  $formularioNuevoPost . $contenidoPosts;
 // Incluir la plantilla principal para mostrar el contenido
 
 require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
-
 
