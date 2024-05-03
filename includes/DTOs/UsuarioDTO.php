@@ -15,12 +15,14 @@ class UsuarioDTO {
 
     private $following = [];
 
-    public function __construct($nombreUsuario, $password, $email, $role = 0, $id = null, $followers = [], $following = [])
+    private $profile_image;
+
+    public function __construct($nombreUsuario, $password, $email, $role = 0, $id = null, $followers = [], $following = [], $profile_image = null)
     {
-        $this->setUser($nombreUsuario, $password, $email, $role, $id, $followers, $following);
+        $this->setUser($nombreUsuario, $password, $email, $role, $id, $followers, $following, $profile_image);
     }
 
-    private function setUser($nombreUsuario, $password, $email, $role = 0, $id = null, $followers = [], $following = []) {
+    private function setUser($nombreUsuario, $password, $email, $role = 0, $id = null, $followers = [], $following = [], $profile_image = null) {
         $this->id = $id;
         $this->nombreUsuario = $nombreUsuario;
         $this->password = $password;
@@ -28,6 +30,7 @@ class UsuarioDTO {
         $this->role = $role;
         $this->followers = $followers;
         $this->following = $following;
+        $this->profile_image = $profile_image;
     }
 
     public function getId()
@@ -63,6 +66,11 @@ class UsuarioDTO {
     public function getFollowing()
     {
         return $this->following;
+    }
+
+    public function getProfileImage()
+    {
+        return $this->profile_image;
     }
 
     public function compruebaPassword($password)

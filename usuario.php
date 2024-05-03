@@ -48,9 +48,13 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
 
     // Contenido de la información del usuario
     $infoUsuario = '
+
     <div class="profile-container">
         <div class="profile-info">
-            <h2>Información del Usuario</h2>
+            <div class="profile-detail">
+                <h2>Información del Usuario</h2>
+                <span class="value"><img src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
+            </div>
             <div class="profile-detail">
                 <span class="label">Nombre:</span>
                 <span class="value">' . $nombre . '</span>
@@ -125,9 +129,10 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
             </script>
             <div class="profile-container">
                 <div class="profile-info">
-                    <div class="container-btn">
+                    <div class="profile-detail">
                         <h2>Información del Usuario</h2>
                         <button id="follow-btn" class="follow-btn">Follow</button>
+                        <span class="value"><img style="" src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
                     </div>
                     <div class="profile-detail">
                         <span class="label">Nombre:</span>

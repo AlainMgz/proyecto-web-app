@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 30, 2024 at 01:38 AM
+-- Generation Time: May 03, 2024 at 04:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,11 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comentarios`
+--
+
+CREATE TABLE `comentarios` (
+  `id` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `contenido` text NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `followers`
 --
 
 CREATE TABLE `followers` (
-  `id` int(11) AUTO_INCREMENT PRIMARY KEY,
+  `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
   `follows` int(11) NOT NULL,
   `since` date NOT NULL
@@ -74,11 +88,22 @@ INSERT INTO `generos` (`genero`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `likes`
+--
+
+CREATE TABLE `likes` (
+  `id` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `peliculas`
 --
 
 CREATE TABLE `peliculas` (
-  `ID` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `ID` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `descripcion` text NOT NULL,
   `director` varchar(20) NOT NULL,
@@ -117,16 +142,15 @@ INSERT INTO `peliculas` (`ID`, `nombre`, `descripcion`, `director`, `genero`, `c
 -- Table structure for table `post`
 --
 
-CREATE TABLE post (
-    `ID` INT AUTO_INCREMENT PRIMARY KEY,
-    `usuario` VARCHAR(255) NOT NULL,
-    `titulo` VARCHAR(255) NOT NULL,
-    `texto` TEXT NOT NULL,
-    `likes` INT DEFAULT 0,
-    `esComentario` BOOLEAN DEFAULT FALSE,
-    `IDPadre` INT DEFAULT -1,
-    INDEX `idx_post_id` (`ID`)
-);
+CREATE TABLE `post` (
+  `ID` int(11) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `texto` text NOT NULL,
+  `likes` int(11) DEFAULT 0,
+  `esComentario` tinyint(1) DEFAULT 0,
+  `IDPadre` int(11) DEFAULT -1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -135,7 +159,7 @@ CREATE TABLE post (
 --
 
 CREATE TABLE `reviews` (
-  `ID` int(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `ID` int(20) UNSIGNED NOT NULL,
   `usuario` varchar(20) NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `critica` varchar(300) NOT NULL,
@@ -155,63 +179,57 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comentarios`
---
-CREATE TABLE `comentarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_post` int(11) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
-  `contenido` text NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `id_post` (`id_post`),
-  CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
--- --------------------------------------------------------
---
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `email` varchar(255) NOT NULL,
-  `role` tinyint(2) NOT NULL
+  `role` tinyint(2) NOT NULL,
+  `profile_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `likes` (
-  `id` int(11) AUTO_INCREMENT PRIMARY KEY,
-  `id_post` int(11) NOT NULL,
-  FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`),
-  UNIQUE KEY `unique_like` (`id_post`)
-);
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
-(4, 'usuario', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user@gmail.com', 0),
-(5, 'admin', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'admin@gmail.com', 1),
-(6, 'administrador', '$2y$10$KwUu5sSB8XiP7myjR4XIb.QSfdP9ue4.nzkMUwQuLHvEksrJ7FpiK', 'administrador@gmail.com', 1),
-(7, 'samuel', '$2y$10$r5WSsenllw5ehQ8GtFI0nOFOZtfEh3/qKm3TjIt2PdWyWPxEetPdK', 'samuelcarrillo2003@gmail.com', 0),
-(8, 'aweew', '$2y$10$elYaLmcrvgiiL3td0CczkeWTNtGvFO5FWxGK3SgWih2gPAC/Py0ce', 'awee@gmail.com', 0),
-(9, 'samcarri', '$2y$10$Bghm4TLG444lel409jWSBujhnFoC6Z0m6npbIUHBOqbb02rI9ajbi', 'samcarri@ucm.es', 0),
-(10, 'nicolas', '$2y$10$QzNQLc6TxcID1y6Pt4vtJOUoj1gqM6HyYvO4ay7e.zoXdlxp9s4Ri', 'nicolas@gmail.com', 0),
-(11, 'asdasdas', '$2y$10$Hl6Fkpx4GWcYEtpQRKcufexRx8BWa.UAKIvhS8FsR8ur9QcmuEE4O', 'adasd@gmail.com', 0),
-(15, 'leni', '$2y$10$PN38/BErNYZQYNfcoDduSOK3C5fOoat61DFK5zjL9QRwGtQsW8gSe', 'leni@gmail.com', 0);
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `profile_image`) VALUES
+(4, 'usuario', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user@gmail.com', 0, 'avatar.png'),
+(5, 'admin', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'admin@gmail.com', 1, 'avatar.png'),
+(6, 'administrador', '$2y$10$KwUu5sSB8XiP7myjR4XIb.QSfdP9ue4.nzkMUwQuLHvEksrJ7FpiK', 'administrador@gmail.com', 1, 'avatar.png'),
+(7, 'samuel', '$2y$10$r5WSsenllw5ehQ8GtFI0nOFOZtfEh3/qKm3TjIt2PdWyWPxEetPdK', 'samuelcarrillo2003@gmail.com', 0, 'avatar.png'),
+(8, 'aweew', '$2y$10$elYaLmcrvgiiL3td0CczkeWTNtGvFO5FWxGK3SgWih2gPAC/Py0ce', 'awee@gmail.com', 0, 'avatar.png'),
+(9, 'samcarri', '$2y$10$Bghm4TLG444lel409jWSBujhnFoC6Z0m6npbIUHBOqbb02rI9ajbi', 'samcarri@ucm.es', 0, 'avatar.png'),
+(10, 'nicolas', '$2y$10$QzNQLc6TxcID1y6Pt4vtJOUoj1gqM6HyYvO4ay7e.zoXdlxp9s4Ri', 'nicolas@gmail.com', 0, 'avatar.png'),
+(11, 'asdasdas', '$2y$10$Hl6Fkpx4GWcYEtpQRKcufexRx8BWa.UAKIvhS8FsR8ur9QcmuEE4O', 'adasd@gmail.com', 0, 'avatar.png'),
+(15, 'leni', '$2y$10$PN38/BErNYZQYNfcoDduSOK3C5fOoat61DFK5zjL9QRwGtQsW8gSe', 'leni@gmail.com', 0, 'avatar.png'),
+(18, 'image', '$2y$10$lLxSQNbDFJZE9KdO3AdCw.xfYiXW6oA2Pfr.4Qldy1QSnCMOIpaKy', 'img@profile.com', 0, 'image.jpg');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_post` (`id_post`);
+
+--
 -- Indexes for table `followers`
 --
 ALTER TABLE `followers`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_like` (`id_post`);
 
 --
 -- Indexes for table `peliculas`
@@ -225,7 +243,6 @@ ALTER TABLE `peliculas`
 ALTER TABLE `post`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `idx_post_id` (`ID`);
-
 
 --
 -- Indexes for table `reviews`
@@ -243,12 +260,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for dumped tables
 --
 
-
 --
--- AUTO_INCREMENT for table `peliculas`
+-- AUTO_INCREMENT for table `comentarios`
 --
-ALTER TABLE `peliculas`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+ALTER TABLE `comentarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `followers`
@@ -257,16 +273,50 @@ ALTER TABLE `followers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `peliculas`
+--
+ALTER TABLE `peliculas`
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `ID` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`);
+
+--
+-- Constraints for table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
