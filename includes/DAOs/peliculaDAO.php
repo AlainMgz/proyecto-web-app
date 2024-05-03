@@ -397,5 +397,7 @@ class PeliculaDAO
 
         return $row['total'];
     }
+
+    
 }
 

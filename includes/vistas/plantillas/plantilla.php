@@ -33,6 +33,11 @@
             <?= $selectGenero ?>
         </header>
     <?php endif; ?>
+    <?php if (isset($filtrado_blogs)) : ?>
+        <header class="filtrado_blogs">
+            <?= $filtrado_blogs ?>
+        </header>
+    <?php endif; ?>
         <?= $contenidoPrincipal ?>
     </div>
 </body>

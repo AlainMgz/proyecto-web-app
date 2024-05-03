@@ -70,5 +70,28 @@ class postSA
         $postDAO = new postDAO();
         return $postDAO->usuarioDioLike($id, $id_usuario);
     }
+
+    public function postsSeguidos($id_usuario){
+        $postDAO = new postDAO();
+    
+        // Buscar los IDs de los usuarios seguidos por el usuario dado
+        $ids = $postDAO->buscarIdsSeguidos($id_usuario);
+    
+        // Verificar si el array de IDs está vacío
+        if (empty($ids)) {
+            die("Error: No se encontraron usuarios seguidos para el usuario con ID $id_usuario.");
+        }
+    
+        // Buscar los usernames correspondientes a los IDs
+        $usernames = $postDAO->buscarUsernamesSeguidos($ids);
+    
+        // Verificar si el array de usernames está vacío
+        if (empty($usernames)) {
+            die("Error: No se encontraron usernames para los IDs de usuarios seguidos.");
+        }
+    
+        // Retornar los posts de los usuarios seguidos
+        return $postDAO->postsSeguidos($usernames);
+    }
 }
 
