@@ -50,7 +50,7 @@ class FormularioRegistro extends Formulario
                     <input type="password" id="password" name="password" required>
 
                     <span class="form_errors">{$erroresCampos['profile_image']}</span>
-                    <label for="profile_image">Profile image:</label>
+                    <label for="profile_image">Profile image: (Opcional)</label>
                     <input type="file" id="profile_image" name="profile_image" accept=".png, .jpg, .jpeg, .gif">
 
                     <button type="submit">Submit</button>        
