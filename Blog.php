@@ -22,7 +22,7 @@ function mostrarError($mensaje)
 
 $filtrado= new filtrado_blogs();
 $filtrado_blogs= $filtrado->filtrar();
-$id_filtrado=0; //0 para ultimos, 1 para seguidos;
+
 // Si se envió el formulario para crear un nuevo post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'] ?? '';
@@ -102,8 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_comment_delete'])) 
 }
 
 // Obtener todos los posts
-if($id_filtrado==1)
+if($_SESSION['seguidos']){
 $posts = $postSA->postsSeguidos(unserialize($_SESSION["user_obj"])->getID());
+
+}
 else 
 $posts = $postSA->buscarPosts();
 

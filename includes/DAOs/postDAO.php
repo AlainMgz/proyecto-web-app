@@ -610,5 +610,59 @@ public function postsSeguidos($usernames) {
     return $posts;
 }
 
+public function obtenerPostsPorUsernames($usernames) {
+    // Establecer la conexión a la base de datos
+    $this->conexion = Aplicacion::getInstance()->getConexionBd();
+
+    // Crear un array para almacenar los posts
+    $posts = array();
+
+    // Verificar si el array de usernames está vacío
+    if (empty($usernames)) {
+        die("El array de usernames está vacío");
+    }
+
+    // Construir la parte IN de la consulta SQL para los usernames
+    $placeholders = implode(',', array_fill(0, count($usernames), '?'));
+
+    // Preparar la consulta SQL
+    $query = "SELECT * FROM post WHERE usuario IN ($placeholders)";
+    $statement = $this->conexion->prepare($query);
+
+    // Verificar si la preparación de la consulta fue exitosa
+    if (!$statement) {
+        die("Error al preparar la consulta: " . $this->conexion->error);
+    }
+
+    // Bind parameters
+    $types = str_repeat('s', count($usernames)); // 's' para string
+    $statement->bind_param($types, ...$usernames);
+
+    // Ejecutar la consulta
+    $statement->execute();
+
+    // Obtener el resultado de la consulta
+    $result = $statement->get_result();
+
+    // Obtener los resultados y mapearlos a objetos postDTO
+    while ($row = $result->fetch_assoc()) {
+        $post = new postDTO(
+            $row['ID'],
+            $row['usuario'],
+            $row['titulo'],
+            $row['texto'],
+            $row['likes'],
+            $row['esComentario'],
+            $row['IDPadre']
+        );
+        $posts[] = $post;
+    }
+
+    // Cerrar la declaración
+    $statement->close();
+
+    // Retornar el array con los posts de los usernames
+    return $posts;
+}
 
 }
