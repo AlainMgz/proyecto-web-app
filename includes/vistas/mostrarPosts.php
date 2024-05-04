@@ -31,7 +31,7 @@ class mostrarPosts {
                             <p class="card-text">Likes: ' . escape($post->getLikes()) . '</p>
             ';
 
-            if ($usuario === $post->getUsuario()) {
+            if ($usuario === $post->getUsuario() || unserialize($_SESSION["user_obj"])->getRole()==1) {
                 $contenidoPosts .= '
                     <!-- Formulario para eliminar el post -->
                     <form action="" method="post">
