@@ -8,6 +8,9 @@ require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/DTOs/comentarioDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/vistas/filtrado_blogs.php';
+require_once __DIR__ . '/Formularios/FormularioAgregarPosts.php';
+require_once __DIR__ . '/includes/vistas/mostrarPosts.php';
+
 // Función para escapar los datos para evitar inyección de HTML
 function escape($data)
 {
@@ -20,8 +23,9 @@ function mostrarError($mensaje)
     echo '<div class="alert alert-danger" role="alert">' . escape($mensaje) . '</div>';
 }
 
-$filtrado= new filtrado_blogs();
-$filtrado_blogs= $filtrado->filtrar();
+$mostrarPost = new mostrarPosts();
+$filtrado = new filtrado_blogs();
+$filtrado_blogs = $filtrado->filtrar();
 
 // Si se envió el formulario para crear un nuevo post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -49,20 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 $usuario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getNombreUsuario() : '';
 // Contenido del formulario para crear un nuevo post
-$formularioNuevoPost = '
-    <div class="container mt-3">
-        <h2>Escribe un nuevo post</h2>
-        <form action="" method="post">
-    <div class="form-group">
-        <textarea class="form-control" id="titulo" name="titulo" rows="1" placeholder="Título" required></textarea>
-    </div>
-    <div class="form-group">
-        <textarea class="form-control" id="contenido" name="contenido" rows="3" placeholder="Contenido" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Publicar</button>
-</form>
-    </div>
-';
+$formularioPosts = new FormularioAgregarPosts();
+$formularioNuevoPost = $formularioPosts->crearFormulario();
 
 // Crear una instancia del SA de Post
 $postSA = new postSA();
@@ -102,122 +94,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_comment_delete'])) 
 }
 
 // Obtener todos los posts
-if($_SESSION['seguidos']){
-$posts = $postSA->postsSeguidos(unserialize($_SESSION["user_obj"])->getID());
-
-}
-else 
-$posts = $postSA->buscarPosts();
-
-$contenidoPosts = '<div class="container">'; // Inicializa la variable fuera del bucle
-
-foreach ($posts as $post) {
-    $contenidoPosts .= '
-        <div class="mt-3">
-            <div class="card mb-4">
-                <div class="media px-3 pt-3">
-                    ';
-                    $usuarioSA = new UsuarioSA();
-                    $usuarioPost = $usuarioSA->buscaUsuario($post->getUsuario());
-                    $contenidoPosts .= '
-                    <img src="img/' . $usuarioPost->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
-                    <div class="media-body">
-                        <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . '</a></h5>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">' . escape($post->getTitulo()) . '</h6>
-                    <p class="card-text">' . escape($post->getTexto()) . '</p>
-                    <p class="card-text">Likes: ' . escape($post->getLikes()) . '</p>';
-
-    // Mostrar el botón de "Borrar Post" solo si el usuario es el autor del post
-    if ($usuario === $post->getUsuario()) {
-        $contenidoPosts .= '
-            <!-- Formulario para eliminar el post -->
-            <form action="" method="post">
-                <input type="hidden" name="id_post_delete" value="' . escape($post->getID()) . '">
-
-                <button type="submit" class="btn btn-outline-danger">
-                    <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
-                </button>
-            </form>';
-
-    }
-
-    // Mostrar el botón de "Like" solo si el usuario no es el autor del post y no ha dado like antes
-    if ($usuario !== $post->getUsuario() && !$postSA->usuarioDioLike($post->getID(), $usuario)) {
-        $contenidoPosts .= '
-            <!-- Formulario para dar like -->
-            <form action="" method="post">
-                <input type="hidden" name="id_post_like" value="' . escape($post->getID()) . '">
-                <button type="submit" class="btn btn-primary">Like</button>
-            </form>';
-    } elseif ($postSA->usuarioDioLike($post->getID(), $usuario)) {
-        $contenidoPosts .= '<p class="text-muted">Ya has dado like a este post.</p>';
-    }
-
-    $contenidoPosts .= '
-                </div>
-                <button class="btn btn-link" onclick="toggleComments(' . escape($post->getID()) . ')">Mostrar/ocultar comentarios</button>
-                <div id="comments-' . escape($post->getID()) . '" style="display: none;">
-                    <div id="comments-body-' . escape($post->getID()) . '">
-                        <form id="form-comment-' . escape($post->getID()) . '" action="" method="post">
-                        <h2>Escribe tu comentario:</h2>
-                            <div class="form-group">
-                                <textarea class="form-control" name="contenido" rows="2" placeholder="Escribe tu comentario..." required></textarea>
-                            </div>
-                            <input type="hidden" name="id_post" value="' . escape($post->getID()) . '">
-                            <button type="submit" class="btn btn-primary">Comentar</button>
-                        </form>
-                        <h3>Respuestas:</h3>
-                    </div>
-                    <div id="comments-list-' . escape($post->getID()) . '">
-    ';
-
-    $comments = $postSA->buscarComentarios($post->getID());
-    $contenidoPosts .= '<ul class="list-group list-group-flush">';
-    foreach ($comments as $comment) {
-        $contenidoPosts .= '
-            <li class="list-group-item">
-                <div class="card-body">
-                    <div class="media px-2 pt-3">
-                        '; 
-                        $usuarioSA = new UsuarioSA();
-                        $usuarioComent = $usuarioSA->buscaUsuario($comment->getUsuario());
-                        $contenidoPosts .= '
-                        <img src="img/' . $usuarioComent->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
-                        <div class="media-body">
-                            <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . '</a></h5>
-                        </div>
-                    </div>
-                    <p class="card-text">' . escape($comment->getContenido()) . '</p>
-                    <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>
-                    <form action="" method="post">
-                        <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
-
-                        '; if($usuario === $comment->getUsuario()): {
-                            $contenidoPosts .= '
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
-                            </button>';
-                        }endif;
-                        $contenidoPosts .= '
-
-                    </form>
-                </div>
-            </li>
-        ';
-    }
-
-    $contenidoPosts .= '
-                    </ul>
-                </div>
-            </div>
-        </div>
-    ';
+if ($_SESSION['seguidos']) {
+    $posts = $postSA->postsSeguidos(unserialize($_SESSION["user_obj"])->getID());
+} else {
+    $posts = $postSA->buscarPosts();
 }
 
-$contenidoPosts .= '';
+$contenidoPosts = $mostrarPost->construirPosts($posts, $usuario);
 
 // Si se envió el formulario para dar like a un post
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_like'])) {
@@ -256,6 +139,5 @@ echo $script;
 $contenidoPrincipal =  $formularioNuevoPost . $contenidoPosts;
 
 // Incluir la plantilla principal para mostrar el contenido
-
 require BASE_APP . '/includes/vistas/plantillas/plantilla.php';
 
