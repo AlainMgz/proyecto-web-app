@@ -82,5 +82,10 @@ class PeliculaSA
         $pelicula = $peliculaDAO->buscarPeliculasQueEmpecienPor($term);
         return $pelicula;
     }
+
+    public function obtenerPeliculasSugeridas($term){
+
+        return PeliculaDAO::obtenerPeliculasSugeridas($term);
+    }
 }
 

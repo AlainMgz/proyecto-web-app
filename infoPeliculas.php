@@ -10,12 +10,16 @@ $peliculaSA = new PeliculaSA();
 // Verificar si se ha proporcionado un ID de película en la URL
 $contenidoPrincipal = '';
 
-if (isset ($_GET['id'])) {
+if (isset ($_GET['id']) || isset ($_GET['nombre'])) {
     // Obtener el ID de la película de la URL
-    $idPelicula = $_GET['id'];
-
+    
     // Obtener la información de la película
-    $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
+    if(isset($_GET['id'])) {
+        $idPelicula = $_GET['id'];
+        $pelicula = $peliculaSA->obtenerPeliculaPorId($idPelicula);
+    } else {
+        $pelicula = $peliculaSA->obtenerPeliculaPorNombre($_GET['nombre']);
+    }
     $peliculaSA->realizarMedia($pelicula);
 
     // Verificar si el usuario tiene permisos para borrar o modificar la película

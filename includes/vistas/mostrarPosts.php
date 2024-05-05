@@ -28,7 +28,14 @@ class mostrarPosts {
                         </div>
                         <div class="card-body">
                             <h6 class="card-subtitle mb-2 text-muted">' . escape($post->getTitulo()) . '</h6>
-                            <p class="card-text">' . escape($post->getTexto()) . '</p>
+                            ';
+                            $texto_post = $post->getTexto();
+
+                            $texto_post_con_enlaces = preg_replace('/@(\w[\w.-]*)/', '<a href="usuario.php?nombre=$1">@$1</a>', $texto_post);
+                            $texto_post_con_enlaces = preg_replace('/#(\w[\w.-]*)/', '<a href="infoPeliculas.php?nombre=$1">#$1</a>', $texto_post_con_enlaces);
+
+                            $contenidoPosts .= '
+                            <p class="card-text" style="text-decoration: none;">' . $texto_post_con_enlaces . '</p>
                             <p class="card-text">Likes: ' . escape($post->getLikes()) . '</p>
             ';
             if(isset($_SESSION["user_obj"])){
@@ -64,7 +71,8 @@ if(isset($_SESSION['user_obj'])){
                                     <form id="form-comment-' . escape($post->getID()) . '" action="" method="post">
                                         <h2>Escribe tu comentario:</h2>
                                         <div class="form-group">
-                                            <textarea class="form-control" name="contenido" rows="2" placeholder="Escribe tu comentario..." required></textarea>
+                                            <textarea id="contenido-' . escape($post->getID()) . '" data-postid="' . escape($post->getID()) . '" class="form-control" name="contenido" rows="2" placeholder="Escribe tu comentario..." required></textarea>
+                                            <div id="sugerencias-' . escape($post->getID()) . '"></div>
                                         </div>
                                         <input type="hidden" name="id_post" value="' . escape($post->getID()) . '">
                                         <button type="submit" class="btn btn-primary">Comentar</button>
@@ -92,4 +100,52 @@ if(isset($_SESSION['user_obj'])){
     return $contenidoPosts;
 }
 }
+?>
 
+<script>
+   document.addEventListener("DOMContentLoaded", function() {
+    var contenidoInputs = document.querySelectorAll('textarea[id^="contenido-"]');
+
+    contenidoInputs.forEach(function(contenidoInput) {
+        contenidoInput.addEventListener("input", function() {
+            var postId = contenidoInput.dataset.postid;
+            var sugerenciasId = "sugerencias-" + postId;
+            var sugerenciasUsuarios = document.getElementById(sugerenciasId);
+
+            var contenido = contenidoInput.value;
+            var lastSpaceIndex = contenido.lastIndexOf(" ");
+            var textAfterLastSpace = contenido.substring(lastSpaceIndex + 1);
+            var matchUser = textAfterLastSpace.match(/@(\w+)/); // Expresión regular para buscar usuarios
+            var matchMovie = textAfterLastSpace.match(/#(\w+)/); // Expresión regular para buscar películas
+
+            if (matchUser && matchUser.length === 2) {
+                var nombreUsuario = matchUser[1];
+                // Realizar la llamada AJAX con el nombre de usuario
+                $.ajax({
+                    url: "/proyecto-web-app/includes/usuarios_sugeridos_comm.php",
+                    method: "GET",
+                    data: { usuario: nombreUsuario, id_post: postId },
+                    success: function(response) {
+                        $("#" + sugerenciasId).html(response);
+                    }
+                });
+            } else if (matchMovie && matchMovie.length === 2) {
+                var nombrePelicula = matchMovie[1];
+                // Realizar la llamada AJAX con el nombre de la película
+                $.ajax({
+                    url: "/proyecto-web-app/includes/peliculas_sugeridas_comm.php",
+                    method: "GET",
+                    data: { pelicula: nombrePelicula, id_post: postId }, // Agrega una coma después de nombrePelicula
+                    success: function(response) {
+                        $("#" + sugerenciasId).html(response);
+                    }
+                });
+            } else {
+                // Limpiar sugerencias si no se encontró ninguna mención después del último espacio
+                sugerenciasUsuarios.innerHTML = "";
+            }
+        });
+    });
+});
+
+</script>

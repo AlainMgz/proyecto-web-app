@@ -24,8 +24,14 @@ class mostrarComentarios {
                             <div class="media-body">
                                 <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . '</a></h5>
                             </div>
-                        </div>
-                        <p class="card-text">' . escape($comment->getContenido()) . '</p>
+                        </div>';
+                        $texto_post = $comment->getContenido();
+
+                        $texto_post_con_enlaces = preg_replace('/@(\w[\w.-]*)/', '<a href="usuario.php?nombre=$1">@$1</a>', $texto_post);
+                        $texto_post_con_enlaces = preg_replace('/#(\w[\w.-]*)/', '<a href="infoPeliculas.php?nombre=$1">#$1</a>', $texto_post_con_enlaces);
+
+                        $contenidoComments .= '
+                        <p class="card-text">' . $texto_post_con_enlaces . '</p>
                         <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>
                         <form action="" method="post">
                             <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">

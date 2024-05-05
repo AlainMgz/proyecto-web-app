@@ -20,10 +20,12 @@ class FormularioAgregarPosts
                 <form action="" method="post">
                     <div class="form-group">
                         <textarea class="form-control" id="titulo" name="titulo" rows="1" placeholder="Título" required></textarea>
+                        
                     </div>
                     <div class="form-group">
                         <textarea class="form-control" id="contenido" name="contenido" rows="3" placeholder="Contenido" required></textarea>
-                    </div>
+                        <div id="sugerencias-post" style="overflow-y: auto; max-height: 15%;"></div>
+                        </div>
                     <button type="submit" name="submit" class="btn btn-primary">Publicar</button>
                 </form>
             </div>
@@ -59,3 +61,48 @@ public function mostrarFormulario(){
 }
 
 }
+
+?>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+            var contenidoInput = document.getElementById("contenido");
+            var sugerenciasUsuarios = document.getElementById("sugerencias-post");
+            
+            contenidoInput.addEventListener("input", function() {
+                var contenido = contenidoInput.value;
+                var lastSpaceIndex = contenido.lastIndexOf(" ");
+                var textAfterLastSpace = contenido.substring(lastSpaceIndex + 1);
+                var matchUser = textAfterLastSpace.match(/@(\w+)/); // Expresión regular para buscar usuarios
+                var matchMovie = textAfterLastSpace.match(/#([\w\s]+)/); // Expresión regular para buscar películas
+            
+                if (matchUser && matchUser.length === 2) {
+                    var nombreUsuario = matchUser[1];
+                    // Realizar la llamada AJAX con el nombre de usuario
+                    $.ajax({
+                        url: "/proyecto-web-app/includes/usuarios_sugeridos.php",
+                        method: "GET",
+                        data: { usuario: nombreUsuario },
+                        success: function (response) { 
+                            $("#sugerencias-post").html(response);
+                        }
+                    });
+                } else if (matchMovie && matchMovie.length === 2) {
+                    var nombrePelicula = matchMovie[1];
+                    // Realizar la llamada AJAX con el nombre de la película
+                    $.ajax({
+                        url: "/proyecto-web-app/includes/peliculas_sugeridas.php",
+                        method: "GET",
+                        data: { pelicula: nombrePelicula },
+                        success: function (response) { 
+                            $("#sugerencias-post").html(response);
+                        }
+                    });
+                } else {
+                    // Limpiar sugerencias si no se encontró ninguna mención después del último espacio
+                    sugerenciasUsuarios.innerHTML = "";
+                }
+            });
+        });
+
+</script>

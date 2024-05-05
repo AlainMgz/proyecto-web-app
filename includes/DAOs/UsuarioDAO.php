@@ -281,5 +281,51 @@ class UsuarioDAO
         return $result;
     }
 
+    public static function buscarSugerido($term)
+{
+    $conn = Aplicacion::getInstance()->getConexionBd();
+    $query = "SELECT * FROM users WHERE username LIKE ?";
+    $stmt = $conn->prepare($query);
+    $term = $term . "%";
+    $stmt->bind_param("s", $term);
+    $stmt->execute();
+    $rs = $stmt->get_result();
+    $result = array();
+    if ($rs) {
+        while ($fila = $rs->fetch_assoc()) {
+            if ($fila) {
+                $query_followers = "SELECT * FROM followers WHERE follows=?";
+                $stmt_followers = $conn->prepare($query_followers);
+                $stmt_followers->bind_param("s", $fila['id']);
+                $stmt_followers->execute();
+                $rs_followers = $stmt_followers->get_result();
+                $followers = array();
+                while ($fila_followers = $rs_followers->fetch_assoc()) {
+                    array_push($followers, $fila_followers['user']);
+                }
+                $rs_followers->free();
+                
+                $query_following = "SELECT * FROM followers WHERE user=?";
+                $stmt_following = $conn->prepare($query_following);
+                $stmt_following->bind_param("s", $fila['id']);
+                $stmt_following->execute();
+                $rs_following = $stmt_following->get_result();
+                $following = array();
+                while ($fila_following = $rs_following->fetch_assoc()) {
+                    array_push($following, $fila_following['follows']);
+                }
+                $rs_following->free();
+                
+                array_push($result, new UsuarioDTO($fila['username'], $fila['password'], $fila['email'], $fila['role'], $fila['id'], $followers, $following, $fila['profile_image']));
+            }
+        }
+        // Liberar el conjunto de resultados después de que hayas terminado de iterar
+        $rs->free();
+    } else {
+        error_log("Error BD ({$conn->errno}): {$conn->error}");
+    }
+    return $result;
+}
+
 }
 

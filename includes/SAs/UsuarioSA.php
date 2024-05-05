@@ -63,5 +63,9 @@ class UsuarioSA {
     public function buscaNombrePorId($idUsuario) {
         return UsuarioDAO::buscaNombrePorId($idUsuario);
     }
+
+    public function buscarSugerido($term) {
+        return UsuarioDAO::buscarSugerido($term);
+    }
 }
 

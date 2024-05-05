@@ -131,6 +131,9 @@ $script = '
                 comments.style.display = "none"; // Ocultar comentarios al ocultar el formulario
             }
         }
+
+        
+
     </script>
 ';
 
