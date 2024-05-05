@@ -130,7 +130,8 @@ class PeliculaDAO
     public function obtenerPeliculaPorNombre($nombre)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM peliculas WHERE nombre = ?";
+        $nombre = str_replace('_', ' ', $nombre);
+        $query = "SELECT * FROM peliculas WHERE REPLACE(nombre, '_', ' ') = ?";
         $statement = $this->conexion->prepare($query);
         $statement->bind_param("s", $nombre); // "s" indica que $nombre es una cadena
         $statement->execute();

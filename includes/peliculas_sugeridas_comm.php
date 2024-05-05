@@ -7,10 +7,8 @@ require_once RAIZ_APP . '/SAs/PeliculaSA.php'; // Asegúrate de que esta ruta se
 // Obtiene el término de búsqueda del parámetro GET "query"
 $query = isset($_GET['pelicula']) ? $_GET['pelicula'] : '';
 
-if(isset($_GET['id_post'])){
-    $id_post = $_GET['id_post'] ? $_GET['id_post'] : '';
-    echo '<div id="id_post" data-id="' . $id_post . '"></div>'; // Imprimir el valor de $id_post como un atributo de datos
-}
+$id_post = $_GET['id_post'] ? $_GET['id_post'] : '';
+
 // Crea una instancia de UsuarioSA para buscar usuarios que coincidan con el término de búsqueda
 $peliculaSA = new PeliculaSA();
 $resultado = $peliculaSA->obtenerPeliculasSugeridas($query);
@@ -28,37 +26,37 @@ echo '</ul>';
 
 <script>
     $(document).ready(function () {
-
         $(".sugerencia-pelicula-comentario").on("click", function (event) {
             event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
-
-            // Obtener el ID del post
             var id_post = <?php echo $id_post; ?>;
-
+        // Obtener el nombre de usuario del atributo de datos
+        var nombrePelicula = $(this).data("nombre").toLowerCase(); // Convertir a minúsculas
+        var query = "<?php echo $query; ?>".toLowerCase(); 
             // Obtener el nombre de la película del atributo de datos
-            var nombrePelicula = $(this).data("nombre").toLowerCase(); // Convertir a minúsculas
-
-            // Obtener el término de búsqueda actual del textarea
+            var nombrePelicula = $(this).data("nombre").toLowerCase();
+            // Obtener el textarea y su contenido
             var textarea = $("#contenido-" + id_post)[0];
-            var contenido = textarea.value.toLowerCase(); // Convertir a minúsculas
+            var contenido = textarea.value.toLowerCase(); // Convertir el contenido a minúsculas
 
             // Obtener la posición del cursor
             var inicio = textarea.selectionStart;
             var fin = textarea.selectionEnd;
-
-            // Reemplazar el término de búsqueda actual con el nombre de la película seleccionada
-            var nuevoContenido = contenido.substring(0, inicio) + "#" + nombrePelicula + contenido.substring(fin);
+            var nuevoNombrePelicula = decodeURIComponent(nombrePelicula.replace(/\+/g, ' ').replace(/ /g, '_')); // Decodificar el nombre de la película y reemplazar '+' con espacios, y luego reemplazar los espacios con guiones bajos
+            var nombreDefinitivo = nuevoNombrePelicula.replace(query, '');
+            // Reemplazar el término de búsqueda actual con el nombre de la película seleccionada, ignorando mayúsculas y minúsculas
+            var nuevoContenido = contenido.substring(0, inicio) + nombreDefinitivo + contenido.substring(fin);
 
             // Actualizar el valor del textarea con el nuevo contenido
             textarea.value = nuevoContenido;
 
-            // Mover el cursor al final del nombre de película insertado
-            var nuevaPosicionCursor = inicio + nombrePelicula.length + 1; // Sumar 1 para el símbolo "#"
+            // Mover el cursor al final del nombre de la película insertado
+            var nuevaPosicionCursor = inicio + nuevoNombrePelicula.length; // No es necesario sumar 1 para el símbolo "@"
             textarea.setSelectionRange(nuevaPosicionCursor, nuevaPosicionCursor);
 
             // Ocultar el popover después de seleccionar una sugerencia
             $("#sugerencias-" + id_post).empty(); // Limpiar sugerencias
         });
+
     });
 
     
