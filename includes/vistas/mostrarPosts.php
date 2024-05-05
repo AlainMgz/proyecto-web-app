@@ -1,15 +1,16 @@
-// En el archivo mostrarPosts.php
 <?php
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
 require_once __DIR__ . '/../SAs/postSA.php';
+require_once 'mostrarComentarios.php';
+
 class mostrarPosts {
     public function __construct() {}
 
     public function construirPosts($posts, $usuario) {
         $contenidoPosts = '<div class="container">'; // Inicializa la variable fuera del bucle
 
-        foreach ($posts as $post) {
+        foreach ($posts as $post){ 
             $contenidoPosts .= '
                 <div class="mt-3">
                     <div class="card mb-4">
@@ -17,7 +18,7 @@ class mostrarPosts {
             ';
 
             $usuarioSA = new UsuarioSA();
-            $postSA= new postSA();
+            $postSA = new postSA();
             $usuarioPost = $usuarioSA->buscaUsuario($post->getUsuario());
             $contenidoPosts .= '
                             <img src="img/' . $usuarioPost->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
@@ -30,19 +31,19 @@ class mostrarPosts {
                             <p class="card-text">' . escape($post->getTexto()) . '</p>
                             <p class="card-text">Likes: ' . escape($post->getLikes()) . '</p>
             ';
-
-            if ($usuario === $post->getUsuario() || unserialize($_SESSION["user_obj"])->getRole()==1) {
-                $contenidoPosts .= '
-                    <!-- Formulario para eliminar el post -->
-                    <form action="" method="post">
-                        <input type="hidden" name="id_post_delete" value="' . escape($post->getID()) . '">
-                        <button type="submit" class="btn btn-outline-danger">
-                            <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
-                        </button>
-                    </form>
-                ';
+            if(isset($_SESSION["user_obj"])){
+                if ($usuario === $post->getUsuario() || unserialize($_SESSION["user_obj"])->getRole()==1) {
+                    $contenidoPosts .= '
+                        <!-- Formulario para eliminar el post -->
+                        <form action="" method="post">
+                            <input type="hidden" name="id_post_delete" value="' . escape($post->getID()) . '">
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
+                            </button>
+                        </form>
+                    ';
+                }
             }
-
             if ($usuario !== $post->getUsuario() && !$postSA->usuarioDioLike($post->getID(), $usuario)) {
                 $contenidoPosts .= '
                     <!-- Formulario para dar like -->
@@ -54,7 +55,7 @@ class mostrarPosts {
             } elseif ($postSA->usuarioDioLike($post->getID(), $usuario)) {
                 $contenidoPosts .= '<p class="text-muted">Ya has dado like a este post.</p>';
             }
-
+if(isset($_SESSION['user_obj'])){
             $contenidoPosts .= '
                             </div>
                             <button class="btn btn-link" onclick="toggleComments(' . escape($post->getID()) . ')">Mostrar/ocultar comentarios</button>
@@ -72,43 +73,10 @@ class mostrarPosts {
                                 </div>
                                 <div id="comments-list-' . escape($post->getID()) . '">
             ';
-
-            $comments = $postSA->buscarComentarios($post->getID());
-            $contenidoPosts .= '<ul class="list-group list-group-flush">';
-            foreach ($comments as $comment) {
-                $contenidoPosts .= '
-                    <li class="list-group-item">
-                        <div class="card-body">
-                            <div class="media px-2 pt-3">
-                                '; 
-                                $usuarioSA = new UsuarioSA();
-                                $usuarioComent = $usuarioSA->buscaUsuario($comment->getUsuario());
-                                $contenidoPosts .= '
-                                <img src="img/' . $usuarioComent->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
-                                <div class="media-body">
-                                    <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . '</a></h5>
-                                </div>
-                            </div>
-                            <p class="card-text">' . escape($comment->getContenido()) . '</p>
-                            <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>
-                            <form action="" method="post">
-                                <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
-                ';
-
-                if ($usuario === $comment->getUsuario()) {
-                    $contenidoPosts .= '
-                        <button type="submit" class="btn btn-outline-danger">
-                            <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
-                        </button>
-                    ';
-                }
-
-                $contenidoPosts .= '
-                            </form>
-                        </div>
-                    </li>
-                ';
-            }
+}
+            // Aquí llamamos a la función para construir los comentarios
+            $mostrarComentarios = new mostrarComentarios();
+            $contenidoPosts .= $mostrarComentarios->construirComentarios($post->getID(), $post->getUsuario());
 
             $contenidoPosts .= '
                         </ul>
@@ -124,3 +92,4 @@ class mostrarPosts {
     return $contenidoPosts;
 }
 }
+

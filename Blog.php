@@ -27,6 +27,7 @@ $mostrarPost = new mostrarPosts();
 $filtrado = new filtrado_blogs();
 $filtrado_blogs = $filtrado->filtrar();
 
+/*
 // Si se envió el formulario para crear un nuevo post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = $_POST['titulo'] ?? '';
@@ -51,10 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
+*/
 $usuario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getNombreUsuario() : '';
 // Contenido del formulario para crear un nuevo post
 $formularioPosts = new FormularioAgregarPosts();
-$formularioNuevoPost = $formularioPosts->crearFormulario();
+$formularioNuevoPost = $formularioPosts->mostrarFormulario();
 
 // Crear una instancia del SA de Post
 $postSA = new postSA();
