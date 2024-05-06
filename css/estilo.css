@@ -829,3 +829,6 @@ textarea {
     margin-top: 10px; /* Margen superior */
     /* Otros estilos según tus necesidades */
 }
+.github-link {
+    margin-right: 20px; /* Ajusta el valor del margen según tu preferencia */
+}
