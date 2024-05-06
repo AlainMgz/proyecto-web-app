@@ -4,13 +4,17 @@ require_once __DIR__ . '/../session_start.php';
 require_once __DIR__ . '/../SAs/postSA.php';
 require_once 'mostrarComentarios.php';
 
-class mostrarPosts {
-    public function __construct() {}
+class mostrarPosts
+{
+    public function __construct()
+    {
+    }
 
-    public function construirPosts($posts, $usuario) {
+    public function construirPosts($posts, $usuario)
+    {
         $contenidoPosts = '<div class="container">'; // Inicializa la variable fuera del bucle
 
-        foreach ($posts as $post){ 
+        foreach ($posts as $post) {
             $contenidoPosts .= '
                 <div class="mt-3">
                     <div class="card mb-4">
@@ -29,17 +33,17 @@ class mostrarPosts {
                         <div class="card-body">
                             <h6 class="card-subtitle mb-2 text-muted">' . escape($post->getTitulo()) . '</h6>
                             ';
-                            $texto_post = $post->getTexto();
+            $texto_post = $post->getTexto();
 
-                            $texto_post_con_enlaces = preg_replace('/@(\w[\w.-]*)/', '<a href="usuario.php?nombre=$1">@$1</a>', $texto_post);
-                            $texto_post_con_enlaces = preg_replace('/#(\w[\w.-]*)/', '<a href="infoPeliculas.php?nombre=$1">#$1</a>', $texto_post_con_enlaces);
+            $texto_post_con_enlaces = preg_replace('/@(\w[\w.-]*)/', '<a href="usuario.php?nombre=$1">@$1</a>', $texto_post);
+            $texto_post_con_enlaces = preg_replace('/#(\w[\w.-]*)/', '<a href="infoPeliculas.php?nombre=$1">#$1</a>', $texto_post_con_enlaces);
 
-                            $contenidoPosts .= '
+            $contenidoPosts .= '
                             <p class="card-text" style="text-decoration: none;">' . $texto_post_con_enlaces . '</p>
                             <p class="card-text">Likes: ' . escape($post->getLikes()) . '</p>
             ';
-            if(isset($_SESSION["user_obj"])){
-                if ($usuario === $post->getUsuario() || unserialize($_SESSION["user_obj"])->getRole()==1) {
+            if (isset($_SESSION["user_obj"])) {
+                if ($usuario === $post->getUsuario() || unserialize($_SESSION["user_obj"])->getRole() == 1) {
                     $contenidoPosts .= '
                         <!-- Formulario para eliminar el post -->
                         <form action="" method="post">
@@ -62,8 +66,8 @@ class mostrarPosts {
             } elseif ($postSA->usuarioDioLike($post->getID(), $usuario)) {
                 $contenidoPosts .= '<p class="text-muted">Ya has dado like a este post.</p>';
             }
-if(isset($_SESSION['user_obj'])){
-            $contenidoPosts .= '
+            if (isset($_SESSION['user_obj'])) {
+                $contenidoPosts .= '
                             </div>
                             <button class="btn btn-link" onclick="toggleComments(' . escape($post->getID()) . ')">Mostrar/ocultar comentarios</button>
                             <div id="comments-' . escape($post->getID()) . '" style="display: none;">
@@ -81,7 +85,7 @@ if(isset($_SESSION['user_obj'])){
                                 </div>
                                 <div id="comments-list-' . escape($post->getID()) . '">
             ';
-}
+            }
             // Aquí llamamos a la función para construir los comentarios
             $mostrarComentarios = new mostrarComentarios();
             $contenidoPosts .= $mostrarComentarios->construirComentarios($post->getID(), $post->getUsuario());
@@ -93,59 +97,58 @@ if(isset($_SESSION['user_obj'])){
             </div>
         </div>
         ';
+        }
+
+        $contenidoPosts .= '';
+
+        return $contenidoPosts;
     }
-
-    $contenidoPosts .= '';
-
-    return $contenidoPosts;
-}
 }
 ?>
-
 <script>
-   document.addEventListener("DOMContentLoaded", function() {
-    var contenidoInputs = document.querySelectorAll('textarea[id^="contenido-"]');
+    document.addEventListener("DOMContentLoaded", function () {
+        var contenidoInputs = document.querySelectorAll('textarea[id^="contenido-"]');
 
-    contenidoInputs.forEach(function(contenidoInput) {
-        contenidoInput.addEventListener("input", function() {
-            var postId = contenidoInput.dataset.postid;
-            var sugerenciasId = "sugerencias-" + postId;
-            var sugerenciasUsuarios = document.getElementById(sugerenciasId);
+        contenidoInputs.forEach(function (contenidoInput) {
+            contenidoInput.addEventListener("input", function () {
+                var postId = contenidoInput.dataset.postid;
+                var sugerenciasId = "sugerencias-" + postId;
+                var sugerenciasUsuarios = document.getElementById(sugerenciasId);
 
-            var contenido = contenidoInput.value;
-            var lastSpaceIndex = contenido.lastIndexOf(" ");
-            var textAfterLastSpace = contenido.substring(lastSpaceIndex + 1);
-            var matchUser = textAfterLastSpace.match(/@(\w+)/); // Expresión regular para buscar usuarios
-            var matchMovie = textAfterLastSpace.match(/#(\w+)/); // Expresión regular para buscar películas
+                var contenido = contenidoInput.value;
+                var lastSpaceIndex = contenido.lastIndexOf(" ");
+                var textAfterLastSpace = contenido.substring(lastSpaceIndex + 1);
+                var matchUser = textAfterLastSpace.match(/@(\w+)/); // Expresión regular para buscar usuarios
+                var matchMovie = textAfterLastSpace.match(/#(\w+)/); // Expresión regular para buscar películas
 
-            if (matchUser && matchUser.length === 2) {
-                var nombreUsuario = matchUser[1];
-                // Realizar la llamada AJAX con el nombre de usuario
-                $.ajax({
-                    url: "/proyecto-web-app/includes/usuarios_sugeridos_comm.php",
-                    method: "GET",
-                    data: { usuario: nombreUsuario, id_post: postId },
-                    success: function(response) {
-                        $("#" + sugerenciasId).html(response);
-                    }
-                });
-            } else if (matchMovie && matchMovie.length === 2) {
-                var nombrePelicula = matchMovie[1];
-                // Realizar la llamada AJAX con el nombre de la película
-                $.ajax({
-                    url: "/proyecto-web-app/includes/peliculas_sugeridas_comm.php",
-                    method: "GET",
-                    data: { pelicula: nombrePelicula, id_post: postId }, // Agrega una coma después de nombrePelicula
-                    success: function(response) {
-                        $("#" + sugerenciasId).html(response);
-                    }
-                });
-            } else {
-                // Limpiar sugerencias si no se encontró ninguna mención después del último espacio
-                sugerenciasUsuarios.innerHTML = "";
-            }
+                if (matchUser && matchUser.length === 2) {
+                    var nombreUsuario = matchUser[1];
+                    // Realizar la llamada AJAX con el nombre de usuario
+                    $.ajax({
+                        url: "/proyecto-web-app/includes/usuarios_sugeridos_comm.php",
+                        method: "GET",
+                        data: { usuario: nombreUsuario, id_post: postId },
+                        success: function (response) {
+                            $("#" + sugerenciasId).html(response);
+                        }
+                    });
+                } else if (matchMovie && matchMovie.length === 2) {
+                    var nombrePelicula = matchMovie[1];
+                    // Realizar la llamada AJAX con el nombre de la película
+                    $.ajax({
+                        url: "/proyecto-web-app/includes/peliculas_sugeridas_comm.php",
+                        method: "GET",
+                        data: { pelicula: nombrePelicula, id_post: postId }, // Agrega una coma después de nombrePelicula
+                        success: function (response) {
+                            $("#" + sugerenciasId).html(response);
+                        }
+                    });
+                } else {
+                    // Limpiar sugerencias si no se encontró ninguna mención después del último espacio
+                    sugerenciasUsuarios.innerHTML = "";
+                }
+            });
         });
     });
-});
 
 </script>

@@ -57,7 +57,6 @@ $usuario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->ge
 // Contenido del formulario para crear un nuevo post
 $formularioPosts = new FormularioAgregarPosts();
 $formularioNuevoPost = $formularioPosts->mostrarFormulario();
-
 // Crear una instancia del SA de Post
 $postSA = new postSA();
 
@@ -71,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post'])) {
         $postSA->agregarComentario($comentarioDTO);
 
         // Redireccionar a esta misma página para actualizar la lista de comentarios
-        header('Location: ' . $_SERVER['PHP_SELF']);
+        echo '<script>window.location.replace("' . $_SERVER['PHP_SELF'] . '");</script>';
         exit();
     }
 }
@@ -79,9 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_delete'])) {
     $id_post_delete = $_POST['id_post_delete'];
     $postSA->borraPost($id_post_delete);
-
-    // Redireccionar a esta misma página para actualizar la lista de posts
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    echo '<script>window.location.replace("' . $_SERVER['PHP_SELF'] . '");</script>';
     exit();
 }
 
@@ -91,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_comment_delete'])) 
     $postSA->borrarComentario($id_comment_delete);
 
     // Redireccionar a esta misma página para actualizar la lista de comentarios
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    echo '<script>window.location.replace("' . $_SERVER['PHP_SELF'] . '");</script>';
     exit();
 }
 

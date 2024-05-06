@@ -64,8 +64,6 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         // Cerrar la declaración
         $statement->close();
     
-        // Cerrar la conexión
-        $this->conexion->close();
     }
     
     public function buscarPosts()
@@ -98,9 +96,6 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
             );
             $posts[] = $post;
         }
-
-        // Cerrar la conexión
-        // $this->conexion->close(); // Eliminar esta línea
 
         // Retornar el array de posts
         return $posts;
@@ -251,8 +246,6 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         // Cerrar la declaración
         $statementDeletePost->close();
 
-        // Cerrar la conexión
-        $this->conexion->close();
     }
 
     public function buscarComentarios($id_post)
@@ -338,8 +331,6 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         // Cerrar la declaración
         $statement->close();
 
-        // Cerrar la conexión
-        $this->conexion->close();
     }
 
     public function agregarLike($IDpost, $id_usuario)
@@ -402,9 +393,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
     
         // Hacer commit de la transacción
         $this->conexion->commit();
-    
-        // Cerrar la conexión
-        $this->conexion->close();
+
     }
     
 
