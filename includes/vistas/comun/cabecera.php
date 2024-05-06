@@ -60,14 +60,6 @@
                 <li class="nav-item <?= $blog_active ?>">
                     <a href="<?= $blog_url ?>" class="nav-link">Blog</a>
                 </li>
-                <li class="nav-item <?= $ranking_active ?>">
-                    <a href="<?= $ranking_url ?>" class="nav-link">Ranking</a>
-                </li>
-                <?php if (isset($_SESSION["user_obj"]) && unserialize($_SESSION["user_obj"])->getRole() == 1): ?>
-                    <li class="nav-item <?= $agregar_pelicula_active ?>">
-                        <a href="<?= $agregar_pelicula_url ?>" class="nav-link">Añadir estreno</a>
-                    </li>
-                <?php endif; ?>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
