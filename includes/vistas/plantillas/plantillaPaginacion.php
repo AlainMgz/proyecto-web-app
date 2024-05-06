@@ -71,18 +71,43 @@
 
   <div id="pagination" class="d-flex justify-content-center align-items-center" style="pointer-events: none;">
     <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li id="prevPage" class="page-item <?= $pagina > 0 ? '' : 'disabled' ?>" style="pointer-events: auto;"><a class="page-link"
-            href="<?= $pagina > 0 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina - 1) : '#' ?>">&laquo;</a></li>
-        <?php for ($i = 0; $i < $numPaginas; $i++): ?>
-          <li class="page-item <?= $pagina == $i ? 'active' : '' ?>" style="pointer-events: auto;"><a class="page-link"
-              href="<?= $current_url ?>?nombre=<?= $nombre ?>&pagina=<?= $i ?>"><?= $i ?></a></li> <?php endfor; ?>
-        <!-- Cierra el bucle for -->
-        <li id="nextPage" class="page-item <?= $pagina < $numPaginas - 1 ? '' : 'disabled' ?>" style="pointer-events: auto;"><a
-            class="page-link" href="<?= $pagina < $numPaginas - 1 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina + 1) : '#' ?>">&raquo;</a></li>
-      </ul>
+        <ul class="pagination">
+            <li id="prevPage" class="page-item <?= $pagina > 0 ? '' : 'disabled' ?>" style="pointer-events: auto;">
+                <a class="page-link" href="<?= $pagina > 0 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina - 1) : '#' ?>">&laquo;</a>
+            </li>
+
+            <?php
+            // Mostrar los enlaces de las páginas
+            // Calcula el rango de páginas a mostrar
+            $inicio = max(0, $pagina - 2); // Comienza como máximo desde la página 0
+            $fin = min($numPaginas - 1, $pagina + 2); // Termina como máximo en la última página
+
+            // Mostrar puntos suspensivos si es necesario
+            if ($inicio > 0) {
+                echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+
+            // Generar enlaces de página
+            for ($i = $inicio; $i <= $fin; $i++) {
+                ?>
+                <li class="page-item <?= $pagina == $i ? 'active' : '' ?>" style="pointer-events: auto;">
+                    <a class="page-link" href="<?= $current_url ?>?nombre=<?= $nombre ?>&pagina=<?= $i ?>"><?= $i ?></a>
+                </li>
+                <?php
+            }
+
+            // Mostrar puntos suspensivos si es necesario
+            if ($fin < $numPaginas - 1) {
+                echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+            ?>
+
+            <li id="nextPage" class="page-item <?= $pagina < $numPaginas - 1 ? '' : 'disabled' ?>" style="pointer-events: auto;">
+                <a class="page-link" href="<?= $pagina < $numPaginas - 1 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina + 1) : '#' ?>">&raquo;</a>
+            </li>
+        </ul>
     </nav>
-  </div>
+</div>
 
 </body>
 
