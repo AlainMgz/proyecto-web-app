@@ -274,7 +274,24 @@ class PeliculaDAO
         return $rows_affected > 0;
     }
 
-    
+ 
+    public function realizarMedia(PeliculaDTO $pelicula, array $reviews)
+    {
+        $this->conexion = Aplicacion::getInstance()->getConexionBd();
+        $suma = 0;
+        $contador = 0;
+        foreach ($reviews as $review) {
+            $contador++;
+            $suma += $review->getPuntuacion();
+        }
+        if ($contador != 0)
+            $media = $suma / $contador;
+        else
+            $media = 0;
+        $pelicula->setValoracion($media);
+        $this->modificarMedia($pelicula, $media);
+    }
+
     public function modificarMedia(PeliculaDTO $pelicula, $media)
     {
         // Preparar la consulta SQL

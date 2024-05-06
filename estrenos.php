@@ -7,7 +7,7 @@ require_once __DIR__ . '/includes/SAs/generoSA.php';
 
 // Crear una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
-$generoSA= new generoSA();
+$generoSA = new generoSA();
 $tituloPagina = "Estrenos";
 
 // Obtener el género seleccionado
