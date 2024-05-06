@@ -121,24 +121,23 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         return $reviews;
     }
 
-    public function obtener5reviews($skip)
+    public function obtener5Reviews($skip)
     {
         $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM reviews LIMIT 5 OFFSET ?";
+        $query = "SELECT * FROM reviews ORDER BY ID DESC LIMIT 5 OFFSET ?";
         $statement = $this->conexion->prepare($query);
-
+    
         if (!$statement) {
             die("Error al preparar la consulta: " . $this->conexion->error);
         }
-
-
+    
         $statement->bind_param("i", $skip);
         $statement->execute();
-
+    
         $result = $statement->get_result();
-
+    
         $reviews = array();
-
+    
         while ($row = $result->fetch_assoc()) {
             $review = new reviewDTO(
                 $row['ID'],
@@ -147,13 +146,13 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
                 $row['critica'],
                 $row['puntuacion'],
                 $row['pelicula']
-
             );
             $reviews[] = $review;
         }
-
+    
         return $reviews;
     }
+    
 
    
     public function obtenerReviewPorID($id)
