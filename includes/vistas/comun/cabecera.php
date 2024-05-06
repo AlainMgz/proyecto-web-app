@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="<?= RUTA_APP ?>/index.php">
             <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
         </a>
-        <a class="git-brand" href="https://github.com/AlainMgz/proyecto-web-app/tree/mainindex.php">
+        <a class="git-brand" href="https://github.com/AlainMgz/proyecto-web-app?files=1">
     <img src="<?= RUTA_IMGS ?>/git.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
 </a>
 
