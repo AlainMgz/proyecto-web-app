@@ -327,5 +327,42 @@ class UsuarioDAO
     return $result;
 }
 
+/*
+Convierte a un usuario en moderador
+*/
+/*
+Convierte a un usuario en moderador
+*/
+public static function promoverUsuario($id_usuario)
+{
+    $conn = Aplicacion::getInstance()->getConexionBd();
+    $query = "UPDATE users SET role = 2 WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_usuario);
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
+    }
+}
+
+/*
+Convierte a un moderador en un usuario común
+*/
+public static function degradarUsuario($id_usuario)
+{
+    $conn = Aplicacion::getInstance()->getConexionBd();
+    $query = "UPDATE users SET role = 0 WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_usuario);
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
+    }
+}
+
 }
 

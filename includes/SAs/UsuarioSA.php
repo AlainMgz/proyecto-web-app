@@ -67,5 +67,13 @@ class UsuarioSA {
     public function buscarSugerido($term) {
         return UsuarioDAO::buscarSugerido($term);
     }
+
+    public function promoverUsuario($idUsuario){
+return UsuarioDAO::promoverUsuario($idUsuario);
+    }
+
+    public function degradarUsuario($idUsuario){
+return UsuarioDAO::degradarUsuario($idUsuario);
+    }
 }
 

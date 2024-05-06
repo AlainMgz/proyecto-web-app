@@ -21,16 +21,30 @@ $usuarioSA = new UsuarioSA();
 $postSA = new postSA();
 $nombreUsuario = $_GET['nombre'];
 $loggedUser = unserialize($_SESSION['user_obj']);
+$userRol = $usuarioSA->buscaUsuario($nombreUsuario)->getRole();
 $loggedUserId = $loggedUser->getId();
 $loggedUsername = $loggedUser->getNombreUsuario();
 
+//Post para el boton de degradar/ascender
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_usuario'])) {
+    $idUsuario = $_POST['id_usuario'];
+    if (isset($_POST['promover_usuario'])) {
+        // Llama a la función promoverUsuario de UsuarioSA
+        $usuarioSA->promoverUsuario($idUsuario);
+    } elseif (isset($_POST['degradar_usuario'])) {
+        // Llama a la función degradarUsuario de UsuarioSA
+        $usuarioSA->degradarUsuario($idUsuario);
+    }
+    header("Location: usuario.php?nombre=$nombreUsuario");
+    exit();
+}
 if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio perfil
 
     // Obtener información del usuario
     $usuario = $usuarioSA->buscaUsuario($nombreUsuario);
     $nombre = $usuario->getNombreUsuario();
-    $seguidores= $usuario->getFollowers();
-    $seguidos= $usuario->getFollowing();
+    $seguidores = $usuario->getFollowers();
+    $seguidos = $usuario->getFollowing();
 
     $seguidoresDropdown = '<div class="dropdown-content-followers">';
     foreach ($seguidores as $seguidor) {
@@ -102,8 +116,8 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     // Obtener información del usuario
     $usuario = $usuarioSA->buscaUsuario($nombreUsuario);
     $nombre = $usuario->getNombreUsuario();
-    $seguidores= $usuario->getFollowers();
-    $seguidos= $usuario->getFollowing();
+    $seguidores = $usuario->getFollowers();
+    $seguidos = $usuario->getFollowing();
 
     if (!in_array($loggedUserId, $seguidores)) {
         // Contenido de la información del usuario
@@ -192,6 +206,23 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
                 </div>
             </div>
         ';
+    }
+    /*
+Para promover o degradar
+    */
+    if (unserialize($_SESSION['user_obj'])->getRole() == 1) {
+        if ($userRol == 0) {
+            $infoUsuario .= '<form method="POST" action="">
+    <input type="hidden" name="id_usuario" value="' . $usuario->getId() . '">
+    <button type="submit" name="promover_usuario" class="promote-btn">Promover Usuario</button>
+  </form>';
+        }
+        if ($userRol == 2) {
+            $infoUsuario .= '<form method="POST" action="">
+        <input type="hidden" name="id_usuario" value="' . $usuario->getId() . '">
+        <button type="submit" name="degradar_usuario" class="promote-btn">Degradar Usuario</button>
+      </form>';
+        }
     }
 
     // Contenido de los posts existentes
