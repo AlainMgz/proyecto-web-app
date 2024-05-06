@@ -33,6 +33,7 @@
 	<?php if (isset($selectGenero)) : ?>
         <header class="cabecera_secundaria">
             <?= $selectGenero ?>
+            <?= $indiceGenero ?>
         </header>
     <?php endif; ?>
     <?php if (isset($filtrado_blogs)) : ?>

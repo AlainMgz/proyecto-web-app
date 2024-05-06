@@ -61,13 +61,6 @@ class PeliculaSA
         return $pelicula;
     }
 
-    public function getGeneros()
-    {
-        $peliculaDAO = new PeliculaDAO();
-        $generos = $peliculaDAO->getGeneros();
-        return $generos;
-    }
-
     public function realizarMedia(PeliculaDTO $pelicula)
     {
         $peliculaDAO = new PeliculaDAO();

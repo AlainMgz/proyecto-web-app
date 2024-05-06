@@ -274,45 +274,7 @@ class PeliculaDAO
         return $rows_affected > 0;
     }
 
-    public function getGeneros()
-    {
-        $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $query = "SELECT * FROM generos";
-        $statement = $this->conexion->prepare($query);
-
-        if (!$statement) {
-            die("Error al preparar la consulta: " . $this->conexion->error);
-        }
-
-        $statement->execute();
-
-        $result = $statement->get_result();
-
-        $generos = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $generos[] = $row['genero']; // Agregar el valor de la columna 'genero' al array $generos
-        }
-
-        return $generos;
-    }
-    public function realizarMedia(PeliculaDTO $pelicula, array $reviews)
-    {
-        $this->conexion = Aplicacion::getInstance()->getConexionBd();
-        $suma = 0;
-        $contador = 0;
-        foreach ($reviews as $review) {
-            $contador++;
-            $suma += $review->getPuntuacion();
-        }
-        if ($contador != 0)
-            $media = $suma / $contador;
-        else
-            $media = 0;
-        $pelicula->setValoracion($media);
-        $this->modificarMedia($pelicula, $media);
-    }
-
+    
     public function modificarMedia(PeliculaDTO $pelicula, $media)
     {
         // Preparar la consulta SQL
