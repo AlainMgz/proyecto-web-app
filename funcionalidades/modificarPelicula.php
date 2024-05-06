@@ -10,7 +10,9 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Modificar peliculas';
 
 $contenidoPrincipal = <<<EOS
-<h1>Modificar peliculas</h1>
+<div style="text-align:center;">
+    <h1>Modificar peliculas</h1>
+</div>
 $htmlFormRegistro
 EOS;
 

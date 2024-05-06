@@ -10,7 +10,10 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Modificar reviews';
 
 $contenidoPrincipal = <<<EOS
+<div style="text-align:center;">
+
 <h1>Modificar reviews</h1>
+</div>
 $htmlFormRegistro
 EOS;
 

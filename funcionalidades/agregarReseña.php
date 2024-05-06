@@ -7,9 +7,12 @@ require_once __DIR__ . '/../includes/DTOs/PeliculaDTO.php';
 
 
 $param = null;
+$peliculaSA = new PeliculaSA();
+
 
 if (isset($_GET['id'])) {
     $param = $_GET['id'];
+    $pelicula = $peliculaSA->obtenerPeliculaPorId($param);
 } elseif (isset($_GET['nombre'])) {
     $peliculaSA = new PeliculaSA();
     $pelicula = $peliculaSA->obtenerPeliculaPorNombre($_GET['nombre']);
@@ -32,7 +35,10 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Agregar reviews';
 
 $contenidoPrincipal = <<<EOS
-<h1>Agregar reviews</h1>
+<div style="text-align:center;">
+    <h1>Agregar review de: {$pelicula->getNombre()}</h1>
+</div>
+
 $htmlFormRegistro
 EOS;
 
