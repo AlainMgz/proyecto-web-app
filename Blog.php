@@ -27,32 +27,6 @@ $mostrarPost = new mostrarPosts();
 $filtrado = new filtrado_blogs();
 $filtrado_blogs = $filtrado->filtrar();
 
-/*
-// Si se envió el formulario para crear un nuevo post
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $_POST['titulo'] ?? '';
-    $contenido = $_POST['contenido'] ?? '';
-
-    if (empty($titulo) || empty($contenido)) {
-        mostrarError('Por favor, completa todos los campos.');
-    } else {
-        $username = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getNombreUsuario() : '';
-
-        // Crear un nuevo postDTO con los datos del formulario
-        $postDTO = new postDTO(0, $username, $titulo, $contenido, 0, false, -1);
-
-        // Crear una instancia del SA de Post
-        $postSA = new postSA();
-
-        // Llamar al método crearPost del SA de Post para guardar el nuevo post en la base de datos
-        $postSA->crearPost(0, $username, $titulo, $contenido, 0, false, -1);
-
-        // Redireccionar a esta misma página para actualizar la lista de posts
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit();
-    }
-}
-*/
 $usuario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getNombreUsuario() : '';
 // Contenido del formulario para crear un nuevo post
 $formularioPosts = new FormularioAgregarPosts();
@@ -60,7 +34,7 @@ $formularioNuevoPost = $formularioPosts->mostrarFormulario();
 // Crear una instancia del SA de Post
 $postSA = new postSA();
 
-// Si se envió el formulario para agregar un comentario
+//Gestion de los envios de formularios
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post'])) {
     $id_post = $_POST['id_post'] ?? '';
     $contenido_comentario = $_POST['contenido'] ?? '';
@@ -128,8 +102,6 @@ $script = '
                 comments.style.display = "none"; // Ocultar comentarios al ocultar el formulario
             }
         }
-
-        
 
     </script>
 ';

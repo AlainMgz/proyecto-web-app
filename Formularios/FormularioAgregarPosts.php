@@ -32,7 +32,7 @@ class FormularioAgregarPosts
         ';
     }
 
-    protected function gestionarFormulario($titulo, $contenido){
+    protected function gestiona($titulo, $contenido){
         if($titulo == '') $this->errores['titulo'] = 'El título no puede estar vacío';
         if(strlen($titulo) > 255) $this->errores['titulo'] = 'El título es demasiado largo';
         if($contenido == '') $this->errores['contenido'] = 'El contenido no puede estar vacío';
@@ -54,7 +54,7 @@ public function mostrarFormulario(){
         $titulo = $_POST['titulo'];
         $contenido = $_POST['contenido'];
         // Llamar a la función para gestionar el formulario
-        $this->gestionarFormulario($titulo, $contenido);
+        $this->gestiona($titulo, $contenido);
     }
     // Mostrar el formulario
     return $this->crearFormulario();
