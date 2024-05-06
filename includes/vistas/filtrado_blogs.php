@@ -22,9 +22,9 @@ class filtrado_blogs{
     }
     public function filtrar(){
         return '
-    <div class="container mt-3 bg-light">
+    <div class="container mt-3" style="background-color: #f0f0f0;">
         <div class="row justify-content-center">
-            <div class="col">
+            <div class="col col-md-auto">
                 <form method="post">
                     <button type="submit" class="btn btn-secondary" name="ultimos" value="true">Últimos</button>
                     <button type="submit" class="btn btn-secondary" name="seguidos" value="true">Siguiendo</button>
