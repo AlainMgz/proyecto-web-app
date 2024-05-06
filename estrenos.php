@@ -3,19 +3,23 @@ require_once __DIR__ . '/includes/config.php';
 require_once BASE_APP . '/includes/session_start.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
+require_once __DIR__ . '/includes/SAs/generoSA.php';
 
 // Crear una instancia de la clase PeliculaSA
 $peliculaSA = new PeliculaSA();
+$generoSA= new generoSA();
 $tituloPagina = "Estrenos";
 
 // Obtener el género seleccionado
 $genero = isset($_POST['gen']) ? $_POST['gen'] : 'Todos';
 
 // Obtener la lista de géneros y construir el selector de género
-$generos = $peliculaSA->getGeneros();
-$selectGenero = '<form method="post" action=""><p>Genero: <select id="gen" name="gen"><option value="Todos">Todos</option>';
+$generos = $generoSA->cargarGeneros();
+$selectGenero = '<form method="post" action=""><p>Genero: <select id="gen" name="gen">';
 foreach ($generos as $generoItem) {
-    $selectGenero .= "<option value=\"$generoItem\">$generoItem</option>";
+    // Verificar si este género es el seleccionado
+    $selected = ($generoItem == $genero) ? 'selected' : '';
+    $selectGenero .= "<option value=\"$generoItem\" $selected>$generoItem</option>";
 }
 $selectGenero .= '</select><button type="submit" id="Filtrar" name="accion" value="filtrar">Filtrar</button></p></form>';
 
