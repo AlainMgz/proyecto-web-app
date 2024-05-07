@@ -74,34 +74,7 @@ ob_start();
 
 
 <script>
-    $(document).ready(function () {
-        $(".arrow-down").click(function (event) {
-            // Evita el comportamiento predeterminado del enlace
-            event.preventDefault();
-
-            // Desplaza la página hacia abajo
-            $('html, body').animate({
-                scrollTop: $("#scroll-target").offset().top
-            }, 500); // Duración de la animación en milisegundos
-        });
-
-        $(".arrow-up").click(function (event) {
-            event.preventDefault();
-
-            $('html, body').animate({
-                scrollTop: 0
-            }, 500);
-        });
-    });
-
-    $(document).ready(function() {
-    // Pre-cargar imágenes
-    var images = [];
-    for (var i = 1; i <= 5; i++) {
-        images[i] = new Image();
-        images[i].src = 'img/carrusel' + i + '.png';
-    }
-});
+    
 </script>
 
 <?php
