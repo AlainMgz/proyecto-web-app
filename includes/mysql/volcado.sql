@@ -177,25 +177,26 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 --
 INSERT INTO post (usuario, titulo, texto, likes, esComentario, IDPadre) 
 VALUES 
-('john', '¡Acabo de ver una gran película!', 'Me encantó la actuación de los protagonistas. ¿Alguien más la ha visto?', 10, 0, -1),
-('jane', 'Recomendación de película', 'Esta película es una obra maestra del cine. No te la pierdas.', 15, 0, -1),
-('admin', 'Crítica de cine', 'Esta película tiene una narrativa intrigante y una cinematografía impresionante.', 20, 0, -1),
-('john_doe', '¿Alguien ha visto esta película?', 'Estoy pensando en ver esta película este fin de semana. ¿Alguna recomendación?', 8, 0, -1),
-('movie_lover', 'Una joya del cine independiente', 'Descubrí esta película recientemente y me dejó sin palabras. Debería ser más conocida.', 25, 0, -1),
-('cinema_buff', 'Análisis de personajes', 'Los personajes de esta película son increíblemente complejos y bien desarrollados.', 30, 0, -1),
-('samuel', 'Nueva película de acción', '¡Acabo de ver la nueva película de acción y me dejó sin aliento! ¿Alguien más la ha visto?', 12, 0, -1),
-('samcarri', '¡Increíble experiencia cinematográfica!', 'No puedo creer lo bien dirigida que está esta película. Definitivamente una de mis favoritas.', 18, 0, -1),
-('nicolas', 'Comedia romántica imperdible', 'Esta película es perfecta para una noche de risas y buenos momentos. ¡Altamente recomendada!', 22, 0, -1),
-('leni', 'Drama emocionante', 'El drama en esta película es simplemente impresionante. Prepara los pañuelos.', 14, 0, -1),
-('image', 'Nuevo thriller psicológico', 'Si te gustan las películas que te hacen pensar, esta es para ti. ¡No te decepcionará!', 16, 0, -1),
-('user1', 'Una película para reflexionar', 'Esta película me dejó reflexionando sobre la vida durante días. Altamente recomendada para una experiencia introspectiva.', 28, 0, -1),
-('user2', 'Acción trepidante', 'Los efectos especiales en esta película son simplemente asombrosos. ¡No te la pierdas!', 20, 0, -1),
-('user3', 'Una obra de arte', 'Esta película es una verdadera obra de arte. Cada fotograma es impresionante.', 24, 0, -1),
-('user4', 'Un clásico moderno', 'Esta película se convertirá en un clásico instantáneo. ¡Ve a verla antes de que sea demasiado tarde!', 19, 0, -1),
-('user5', 'Fantasía épica', 'El mundo creado en esta película es simplemente impresionante. ¡Me encantaría vivir allí!', 21, 0, -1),
-('user6', 'Suspense hasta el final', 'Nunca sabes qué esperar con esta película.', 17, 0, -1),
-('user7', 'Drama conmovedor', 'Las actuaciones en esta película son excepcionales. Te dejará con los ojos llorosos.', 23, 0, -1),
-('user8', 'Una joya oculta', 'Descubrí esta película por casualidad y ahora la recomiendo a todo el mundo. Es una joya oculta.', 27, 0, -1);
+('john', '¡Acabo de ver una gran película!', 'Me encantó la actuación de los protagonistas. ¿Alguien más la ha visto? #Avatar', 10, 0, -1),
+('jane', 'Recomendación de película', 'Esta película es una obra maestra del cine. No te la pierdas. #Forrest_Gump', 15, 0, -1),
+('admin', 'Crítica de cine', 'Esta película tiene una narrativa intrigante y una cinematografía impresionante. #The_Shawshank_Redemp', 20, 0, -1),
+('john_doe', '¿Alguien ha visto esta película?', 'Estoy pensando en ver esta película este fin de semana. ¿Alguna recomendación? #Pulp_Fiction', 8, 0, -1),
+('movie_lover', 'Una joya del cine independiente', 'Descubrí esta película recientemente y me dejó sin palabras. Debería ser más conocida. #The_Dark_Knight', 25, 0, -1),
+('cinema_buff', 'Análisis de personajes', 'Los personajes de esta película son increíblemente complejos y bien desarrollados. #Fight_Club', 30, 0, -1),
+('samuel', 'Nueva película de acción', '¡Acabo de ver la nueva película de acción y me dejó sin aliento! ¿Alguien más la ha visto? #Inception', 12, 0, -1),
+('samcarri', '¡Increíble experiencia cinematográfica!', 'No puedo creer lo bien dirigida que está esta película. Definitivamente una de mis favoritas. #Titanic', 18, 0, -1),
+('nicolas', 'Comedia romántica imperdible', 'Esta película es perfecta para una noche de risas y buenos momentos. ¡Altamente recomendada! #Barbie', 22, 0, -1),
+('leni', 'Drama emocionante', 'El drama en esta película es simplemente impresionante. Prepara los pañuelos. #Gladiator', 14, 0, -1),
+('image', 'Nuevo thriller psicológico', 'Si te gustan las películas que te hacen pensar, esta es para ti. ¡No te decepcionará! #The_Shawshank_Redemp', 16, 0, -1),
+('user1', 'Una película para reflexionar', 'Esta película me dejó reflexionando sobre la vida durante días. Altamente recomendada para una experiencia introspectiva. #Gran_Torino', 28, 0, -1),
+('user2', 'Acción trepidante', 'Los efectos especiales en esta película son simplemente asombrosos. ¡No te la pierdas! #Cars', 20, 0, -1),
+('user3', 'Una obra de arte', 'Esta película es una verdadera obra de arte. Cada fotograma es impresionante. #Shrek', 24, 0, -1),
+('user4', 'Un clásico moderno', 'Esta película se convertirá en un clásico instantáneo. ¡Ve a verla antes de que sea demasiado tarde! #Los_increibles', 19, 0, -1),
+('user5', 'Fantasía épica', 'El mundo creado en esta película es simplemente impresionante. ¡Me encantaría vivir allí! #Dasdasfaasf', 21, 0, -1),
+('user6', 'Suspense hasta el final', 'Nunca sabes qué esperar con esta película. #Forrest_Gump', 17, 0, -1),
+('user7', 'Drama conmovedor', 'Las actuaciones en esta película son excepcionales. Te dejará con los ojos llorosos. #The_Shawshank_Redemp', 23, 0, -1),
+('user8', 'Una joya oculta', 'Descubrí esta película por casualidad y ahora la recomiendo a todo el mundo. Es una joya oculta. #The_Shawshank_Redemp', 27, 0, -1);
+
 
 -- Insertar nuevos comentarios
 INSERT INTO comentarios (id_post, usuario, contenido, fecha) 
