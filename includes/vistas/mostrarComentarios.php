@@ -27,9 +27,25 @@ class mostrarComentarios {
                         </div>';
                         $texto_post = $comment->getContenido();
 
-                        $texto_post_con_enlaces = preg_replace('/@(\w[\w.-]*)/', '<a href="usuario.php?nombre=$1">@$1</a>', $texto_post);
-                        $texto_post_con_enlaces = preg_replace('/#(\w[\w.-]*)/', '<a href="infoPeliculas.php?nombre=$1">#$1</a>', $texto_post_con_enlaces);
-
+                        $texto_post_con_enlaces = preg_replace_callback('/@(\w[\w.-]*)/', function($matches) {
+                            $nombreUsuario = $matches[1];
+                            $user = new UsuarioSA();
+                            if ($user->buscaUsuario($nombreUsuario)) {
+                                return '<a href="usuario.php?nombre=' . $nombreUsuario . '">@' . $nombreUsuario . '</a>';
+                            } else {
+                                return '@' . $nombreUsuario; // Si el usuario no existe, no se convierte en enlace
+                            }
+                        }, $texto_post);            
+                        
+                        $texto_post_con_enlaces = preg_replace_callback('/#(\w[\w.-]*)/', function($matches) {
+                            $nombrePelicula = $matches[1];
+                            $pelicula = new PeliculaSA();
+                            if ($pelicula->obtenerPeliculaPorNombre($nombrePelicula)) {
+                                return '<a href="infoPeliculas.php?nombre=' . urlencode($nombrePelicula) . '">#' . $nombrePelicula . '</a>';
+                            } else {
+                                return '#' . $nombrePelicula; // Si la película no existe, no se convierte en enlace
+                            }
+                        }, $texto_post_con_enlaces);
                         $contenidoComments .= '
                         <p class="card-text">' . $texto_post_con_enlaces . '</p>
                         <p class="card-text text-muted">' . escape($comment->getFecha()) . '</p>

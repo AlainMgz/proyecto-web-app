@@ -48,7 +48,10 @@ for (var i = 1; i <= 5; i++) {
 //maneja el input del buscador y muestra el overlaySearch
 $(document).ready(function () {
     $("#searchInput").on("input", function () {
-        if ($(this).val().length >= 2) {
+        var searchTerm = $(this).val(); // Obtener el valor del campo de búsqueda
+        $("#searchQuery").text(searchTerm); // Establecer el valor del campo de búsqueda en el elemento searchQuery
+    
+        if (searchTerm.length >= 2) {
             $("#searchOverlay").fadeIn();
             $.ajax({
                 url: '/proyecto-web-app/includes/buscador.php',
@@ -58,8 +61,20 @@ $(document).ready(function () {
                     $('#searchResults').html(response);
                 }
             });
-        } else{
+        } else {
             $("#searchOverlay").fadeOut();
+        }
+    });
+
+    $("#searchInput").keypress(function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var firstResultLink = $("#searchResults a:first").attr("href");
+            if (firstResultLink) {
+                window.location.href = firstResultLink;
+            } else {
+                $("#searchOverlay").fadeOut();
+            }
         }
     });
 
@@ -67,6 +82,43 @@ $(document).ready(function () {
         $("#searchOverlay").fadeOut();
     });
 });
+
+// busca peliculas en las reviews con el termino del buscador para agregar nuevas criticas
+$(document).ready(function(){
+    $("#searchReview").on("input", function(){
+        var query = $(this).val();
+        if(query.length >= 1){
+            $.ajax({
+                url: "/proyecto-web-app/includes/buscadorReviews.php",
+                method: "GET",
+                data: {nombre: query},
+                success: function(response){
+                    $("#sugerencias").html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });                
+        }else{
+            $("#sugerencias").html("");
+        }
+    });
+
+    $("#searchReview").keypress(function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var firstResultLink = $("#sugerencias a:first").attr("href");
+            if (firstResultLink) {
+                window.location.href = firstResultLink;
+            } else {
+                $("#searchReview").css("border", "1px solid red");
+            }
+        }
+    });
+
+});
+
+
 
 // busca peliculas e imagenes y usuarios con el termino del buscador y los muestra en el overlaySearch
 $(document).ready(function() {

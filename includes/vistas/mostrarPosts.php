@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../session_start.php';
 require_once __DIR__ . '/../SAs/postSA.php';
+require_once __DIR__ . '/../SAs/PeliculaSA.php';
+
 require_once 'mostrarComentarios.php';
 
 class mostrarPosts
@@ -35,8 +37,25 @@ class mostrarPosts
                             ';
             $texto_post = $post->getTexto();
 
-            $texto_post_con_enlaces = preg_replace('/@(\w[\w.-]*)/', '<a href="usuario.php?nombre=$1">@$1</a>', $texto_post);
-            $texto_post_con_enlaces = preg_replace('/#(\w[\w.-]*)/', '<a href="infoPeliculas.php?nombre=$1">#$1</a>', $texto_post_con_enlaces);
+            $texto_post_con_enlaces = preg_replace_callback('/@(\w[\w.-]*)/', function($matches) {
+                $nombreUsuario = $matches[1];
+                $user = new UsuarioSA();
+                if ($user->buscaUsuario($nombreUsuario)) {
+                    return '<a href="usuario.php?nombre=' . $nombreUsuario . '">@' . $nombreUsuario . '</a>';
+                } else {
+                    return '@' . $nombreUsuario; // Si el usuario no existe, no se convierte en enlace
+                }
+            }, $texto_post);            
+            
+            $texto_post_con_enlaces = preg_replace_callback('/#(\w[\w.-]*)/', function($matches) {
+                $nombrePelicula = $matches[1];
+                $pelicula = new PeliculaSA();
+                if ($pelicula->obtenerPeliculaPorNombre($nombrePelicula)) {
+                    return '<a href="infoPeliculas.php?nombre=' . urlencode($nombrePelicula) . '">#' . $nombrePelicula . '</a>';
+                } else {
+                    return '#' . $nombrePelicula; // Si la película no existe, no se convierte en enlace
+                }
+            }, $texto_post_con_enlaces);
 
             $contenidoPosts .= '
                             <p class="card-text" style="text-decoration: none;">' . $texto_post_con_enlaces . '</p>
@@ -103,6 +122,12 @@ class mostrarPosts
 
         return $contenidoPosts;
     }
+
+    public function existeUsuario($usuarioSA, $nombreUsuario){
+        return $usuarioSA->buscaUsuario($nombreUsuario);
+    }
+
 }
+
 ?>
 <script src="<?= RUTA_JS ?>/scripts.js"></script>
