@@ -90,20 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post_like'])) {
 
 // JavaScript para mostrar/ocultar comentarios y enviar comentarios
 $script = '
-    <script>
-        function toggleComments(postId) {
-            var form = document.getElementById("form-comment-" + postId);
-            var comments = document.getElementById("comments-" + postId);
-            if (form.style.display === "none") {
-                form.style.display = "block";
-                comments.style.display = "block"; // Mostrar comentarios al mostrar el formulario
-            } else {
-                form.style.display = "none";
-                comments.style.display = "none"; // Ocultar comentarios al ocultar el formulario
-            }
-        }
-
-    </script>
 ';
 
 // Incluir el script JavaScript
