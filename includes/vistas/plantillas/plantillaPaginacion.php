@@ -68,6 +68,10 @@
   <div id="pagination" class="d-flex justify-content-center align-items-center" style="pointer-events: none;">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
+            <li id="firstPage" class="page-item <?= $pagina > 0 ? '' : 'disabled' ?>" style="pointer-events: auto;">
+                <a class="page-link" href="<?= $pagina > 0 ? $current_url . '?nombre=' . $nombre . '&pagina=0' : '#' ?>">Primera</a>
+            </li>
+
             <li id="prevPage" class="page-item <?= $pagina > 0 ? '' : 'disabled' ?>" style="pointer-events: auto;">
                 <a class="page-link" href="<?= $pagina > 0 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina - 1) : '#' ?>">&laquo;</a>
             </li>
@@ -87,7 +91,7 @@
             for ($i = $inicio; $i <= $fin; $i++) {
                 ?>
                 <li class="page-item <?= $pagina == $i ? 'active' : '' ?>" style="pointer-events: auto;">
-                    <a class="page-link" href="<?= $current_url ?>?nombre=<?= $nombre ?>&pagina=<?= $i ?>"><?= $i ?></a>
+                    <a class="page-link" href="<?= $current_url ?>?nombre=<?= $nombre ?>&pagina=<?= $i ?>"><?= $i + 1 ?></a>
                 </li>
                 <?php
             }
@@ -101,9 +105,14 @@
             <li id="nextPage" class="page-item <?= $pagina < $numPaginas - 1 ? '' : 'disabled' ?>" style="pointer-events: auto;">
                 <a class="page-link" href="<?= $pagina < $numPaginas - 1 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($pagina + 1) : '#' ?>">&raquo;</a>
             </li>
+
+            <li id="lastPage" class="page-item <?= $pagina < $numPaginas - 1 ? '' : 'disabled' ?>" style="pointer-events: auto;">
+                <a class="page-link" href="<?= $pagina < $numPaginas - 1 ? $current_url . '?nombre=' . $nombre . '&pagina=' . ($numPaginas - 1) : '#' ?>">Última</a>
+            </li>
         </ul>
     </nav>
 </div>
+
 
 </body>
 
