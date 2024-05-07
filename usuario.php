@@ -187,9 +187,10 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
             </script>
             <div class="profile-container">
                 <div class="profile-info">
-                    <div class="container-btn">
+                    <div class="profile-detail">
                         <h2>Información del Usuario</h2>
                         <button id="follow-btn" class="following-btn"></button>
+                        <span class="value"><img style="" src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
                     </div>
                     <div class="profile-detail">
                         <span class="label">Nombre:</span>

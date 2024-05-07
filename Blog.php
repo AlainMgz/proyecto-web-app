@@ -2,8 +2,8 @@
 // Incluye los archivos necesarios
 require_once __DIR__ . '/includes/config.php';
 require_once BASE_APP . '/includes/session_start.php';
-require_once __DIR__ . '/includes/SAS/postSA.php';
-require_once __DIR__ . '/includes/SAS/usuarioSA.php';
+require_once __DIR__ . '/includes/SAs/postSA.php';
+require_once __DIR__ . '/includes/SAs/usuarioSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/DTOs/comentarioDTO.php';
 require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';

@@ -706,6 +706,8 @@ textarea {
     margin-left: 2.5%;
     transition: 0.5s ease;
     width: 20%;
+    height: 20%;
+    margin-top: 0px;
 }
 
 .following-btn:hover {
