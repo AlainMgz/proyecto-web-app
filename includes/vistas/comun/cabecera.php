@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar con desplegable</title>
-
-
-
 </head>
 
 <body>
@@ -37,13 +34,12 @@
     ?>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-       
         <a class="navbar-brand" href="<?= RUTA_APP ?>/index.php">
             <img src="<?= RUTA_IMGS ?>/logo.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
         </a>
         <a class="git-brand" href="https://github.com/AlainMgz/proyecto-web-app?files=1">
-    <img src="<?= RUTA_IMGS ?>/git.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
-</a>
+            <img src="<?= RUTA_IMGS ?>/git.png" alt="Logo" class="img-fluid" style="max-height: 40px;">
+        </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,19 +61,15 @@
                 <li class="nav-item">
                     <form id="searchForm" class="form-inline my-2 my-lg-0" action="/proyecto-web-app/infoPeliculas.php" method="get"
                         autocomplete="off">
-                <li>
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" name="nombre"
-                        placeholder="Buscar">
-                </li>
-                <li>
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
-                </li>
-                </form>
+                        <input class="form-control mr-sm-2" id="searchInput" type="search" name="nombre"
+                            placeholder="Buscar">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
                 </li>
                 <li class="nav-item">
                     <?php if (!isset($_SESSION["login"]) || $_SESSION["login"] === false): ?>
                     <li class="nav-item"><a href="<?= $login_url ?>" class="nav-link">Unknown user. Login</a></li>
-                <?php else:
+                    <?php else:
                         $username = unserialize($_SESSION['user_obj'])->getNombreUsuario(); ?>
                     <ul class="navbar-nav mr-auto ml-auto">
                         <li class="nav-item dropdown">
@@ -94,7 +86,7 @@
                             <a href="<?= $logout_url ?>" class="nav-link">Logout</a>
                         </li>
                     </ul>
-                <?php endif; ?>
+                    <?php endif; ?>
 
                 </li>
             </ul>
@@ -111,9 +103,9 @@
 
 </body>
 
-
 </html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#searchInput").on("input", function () {
@@ -127,7 +119,7 @@
                         $('#searchResults').html(response);
                     }
                 });
-            } else{
+            } else {
                 $("#searchOverlay").fadeOut();
             }
         });
