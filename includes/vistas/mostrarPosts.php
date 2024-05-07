@@ -29,7 +29,7 @@ class mostrarPosts
             $contenidoPosts .= '
                            
                             <div class="media-body">
-                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . '</a></h5>
+                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . ($usuarioPost->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioPost->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) .  '</a></h5>
                             </div>
                         </div>
                         <div class="card-body">

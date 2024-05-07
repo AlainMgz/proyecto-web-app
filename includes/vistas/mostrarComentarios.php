@@ -22,7 +22,7 @@ class mostrarComentarios {
                         <div class="media px-2 pt-3">
                             <img src="img/' . $usuarioComent->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
                             <div class="media-body">
-                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . '</a></h5>
+                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . ($usuarioComent->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioComent->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
                             </div>
                         </div>';
                         $texto_post = $comment->getContenido();

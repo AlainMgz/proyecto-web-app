@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/includes/SAs/UsuarioSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/SAs/postSA.php';
+require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
 require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 
 $tituloPagina = 'Perfil de Usuario';
@@ -71,8 +72,8 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
             </div>
             <div class="profile-detail">
                 <span class="label">Nombre:</span>
-                <span class="value">' . $nombre . '</span>
-            </div>
+                <span class="value">' . $nombre . ' ' . ($usuario->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuario->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</span>
+                </div>
             <div class="profile-detail">
                 <span class="label">Seguidores:</span>
                 <span class="dropdown-followers">
@@ -150,7 +151,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
                     </div>
                     <div class="profile-detail">
                         <span class="label">Nombre:</span>
-                        <span class="value">' . $nombre . '</span>
+                        <span class="value">' . $nombre . ' ' . ($usuario->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuario->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</span>
                     </div>
                     <div class="profile-detail">
                         <span class="label">Seguidores:</span>
@@ -193,7 +194,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
                     </div>
                     <div class="profile-detail">
                         <span class="label">Nombre:</span>
-                        <span class="value">' . $nombre . '</span>
+                        <span class="value">' . $nombre . ' ' . ($usuario->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuario->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</span>
                     </div>
                     <div class="profile-detail">
                         <span class="label">Seguidores:</span>
@@ -238,8 +239,31 @@ Para promover o degradar
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . $post->getUsuario() . '</a></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>
-                    <p class="card-text">' . $post->getTexto() . '</p>
+                    <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>';
+                    $texto_post = $post->getTexto();
+
+                $texto_post_con_enlaces = preg_replace_callback('/@(\w[\w.-]*)/', function($matches) {
+                $nombreUsuario = $matches[1];
+                $user = new UsuarioSA();
+                if ($user->buscaUsuario($nombreUsuario)) {
+                    return '<a href="usuario.php?nombre=' . $nombreUsuario . '">@' . $nombreUsuario . '</a>';
+                } else {
+                    return '@' . $nombreUsuario; // Si el usuario no existe, no se convierte en enlace
+                }
+            }, $texto_post);            
+            
+            $texto_post_con_enlaces = preg_replace_callback('/#(\w[\w.-]*)/', function($matches) {
+                $nombrePelicula = $matches[1];
+                $pelicula = new PeliculaSA();
+                if ($pelicula->obtenerPeliculaPorNombre($nombrePelicula)) {
+                    return '<a href="infoPeliculas.php?nombre=' . urlencode($nombrePelicula) . '">#' . $nombrePelicula . '</a>';
+                } else {
+                    return '#' . $nombrePelicula; // Si la película no existe, no se convierte en enlace
+                }
+            }, $texto_post_con_enlaces);
+
+            $contenidoPosts .= '
+                            <p class="card-text" style="text-decoration: none;">' . $texto_post_con_enlaces . '</p>
                 </div>
             </div>
         ';
