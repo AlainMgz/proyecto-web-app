@@ -37,7 +37,7 @@ class mostrarComentarios {
                             <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
             ';
 
-            if ($usuario === $comment->getUsuario()) {
+            if (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $comment->getUsuario()|| unserialize($_SESSION["user_obj"])->getRole()>0) {
                 $contenidoComments .= '
                     <button type="submit" class="btn btn-outline-danger">
                         <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->
