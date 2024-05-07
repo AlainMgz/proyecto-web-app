@@ -25,7 +25,7 @@ class mostrarPosts
             $postSA = new postSA();
             $usuarioPost = $usuarioSA->buscaUsuario($post->getUsuario());
             $contenidoPosts .= '
-                            <img src="img/' . $usuarioPost->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
+                           
                             <div class="media-body">
                                 <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . '</a></h5>
                             </div>
