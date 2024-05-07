@@ -113,27 +113,3 @@
 
 
 </html>
-
-<script>
-    $(document).ready(function () {
-        $("#searchInput").on("input", function () {
-            if ($(this).val().length >= 2) {
-                $("#searchOverlay").fadeIn();
-                $.ajax({
-                    url: '/proyecto-web-app/includes/buscador.php',
-                    method: 'GET',
-                    data: $('#searchForm').serialize(),
-                    success: function (response) {
-                        $('#searchResults').html(response);
-                    }
-                });
-            } else{
-                $("#searchOverlay").fadeOut();
-            }
-        });
-
-        $("#closeSearch").click(function () {
-            $("#searchOverlay").fadeOut();
-        });
-    });
-</script>

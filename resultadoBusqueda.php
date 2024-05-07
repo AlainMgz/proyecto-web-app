@@ -15,24 +15,5 @@ require_once RAIZ_APP . '/session_start.php';
 </div>
 
 <script>
-    $(document).ready(function() {
-        $("#searchInput").on("input", function() {
-            if ($(this).val().length >= 3) {
-                $("#searchOverlay").fadeIn();
-                // Realiza la solicitud AJAX para obtener los resultados de búsqueda
-                $.ajax({
-                    url: '/proyecto-web-app/includes/buscador.php',
-                    method: 'GET',
-                    data: $('#searchForm').serialize(),
-                    success: function(response) {
-                        $('#searchResults').html(response); // Muestra los resultados de búsqueda en el overlay
-                    }
-                });
-            }
-        });
-
-        $("#closeSearch").click(function() {
-            $("#searchOverlay").fadeOut();
-        });
-    });
+    
 </script>
