@@ -46,29 +46,6 @@ $contenidoPrincipal .= renderizarReviews($reviews_mostradas); // Renderizar las 
 
 $contenidoPrincipal .= '
 
-<script>
-$(document).ready(function(){
-    $("#searchReview").on("input", function(){
-        var query = $(this).val();
-        if(query.length >= 1){
-            $.ajax({
-                url: "/proyecto-web-app/includes/buscadorReviews.php",
-                method: "GET",
-                data: {nombre: query},
-                success: function(response){
-                    $("#sugerencias").html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });                
-        }else{
-            $("#sugerencias").html("");
-        }
-    });
-
-});
-</script>
 
 </body>
 </html>';

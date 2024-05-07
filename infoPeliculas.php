@@ -12,7 +12,6 @@ $contenidoPrincipal = '';
 
 if (isset ($_GET['id']) || isset ($_GET['nombre'])) {
     // Obtener el ID de la película de la URL
-    
     // Obtener la información de la película
     if(isset($_GET['id'])) {
         $idPelicula = $_GET['id'];
@@ -20,6 +19,7 @@ if (isset ($_GET['id']) || isset ($_GET['nombre'])) {
     } else {
         $pelicula = $peliculaSA->obtenerPeliculaPorNombre($_GET['nombre']);
     }
+
     $peliculaSA->realizarMedia($pelicula);
 
     // Verificar si el usuario tiene permisos para borrar o modificar la película

@@ -96,6 +96,7 @@
 
     <div class="search-overlay" id="searchOverlay">
         <div class="search-container">
+            <h4>Resultados para: <span id="searchQuery"></span></h4>
             <div id="searchResults"></div> <!-- Aquí se mostrarán los resultados de búsqueda -->
             <button id="closeSearch">Cerrar</button>
         </div>
@@ -104,28 +105,3 @@
 </body>
 
 </html>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#searchInput").on("input", function () {
-            if ($(this).val().length >= 2) {
-                $("#searchOverlay").fadeIn();
-                $.ajax({
-                    url: '/proyecto-web-app/includes/buscador.php',
-                    method: 'GET',
-                    data: $('#searchForm').serialize(),
-                    success: function (response) {
-                        $('#searchResults').html(response);
-                    }
-                });
-            } else {
-                $("#searchOverlay").fadeOut();
-            }
-        });
-
-        $("#closeSearch").click(function () {
-            $("#searchOverlay").fadeOut();
-        });
-    });
-</script>

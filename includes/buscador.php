@@ -22,7 +22,9 @@ if (isset($_GET['nombre'])) {
 
     // Mostrar los resultados de las películas
     echo '<div class="row mt-5">';
-    foreach ($resultadosPelis as $pelicula) {
+    $numPelisAMostrar = min(4, count($resultadosPelis));
+    for ($i = 0; $i < $numPelisAMostrar; $i++) {
+        $pelicula = $resultadosPelis[$i];
         echo '<div class="col-md-3 mb-4">';
         echo '<a href="infoPeliculas.php?id=' . $pelicula->getId() . '">';
         echo '<img src="img/' . $pelicula->getCaratula() . '" alt="' . $pelicula->getCaratula() . '" class="img-fluid caratula">';
@@ -34,7 +36,9 @@ if (isset($_GET['nombre'])) {
 
     // Mostrar los resultados de los usuarios
     echo '<div class="row mt-5">';
-    foreach ($resultadosUsuarios as $usuario) {
+    $numUsuariosAMostrar = min(4, count($resultadosUsuarios));
+    for ($i = 0; $i < $numUsuariosAMostrar; $i++) {
+        $usuario = $resultadosUsuarios[$i];
         echo '<div class="col-md-3 mb-4">';
         echo '<a href="usuario.php?nombre=' . $usuario . '">';
         echo '<img src="img/' . ($usuarioSA->buscaUsuario($usuario))->getProfileImage() . '" alt="User Default Picture" class="img-fluid caratula">';
