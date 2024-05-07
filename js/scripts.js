@@ -313,3 +313,21 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.getElementById('openBtn').addEventListener('click', function() {
+    document.getElementById('popupForm').style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling of background
+});
+  
+document.getElementById('closeBtn').addEventListener('click', function() {
+    document.getElementById('popupForm').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling of background
+});
+  
+// Close the pop-up when clicking outside of it
+window.addEventListener('click', function(event) {
+if (event.target == document.getElementById('popupForm')) {
+    document.getElementById('popupForm').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling of background
+}
+});

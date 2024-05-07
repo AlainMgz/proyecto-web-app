@@ -6,6 +6,7 @@ require_once __DIR__ . '/includes/SAs/UsuarioSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/SAs/postSA.php';
 require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
+require_once __DIR__ . '/Formularios/FormularioEditarPerfil.php'; // Incluir el formulario de edición de perfil
 
 $tituloPagina = 'Perfil de ' . $_GET['nombre'];
 
@@ -60,15 +61,42 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     }
     $seguidosDropdown .= '</div>';
 
+    $form = new FormularioEditarPerfil();
+    $htmlFormEditarPerfil = $form->generaCamposFormularioPopUp($nombre);
+
     // Contenido de la información del usuario
     $infoUsuario = '
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#save-edit").click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "funcionalidades/editarPerfil.php",
+                    data: { username: "' . $nombre . '", new_username: $("#new_username").val(), new_email: $("#new_email").val(), new_password: $("#new_password").val(), new_profile_image: $("#new_profile_image").val(), password: $("#password").val()},
+                    success: function(response){
+                        // Handle the response from the server
+                        if (response) { 
+                            alert("Error editing user profile:\n" + response);
+                        } else {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     <div class="profile-container">
         <div class="profile-info">
             <div class="profile-detail">
                 <h2>Información del Usuario</h2>
+                <button id="openBtn" class="follow-btn">Editar perfil</button>
                 <span class="value"><img src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
             </div>
+            <div id="popupForm" class="popup">
+                ' . $htmlFormEditarPerfil . '
+            </div>
+            <script src="js/scripts.js"></script>
             <div class="profile-detail">
                 <span class="label">Nombre:</span>
                 <span class="value">' . $nombre . '</span>
