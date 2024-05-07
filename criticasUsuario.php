@@ -10,6 +10,8 @@ $reviewSA = new ReviewSA();
 $username = unserialize($_SESSION['user_obj'])->getNombreUsuario();
 $reviews = $reviewSA->obtener5ReviewsPorUsuario($paginaActual * 5, $username);
 
+$tituloPagina = 'Últimas reviews de ' . $username;
+
 // Mostrar las primeras 5 revisiones
 $num_reviews_mostrar = 5;
 

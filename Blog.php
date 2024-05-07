@@ -11,6 +11,8 @@ require_once __DIR__ . '/includes/vistas/filtrado_blogs.php';
 require_once __DIR__ . '/Formularios/FormularioAgregarPosts.php';
 require_once __DIR__ . '/includes/vistas/mostrarPosts.php';
 
+$tituloPagina = 'Blog';
+
 // Función para escapar los datos para evitar inyección de HTML
 function escape($data)
 {

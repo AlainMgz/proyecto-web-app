@@ -6,6 +6,8 @@ require_once __DIR__ . '/includes/SAs/reviewSA.php';
 require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 require_once BASE_APP . '/includes/DTOs/UsuarioDTO.php';
 
+$tituloPagina = 'Últimas reviews';
+
 $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 0;
 $paginaActual = $pagina;// Usar el operador de fusión de null para proporcionar un valor predeterminado
 $reviewSA = new ReviewSA();

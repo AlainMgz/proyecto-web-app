@@ -7,7 +7,7 @@ require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/SAs/postSA.php';
 require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 
-$tituloPagina = 'Perfil de Usuario';
+$tituloPagina = 'Perfil de ' . $_GET['nombre'];
 
 if (!isset($_GET['nombre'])) {
     header('Location: index.php');
