@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/session_start.php';
 require_once __DIR__ . '/../includes/SAs/PeliculaSA.php';
+require_once __DIR__ .'/../includes/SAs/generoSA.php';
 require_once __DIR__ . '/Formulario.php';
 
 $tituloPagina = 'ModificarPelicula';
@@ -22,6 +23,7 @@ class FormularioModificarPeliculas extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $peliculaSA = new PeliculaSA();
+        $generoSA= new generoSA();
         $pelicula = $peliculaSA->obtenerPeliculaPorID($this->id);
 
         $erroresCampos = self::generaErroresCampos($this->campos, $this->errores);
@@ -36,7 +38,7 @@ class FormularioModificarPeliculas extends Formulario
         $trailer = $pelicula->getTrailer();
         $numValoraciones = $pelicula->getNumValoraciones();
         $media = $pelicula->getValoracion();
-        $opcionesGenero = $peliculaSA->getGeneros();
+        $opcionesGenero = $generoSA->cargarGeneros();
 
         // Genera las opciones del selector
         $opciones = '';
