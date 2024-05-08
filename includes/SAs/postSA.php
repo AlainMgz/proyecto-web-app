@@ -3,6 +3,7 @@ require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../DAOs/postDAO.php';
 require_once __DIR__ . '/../DTOs/postDTO.php';
 require_once __DIR__ . '/../DAOs/reviewDAO.php';
+
 class postSA
 {
     public function __construct()

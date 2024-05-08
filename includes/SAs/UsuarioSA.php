@@ -32,6 +32,10 @@ class UsuarioSA {
 
     }
 
+    public function actualizaUsuario(UsuarioDTO $usuario) {
+        return UsuarioDAO::actualizaUsuario($usuario);
+    }
+
     public function buscaUsuario($nombreUsuario) {
         return UsuarioDAO::buscaUsuario($nombreUsuario);
     }

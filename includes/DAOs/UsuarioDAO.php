@@ -158,7 +158,7 @@ class UsuarioDAO
     private static function actualiza(UsuarioDTO $usuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = "UPDATE users SET username = ?, email = ?, password = ?, profile_image = ?, WHERE id = ?";
+        $query = "UPDATE users SET username = ?, email = ?, password = ?, profile_image = ? WHERE id = ?";
         $stmt = $conn->prepare($query);
         $nombreUsuario = $usuario->getNombreUsuario();
         $email = $usuario->getEmail();
@@ -202,6 +202,11 @@ class UsuarioDAO
             return self::actualiza($user);
         }
         return self::inserta($user);
+    }
+
+    public static function actualizaUsuario(UsuarioDTO $usuario)
+    {
+        return self::actualiza($usuario);
     }
 
     public static function seguirUsuario($nombreUsuario, $nombreUsuarioSeguir)

@@ -365,3 +365,94 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById('openBtn').addEventListener('click', function() {
+        document.getElementById('popupForm').classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling of background
+    });
+});
+  
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById('closeBtn').addEventListener('click', function() {
+        document.getElementById('popupForm').classList.remove('show');
+        document.body.style.overflow = 'auto'; // Restore scrolling of background
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('popupForm')) {
+            document.getElementById('popupForm').classList.remove('show');
+            document.body.style.overflow = 'auto'; // Restore scrolling of background
+        }
+    });
+});
+
+var formSubmitted = false;
+
+document.addEventListener("DOMContentLoaded", function(){
+    $("#edit-form").submit(function(e){
+        e.preventDefault();
+        if (formSubmitted) {
+            return;
+        }
+        formSubmitted = true;
+        var nombre = $("#new_username").val();
+        var formData = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: "funcionalidades/editarPerfil.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response){
+                if (response) { 
+                    alert("Error editando perfil:\n" + response);
+                } else {
+                    alert("Perfil editado correctamente");
+                    window.location.href = `usuario.php?nombre=${nombre}`;
+                }
+            },
+            complete: function() {
+                formSubmitted = false; // Reset flag after AJAX request completes
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+    var nombre = document.getElementById('follow-btn').getAttribute('nombre');
+    $("#follow-btn").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "funcionalidades/procesarSeguir.php",
+            data: { username: nombre, action: "follow"},
+            success: function(response){
+                // Handle the response from the server
+                if (response) { 
+                    alert("Error following user:\n" + response);
+                }
+                location.reload();
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+    var nombre = document.getElementById('following-btn').getAttribute('nombre');
+    $("#following-btn").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "funcionalidades/procesarSeguir.php",
+            data: { username: nombre, action: "unfollow"},
+            success: function(response){
+                // Handle the response from the server
+                if (response) { 
+                    alert("Error unfollowing user:\n" + response);
+                }
+                location.reload();
+            }
+        });
+    });
+});

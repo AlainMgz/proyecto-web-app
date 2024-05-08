@@ -80,10 +80,8 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="criticasUsuario.php">Tus críticas</a>
                                 <a class="dropdown-item" href="usuario.php?nombre=<?= $username ?>">Perfil</a>
+                                <a class="dropdown-item" href="<?= $logout_url ?>">Logout</a>
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $logout_url ?>" class="nav-link">Logout</a>
                         </li>
                     </ul>
                     <?php endif; ?>

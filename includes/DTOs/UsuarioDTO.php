@@ -43,9 +43,19 @@ class UsuarioDTO {
         return $this->nombreUsuario;
     }
 
+    public function setNombreUsuario($nombreUsuario)
+    {
+        $this->nombreUsuario = $nombreUsuario;
+    }
+
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     public function getPassword()
@@ -73,6 +83,11 @@ class UsuarioDTO {
         return $this->profile_image;
     }
 
+    public function setProfileImage($profile_image)
+    {
+        $this->profile_image = $profile_image;
+    }
+
     public function compruebaPassword($password)
     {  
         $password_check = password_verify($password, $this->password);
@@ -81,7 +96,7 @@ class UsuarioDTO {
 
     public function cambiaPassword($nuevoPassword)
     {
-        $this->password = self::hashPassword($nuevoPassword);
+        $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
     }
     
     
