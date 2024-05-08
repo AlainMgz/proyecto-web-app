@@ -160,69 +160,48 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 -- Dumping data for table `post`
 --
 
+-- Insertar nuevas publicaciones
+--
+-- Dumping data for table `post`
+--
+
 INSERT INTO `post` (`ID`, `ID_usuario`, `titulo`, `texto`, `likes`) VALUES
-(1, 1, '¡Nuevo estreno en cartelera!', 'Acabo de ver la última película de Christopher Nolan y tengo que decir que es una obra maestra. ¡No te la pierdas!', 10),
-(2, 2, 'Una comedia para morirse de risa', 'Anoche vi una película de comedia que me tuvo riendo todo el tiempo. ¿Alguien más la ha visto?', 20),
-(3, 3, '¡Emocionante película de acción!', 'Acabo de ver una película de acción que me dejó sin aliento. ¡Increíbles efectos especiales y una trama emocionante!', 5),
-(4, 4, 'Una joya del cine clásico', 'Hoy me aventuré a ver una película clásica y debo decir que quedé impresionado. ¡Qué actuaciones y qué dirección!', 15),
-(5, 5, 'Una película conmovedora', 'Esta película es un viaje emocional que te llega al corazón. Definitivamente, ¡no te dejará indiferente!', 8),
-(6, 6, 'La mejor película que he visto este año', 'Acabo de salir del cine y necesito compartir mi entusiasmo por esta película. ¡Simplemente espectacular!', 12),
-(7, 7, 'Un thriller lleno de suspenso', 'Si te gustan las películas que te mantienen al borde del asiento, esta es para ti. ¡No te defraudará!', 18),
-(8, 8, 'Una película que desafía la realidad', 'Inception es una montaña rusa de emociones. ¡No puedo dejar de pensar en ella!', 25),
-(9, 9, 'Una película para reflexionar', 'Después de ver esta película, me quedé pensando en su mensaje durante días. Definitivamente, ¡vale la pena verla!', 30),
-(10, 10, 'Una aventura épica', '¡Forrest Gump es una película que te hace reír, llorar y reflexionar sobre la vida! Simplemente inolvidable.', 14),
-(11, 11, 'Una historia de amor y tragedia', 'Titanic sigue siendo una de mis películas favoritas. La recreación del hundimiento es simplemente impresionante.', 22),
-(12, 12, 'Un clásico animado', 'Shrek es una película que nunca pasará de moda. ¡Sus personajes y su humor son simplemente geniales!', 7),
-(13, 13, 'Una película para toda la familia', 'Cars es una película que disfrutan tanto los niños como los adultos. ¡Una verdadera joya de Pixar!', 13),
-(14, 14, 'Un thriller psicológico', 'Fight Club es una montaña rusa emocional. ¡No te pierdas este viaje inolvidable!', 19),
-(15, 15, 'Una historia de redención', 'The Shawshank Redemption es una película que te hace creer en la esperanza incluso en los momentos más oscuros.', 28),
-(16, 16, 'Una película que desafía las expectativas', 'Pulp Fiction rompe todas las reglas del cine convencional. ¡Una experiencia verdaderamente única!', 11),
-(17, 17, 'Un viaje al espacio', 'Interestellar te transporta a lugares que nunca imaginaste. ¡Una experiencia visual y emocionalmente impactante!', 17);
+(21, 21, 'Una película de ciencia ficción imperdible', 'Recién vi esta película de ciencia ficción y quedé impresionado. ¡Los efectos especiales son asombrosos!', 15),
+(22, 22, 'Una comedia para alegrar el día', 'Si necesitas una dosis de risas, esta comedia es perfecta para ti. ¡No podrás contener la carcajada!', 25),
+(23, 23, 'Un drama con actuaciones increíbles', 'Esta película te llevará en un viaje emocional con sus actuaciones conmovedoras y una historia poderosa.', 20),
+(24, 24, 'Una joya del cine negro', 'Si eres fanático del cine negro, esta película es un must-see. Intriga, suspense y giros inesperados te esperan.', 30),
+(25, 25, 'Una película de terror para los valientes', '¿Te atreves a ver esta película de terror? Prepárate para los sustos más escalofriantes de tu vida.', 18),
+(26, 26, 'Una aventura épica en tierras desconocidas', 'Únete a esta emocionante aventura llena de peligros, misterios y descubrimientos asombrosos.', 22),
+(27, 27, 'Un thriller psicológico que te dejará sin aliento', 'Prepárate para una experiencia intensa con este thriller psicológico que te hará cuestionar la realidad.', 28),
+(28, 28, 'Una película animada para toda la familia', 'Disfruta de las risas y la diversión con esta encantadora película animada que cautivará a grandes y pequeños.', 35),
+(29, 29, 'Una historia de amor inolvidable', 'Déjate envolver por esta emotiva historia de amor que te llegará directo al corazón. ¡Prepara los pañuelos!', 40),
+(30, 30, 'Una película de culto para los cinéfilos', 'Si eres un amante del cine, esta película icónica no puede faltar en tu lista de must-watch. ¡Un verdadero clásico!', 50),
+(31, 31, 'Una película basada en hechos reales', 'Sumérgete en esta impactante historia basada en hechos reales que te dejará reflexionando mucho después de que termine.', 55),
+(32, 32, 'Una aventura en busca de la verdad', 'Acompaña a los protagonistas en una emocionante aventura llena de misterios y revelaciones impactantes.', 60),
+(33, 33, 'Un viaje al pasado lleno de nostalgia', 'Revive los mejores momentos de tu infancia con esta película que te transportará a una época llena de magia y diversión.', 65),
+(34, 34, 'Una película sobre la amistad y el crecimiento personal', 'Descubre el poder de la amistad y la importancia de creer en uno mismo con esta película inspiradora que tocará tu corazón.', 70),
+(35, 35, 'Una película de acción al estilo clásico', 'Prepárate para una dosis de acción desenfrenada con esta película que rinde homenaje a los clásicos del género.', 75),
+(36, 36, 'Una historia de venganza y redención', 'Embárcate en un viaje lleno de emociones intensas con este drama que te mantendrá al borde de tu asiento de principio a fin.', 80),
+(37, 37, 'Una película sobre el poder de la música', 'Descubre cómo la música puede cambiar vidas y unir corazones en esta película inspiradora que te hará cantar y bailar.', 85),
+(38, 38, 'Una película sobre la lucha por la libertad', 'Acompaña a los valientes protagonistas en su lucha por la libertad y la justicia en esta película épica que te dejará sin aliento.', 90),
+(39, 39, 'Una comedia romántica para derretir corazones', 'Ríete y enamórate con esta encantadora comedia romántica que te recordará las alegrías y desafíos del amor.', 95),
+(40, 40, 'Una película sobre el valor de los sueños', 'Inspírate y sueña en grande con esta película que te recordará que nunca es demasiado tarde para perseguir tus sueños.', 100);
 
 
--- Insertar nuevos comentarios
---
--- Dumping data for table `comentario`
---
+INSERT INTO `comentarios` (`id`, `id_post`, `id_usuario`, `contenido`)
+VALUES
+(1, 21, 1, '¡Excelente película, la trama te atrapa desde el principio!'),
+(2, 22, 2, 'Me gustó mucho la historia y los personajes.'),
+(3, 23, 3, 'Excelente película, la actuación es sobresaliente.'),
+(4, 24, 4, 'Una película que deja huella, la recomiendo totalmente.'),
+(5, 25, 5, 'Me reí mucho con esta película, es perfecta para desconectar.'),
+(6, 26, 6, 'La trama te mantiene en vilo todo el tiempo, muy recomendable.'),
+(7, 27, 7, 'Una película que te llega al corazón, no pude contener las lágrimas.'),
+(8, 28, 8, 'Una película que te hace reflexionar, muy bien realizada.'),
+(9, 29, 9, 'Una obra maestra del cine, no te la puedes perder.'),
+(10, 30, 10, 'Una película de culto para los cinéfilos. Si eres un amante del cine, esta película icónica no puede faltar en tu lista de must-watch. ¡Un verdadero clásico!'),
+(11, 31, 11, 'Una película basada en hechos reales. Sumérgete en esta impactante historia basada en hechos reales que te dejará reflexionando mucho después de que termine.');
 
-INSERT INTO `comentario` (`ID`, `ID_usuario`, `ID_post`, `texto`, `likes`) VALUES
-(1, 21, 1, 'Totalmente de acuerdo contigo. La película es una obra maestra.', 5),
-(2, 22, 1, 'Me encantaría verla. ¿En qué cine la viste?', 2),
-(3, 23, 1, '¡Tengo que verla! Gracias por la recomendación.', 3),
-(4, 24, 2, 'Sí, esa película es hilarante. Me reí mucho viéndola.', 8),
-(5, 25, 2, '¡La vi y me encantó! Definitivamente una de las mejores comedias que he visto.', 6),
-(6, 26, 2, '¿Cuál es el título de la película? Quiero agregarla a mi lista.', 4),
-(7, 27, 3, '¡Tiene una trama increíble! Los efectos especiales son alucinantes.', 10),
-(8, 28, 3, 'No puedo esperar para verla. ¿Dónde la viste?', 7),
-(9, 29, 3, '¡La vi ayer y quedé asombrado! Definitivamente una de mis favoritas.', 9),
-(10, 30, 4, 'Me alegro de que la hayas disfrutado tanto. ¿Cuál fue tu parte favorita?', 12),
-(11, 31, 4, '¿Podrías decirme el nombre de la película? Me encantan las películas clásicas.', 13),
-(12, 32, 4, '¡Qué buena elección! Las películas clásicas siempre tienen algo especial.', 15),
-(13, 33, 5, '¡Totalmente de acuerdo! Esta película me llegó al corazón.', 18),
-(14, 34, 5, '¡La vi y me hizo llorar como un bebé! Una experiencia conmovedora.', 20),
-(15, 35, 5, 'Definitivamente una de las mejores películas que he visto. ¡No puedo dejar de recomendarla!', 22),
-(16, 36, 6, '¡Estoy deseando verla! ¿De qué trata?', 25),
-(17, 37, 6, '¿En qué cine la viste? Me gustaría verla este fin de semana.', 27),
-(18, 38, 6, '¡No puedo esperar para verla! Gracias por compartir tu opinión.', 28),
-(19, 39, 7, '¡Suena genial! Me encantan las películas de suspenso.', 30),
-(20, 40, 7, '¿Es tan emocionante como dices? Definitivamente la agregaré a mi lista.', 32),
-(21, 41, 7, 'Estoy buscando una buena película para ver esta noche. ¡Gracias por la recomendación!', 33),
-(22, 42, 8, 'Inception es una obra maestra. ¡Nunca me canso de verla una y otra vez!', 36),
-(23, 43, 8, '¡Totalmente de acuerdo! La trama es tan intrigante que siempre descubres algo nuevo.', 38),
-(24, 44, 8, 'Uno de los mejores finales que he visto en una película. ¡Simplemente brillante!', 40),
-(25, 45, 9, 'Esta película me hizo reflexionar sobre muchas cosas en mi vida. ¡Altamente recomendada!', 42),
-(26, 46, 9, '¡Sí! Es una película que te deja pensando durante días. ¡No te la pierdas!', 44),
-(27, 47, 9, 'Definitivamente una película que todos deberían ver al menos una vez en su vida.', 46),
-(28, 48, 10, '¡Forrest Gump es una joya del cine! Una historia tan conmovedora y bien contada.', 48),
-(29, 49, 10, '¡Me encanta esa película! La he visto tantas veces y nunca me canso de ella.', 50),
-(30, 50, 10, 'Una película que captura perfectamente la esencia de la vida. ¡Altamente recomendada!', 52),
-(31, 51, 11, 'Titanic es una de mis películas favoritas de todos los tiempos. ¡Una obra maestra!', 55),
-(32, 52, 11, '¡Totalmente de acuerdo! Nunca me canso de verla una y otra vez.', 58),
-(33, 53, 11, 'Una historia de amor épica que sigue siendo relevante hoy en día.', 60),
-(34, 54, 12, 'Shrek es una película que siempre me hace reír. ¡Nunca pasa de moda!', 62),
-(35, 55, 12, '¡Los personajes de Shrek son tan memorables! Una de mis películas favoritas de animación.', 65),
-(36, 56, 12, '¡Es imposible no amar a Shrek y su pandilla! Una película divertida para todas las edades.', 68),
-(37, 57, 13, 'Cars es una de esas películas que siempre disfruto ver, incluso después de tantos años.', 70),
-(38, 58, 13, 'Una película llena de carisma y aventura. ¡Pixar siempre entrega lo mejor!', 72),
-(39, 59, 13, 'Cars tiene un lugar especial en mi corazón. Una película que nunca me canso de ver.', 75),
-(40, 60, 14, 'Fight Club es una montaña rusa emocional que te atrapa desde el principio hasta el final.', 78);
+
+
+

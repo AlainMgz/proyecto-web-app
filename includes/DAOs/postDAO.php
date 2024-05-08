@@ -141,11 +141,11 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
 
         // Obtener los valores del comentarioDTO
         $id_post = $comentarioDTO->getIdPost();
-        $usuario = $comentarioDTO->getUsuario();
+        $id_usuario = $comentarioDTO->getIDusuario(); 
         $contenido = $comentarioDTO->getContenido();
 
         // Preparar la consulta SQL
-        $query = "INSERT INTO comentarios (id_post, usuario, contenido) VALUES (?, ?, ?)";
+        $query = "INSERT INTO comentarios (id_post, id_usuario, contenido) VALUES (?, ?, ?)";
         $statement = $this->conexion->prepare($query);
 
         // Verificar si la preparación de la consulta fue exitosa
@@ -154,7 +154,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         }
 
         // Bind parameters
-        $statement->bind_param("iss", $id_post, $usuario, $contenido);
+        $statement->bind_param("iis", $id_post, $id_usuario, $contenido);
 
         // Ejecutar la consulta
         $statement->execute();
@@ -259,7 +259,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
             $comentario = new comentarioDTO(
                 $row['id'],
                 $row['id_post'],
-                $row['usuario'],
+                $row['id_usuario'],
                 $row['contenido'],
                 $row['fecha']
             );

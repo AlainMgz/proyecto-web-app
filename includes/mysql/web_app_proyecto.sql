@@ -42,7 +42,7 @@ SET FOREIGN_KEY_CHECKS = 1; -- Reactivar comprobación de claves foráneas
 CREATE TABLE `comentarios` (
   `id` int(11) NOT NULL,
   `id_post` int(11) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `contenido` text NOT NULL,
   `fecha` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -250,8 +250,8 @@ ALTER TABLE `users`
 -- Constraints for table `comentarios`
 --
 ALTER TABLE `comentarios`
-  ADD CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`);
-
+  ADD CONSTRAINT `fk_comentarios_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`ID`),
+  ADD CONSTRAINT `fk_comentarios_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`);
 --
 -- Constraints for table `likes`
 --

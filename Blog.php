@@ -40,7 +40,7 @@ $postSA = new postSA();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_post'])) {
     $id_post = $_POST['id_post'] ?? '';
     $contenido_comentario = $_POST['contenido'] ?? '';
-    $usuario_comentario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getNombreUsuario() : '';
+    $usuario_comentario = isset($_SESSION["user_obj"]) ? unserialize($_SESSION["user_obj"])->getId() : '';
 
     if (!empty($id_post) && !empty($contenido_comentario) && !empty($usuario_comentario)) {
         $comentarioDTO = new comentarioDTO(0, $id_post, $usuario_comentario, $contenido_comentario, $id_post);

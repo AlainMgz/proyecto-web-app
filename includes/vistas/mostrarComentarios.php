@@ -14,7 +14,7 @@ class mostrarComentarios {
 
         foreach ($comments as $comment) {
             $usuarioSA = new UsuarioSA();
-            $usuarioComent = $usuarioSA->buscaUsuario($comment->getUsuario());
+            $usuarioComent = $usuarioSA->buscaPorId($comment->getIDusuario());
 
             $contenidoComments .= '
                 <li class="list-group-item">
@@ -22,7 +22,7 @@ class mostrarComentarios {
                         <div class="media px-2 pt-3">
                             <img src="img/' . $usuarioComent->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
                             <div class="media-body">
-                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($comment->getUsuario()) . '">' . escape($comment->getUsuario()) . ($usuarioComent->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioComent->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
+                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($usuarioComent->getNombreUsuario()) . '">' . escape($usuarioComent->getNombreUsuario()) . ($usuarioComent->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioComent->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
                             </div>
                         </div>';
                         $texto_post = $comment->getContenido();
@@ -53,7 +53,7 @@ class mostrarComentarios {
                             <input type="hidden" name="id_comment_delete" value="' . escape($comment->getId()) . '">
             ';
 
-            if (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $comment->getUsuario()|| unserialize($_SESSION["user_obj"])->getRole()>0) {
+            if (unserialize($_SESSION["user_obj"])->getNombreUsuario() === $usuarioComent->getNombreUsuario()|| unserialize($_SESSION["user_obj"])->getRole()>0) {
                 $contenidoComments .= '
                     <button type="submit" class="btn btn-outline-danger">
                         <i class="fas fa-trash-alt"></i> <!-- Icono de papelera -->

@@ -5,20 +5,20 @@ public $id;
 
 public $id_post;
 
-public $usuario;
+public $id_usuario;
 
 public $contenido;
 
 public $fecha;
 
-public function __construct($id, $id_post, $usuario, $contenido, $fecha){
-$this->setComentario($id, $id_post, $usuario, $contenido, $fecha);
+public function __construct($id, $id_post, $id_usuario, $contenido, $fecha){
+$this->setComentario($id, $id_post, $id_usuario, $contenido, $fecha);
 }
 
-public function setComentario($id, $id_post, $usuario, $contenido, $fecha){
+public function setComentario($id, $id_post, $id_usuario, $contenido, $fecha){
     $this->id=$id;
     $this->id_post= $id_post;
-    $this->usuario= $usuario;
+    $this->id_usuario= $id_usuario;
     $this->contenido= $contenido;
     $this->fecha= $fecha;
 }
@@ -31,8 +31,8 @@ public function getIdPost(){
     return $this->id_post;
 }
 
-public function getUsuario(){
-    return $this->usuario;
+public function getIDusuario(){
+    return $this->id_usuario;
 }
 
 public function getContenido(){
@@ -48,7 +48,7 @@ public function getComentario(){
         $valores = array(
             'ID' => $this->id,
             'idPost' => $this->id_post,
-            'usuario' => $this->usuario,
+            'id_usuario' => $this->id_usuario,
             'contenido' => $this->contenido,
             'fecha' => $this->fecha
             

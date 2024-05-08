@@ -205,6 +205,7 @@ Para promover o degradar
     ';
 
     $posts = $postSA->buscarPostsPorIdUsuario($usuarioSA->buscaUsuario($_GET['nombre'])->getId());
+    
     foreach ($posts as $post) {
         // Formatear cada post según el tipo "X"
         $contenidoPosts .= '
