@@ -48,6 +48,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     $nombre = $usuario->getNombreUsuario();
     $seguidores = $usuario->getFollowers();
     $seguidos = $usuario->getFollowing();
+    $idUsuario = $usuario->getId();
 
     $seguidoresDropdown = '<div class="dropdown-content-followers">';
     foreach ($seguidores as $seguidor) {
@@ -104,13 +105,13 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
             <h2>Posts de ' . $nombre . '</h2>
     ';
 
-    $posts = $postSA->buscarPostsPorUsuario($nombreUsuario);
+    $posts = $postSA->buscarPostsPorUsuario($idUsuario);
     foreach ($posts as $post) {
         // Formatear cada post según el tipo "X"
         $contenidoPosts .= '
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . $post->getUsuario() . '</a></h5>
+                    <h5 class="card-title"><a href="usuario.php?nombre=' . $nombre . '">' . $nombre . '</a></h5>
                     <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>
                     <p class="card-text">' . $post->getTexto() . '</p>
                 </div>
@@ -128,6 +129,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     $nombre = $usuario->getNombreUsuario();
     $seguidores = $usuario->getFollowers();
     $seguidos = $usuario->getFollowing();
+    $idUsuario = $usuario->getId();
 
     if (!in_array($loggedUserId, $seguidores)) {
         // Contenido de la información del usuario
@@ -204,14 +206,14 @@ Para promover o degradar
             <h2>Posts de ' . $nombre . '</h2>
     ';
 
-    $posts = $postSA->buscarPostsPorIdUsuario($usuarioSA->buscaUsuario($_GET['nombre'])->getId());
+    $posts = $postSA->buscarPostsPorIdUsuario($idUsuario);
     
     foreach ($posts as $post) {
         // Formatear cada post según el tipo "X"
         $contenidoPosts .= '
             <div class="card mb-3">
                 <div class="card-body">
-                <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($usuarioSA->buscaPorId($post->getIDusuario())->getNombreUsuario()) . '">' . $usuarioSA->buscaPorId($post->getIDusuario())->getNombreUsuario() . '</a></h5>
+                <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($nombre) . '">' . $usuarioSA->buscaPorId($post->getIDusuario())->getNombreUsuario() . '</a></h5>
 
                     <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>';
                     $texto_post = $post->getTexto();
