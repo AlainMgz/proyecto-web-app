@@ -2,7 +2,7 @@
 // buscar.php
 
 // Incluir tus clases y configuraciones necesarias
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once RAIZ_APP . '/DTOs/PeliculaDTO.php'; // Asegúrate de que esta ruta sea correcta
 require_once RAIZ_APP . '/SAs/PeliculaSA.php'; // Asegúrate de que esta ruta sea correcta

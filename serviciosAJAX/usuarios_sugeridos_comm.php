@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../includes/config.php';
 require_once RAIZ_APP . '/session_start.php';
 require_once RAIZ_APP . '/DTOs/UsuarioDTO.php'; // Asegúrate de que esta ruta sea correcta
 require_once RAIZ_APP . '/SAs/UsuarioSA.php'; // Asegúrate de que esta ruta sea correcta
@@ -16,7 +16,7 @@ echo '<ul>';
 foreach ($resultado as $usuario) {
     echo '<li role="option" class="sugerencia">
     <img src="img/' . $usuario->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 30px; height: 30px;"> 
-    <a href="#" class="sugerencia-usuario" data-query="' . $query . '" data-nombre="' . urlencode($usuario->getNombreUsuario()) . '">' . $usuario->getNombreUsuario() . '</a>      
+    <a href="#" class="sugerencia-usuario-comentario" data-query="' . urlencode($query) . '" data-nombre="' . urlencode($usuario->getNombreUsuario()) . '" data-id="' . $id_post . '">' . $usuario->getNombreUsuario() . '</a>
     </li>';
 }
 echo '</ul>';
