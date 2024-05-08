@@ -8,11 +8,12 @@ require_once __DIR__ . '/includes/SAs/postSA.php';
 require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 require_once __DIR__ . '/Formularios/FormularioEditarPerfil.php'; // Incluir el formulario de edición de perfil
 
-$tituloPagina = 'Perfil de ' . $_GET['nombre'];
 
 if (!isset($_GET['nombre'])) {
-    header('Location: index.php');
+    //header('Location: index.php');
 }
+
+$tituloPagina = 'Perfil de ' . $_GET['nombre'];
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] == false || !isset($_SESSION['user_obj'])) { // Si no está logueado, redirigir a login porque no puede ver perfiles
     header('Location: login.php');
@@ -66,26 +67,6 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
 
     // Contenido de la información del usuario
     $infoUsuario = '
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#save-edit").click(function(){
-                $.ajax({
-                    type: "POST",
-                    url: "funcionalidades/editarPerfil.php",
-                    data: { username: "' . $nombre . '", new_username: $("#new_username").val(), new_email: $("#new_email").val(), new_password: $("#new_password").val(), new_profile_image: $("#new_profile_image").val(), password: $("#password").val()},
-                    success: function(response){
-                        // Handle the response from the server
-                        if (response) { 
-                            alert("Error editing user profile:\n" + response);
-                        } else {
-                            location.reload();
-                        }
-                    }
-                });
-            });
-        });
-    </script>
     <div class="profile-container">
         <div class="profile-info">
             <div class="profile-detail">
@@ -96,7 +77,6 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
             <div id="popupForm" class="popup">
                 ' . $htmlFormEditarPerfil . '
             </div>
-            <script src="js/scripts.js"></script>
             <div class="profile-detail">
                 <span class="label">Nombre:</span>
                 <span class="value">' . $nombre . '</span>
@@ -138,7 +118,8 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     }
 
     $contenidoPosts .= '</div>';
-    $contenidoPrincipal = $infoUsuario . $contenidoPosts;
+    $contenidoPrincipal = '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>' . $infoUsuario . $contenidoPosts;
 
 } else { // Si el usuario está viendo el perfil de otro usuario
     // Obtener información del usuario
@@ -150,30 +131,11 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     if (!in_array($loggedUserId, $seguidores)) {
         // Contenido de la información del usuario
         $infoUsuario = '
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script>
-                $(document).ready(function(){
-                    $("#follow-btn").click(function(){
-                        $.ajax({
-                            type: "POST",
-                            url: "funcionalidades/procesarSeguir.php",
-                            data: { username: "' . $nombre . '", action: "follow"},
-                            success: function(response){
-                                // Handle the response from the server
-                                if (response) { 
-                                    alert("Error following user:\n" + response);
-                                }
-                                location.reload();
-                            }
-                        });
-                    });
-                });
-            </script>
             <div class="profile-container">
                 <div class="profile-info">
                     <div class="profile-detail">
                         <h2>Información del Usuario</h2>
-                        <button id="follow-btn" class="follow-btn">Follow</button>
+                        <button id="follow-btn" class="follow-btn" nombre="' . $nombre . '">Follow</button>
                         <span class="value"><img style="" src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
                     </div>
                     <div class="profile-detail">
@@ -194,30 +156,11 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
     } else {
         // Contenido de la información del usuario
         $infoUsuario = '
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script>
-                $(document).ready(function(){
-                    $("#follow-btn").click(function(){
-                        $.ajax({
-                            type: "POST",
-                            url: "funcionalidades/procesarSeguir.php",
-                            data: { username: "' . $nombre . '", action: "unfollow"},
-                            success: function(response){
-                                // Handle the response from the server
-                                if (response) { 
-                                    alert("Error unfollowing user:\n" + response);
-                                }
-                                location.reload();
-                            }
-                        });
-                    });
-                });
-            </script>
             <div class="profile-container">
                 <div class="profile-info">
                     <div class="profile-detail">
                         <h2>Información del Usuario</h2>
-                        <button id="follow-btn" class="following-btn"></button>
+                        <button id="following-btn" class="following-btn" nombre="' . $nombre . '"></button>
                         <span class="value"><img style="" src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
                     </div>
                     <div class="profile-detail">
@@ -275,7 +218,7 @@ Para promover o degradar
     }
 
     $contenidoPosts .= '</div>';
-    $contenidoPrincipal = $infoUsuario . $contenidoPosts;
+    $contenidoPrincipal = '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>' . $infoUsuario . $contenidoPosts . '<script src="js/scripts.js"></script>';
 }
 
 

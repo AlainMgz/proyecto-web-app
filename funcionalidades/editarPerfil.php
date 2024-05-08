@@ -21,18 +21,31 @@ if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['pass
         if(isset($_POST['new_password']) && !empty($_POST['new_password'])){
             $usuario->cambiaPassword($_POST['new_password']);
         }
-        if(isset($_POST['new_profile_image']) && !empty($_POST['new_profile_image'])){
-            $usuario->setProfileImage(htmlspecialchars($_POST['new_profile_image']));
+        if (isset($_FILES['new_profile_image']) && $_FILES['new_profile_image']['error'] == 0) {
+            $targetDir = __DIR__ . '/../img/';
+            $fileType = strtolower(pathinfo($_FILES['new_profile_image']['name'], PATHINFO_EXTENSION));
+            $targetFile = $targetDir . $nombreUsuario . "." . $fileType;
+            $allowedTypes = array('png', 'jpg', 'jpeg', 'gif');
+            $maxFileSize = 5 * 1024 * 1024; // 5MB
+
+            if (!in_array($fileType, $allowedTypes)) {
+                return 'El tipo de archivo no es válido';
+            } elseif ($_FILES['new_profile_image']['size'] > $maxFileSize) {
+                return 'El tamaño del archivo supera el límite permitido (5MB)';
+            } elseif (move_uploaded_file($_FILES['new_profile_image']['tmp_name'], $targetFile)) {
+                $new_profile_image = $nombreUsuario . "." . $fileType;
+                $usuario->setProfileImage($new_profile_image);
+            } else {
+                return 'Error al subir la imagen';
+            }
         }
-        $usuarioSA->guarda($usuario);
+        $usuarioSA->actualizaUsuario($usuario);
         $_SESSION['user_obj'] = serialize($usuario);
-        header('Location: ' . BASE_APP . 'usuario.php?nombre=' . $usuario->getNombreUsuario());
-        return true;
     } else {
-        return "La contraseña no es correcta";
+        echo "La contraseña no es correcta";
     }
 } else {
-    return "No se han rellenado todos los campos";
+    echo "No se han rellenado todos los campos";
 }
 
 ?>

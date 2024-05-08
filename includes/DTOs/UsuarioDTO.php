@@ -96,7 +96,7 @@ class UsuarioDTO {
 
     public function cambiaPassword($nuevoPassword)
     {
-        $this->password = self::hashPassword($nuevoPassword);
+        $this->password = password_hash($nuevoPassword, PASSWORD_DEFAULT);
     }
     
     
