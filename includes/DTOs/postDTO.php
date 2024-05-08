@@ -2,38 +2,31 @@
 class postDTO
 {
     public $ID;
+
+    public $ID_usuario;
     public $usuario; //Nombre del usuario
     public $titulo;
     public $texto;
     public $likes;
-    public $esComentario; //booleano que indica si es comentario o no
-    public $IDPadre; //ID del padre, si no lo tiene sera -1
 
-    public function __construct($ID, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre)
+    public function __construct($ID, $ID_usuario, $titulo, $texto, $likes)
     {
-        $this->setPost($ID, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
+        $this->setPost($ID, $ID_usuario, $titulo, $texto, $likes);
     }
 
-    private function setPost($ID, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre)
+    private function setPost($ID,$ID_usuario, $titulo, $texto, $likes)
     {
         $this->ID = $ID;
-        $this->usuario = $usuario;
+        $this->ID_usuario= $ID_usuario;
         $this->titulo = $titulo;
         $this->texto = $texto;
         $this->likes = $likes;
-        $this->esComentario = $esComentario;
-        $this->IDPadre = $IDPadre;
 
     }
 
     public function getID()
     {
         return $this->ID;
-    }
-
-    public function getUsuario()
-    {
-        return $this->usuario;
     }
 
     public function getTitulo()
@@ -51,25 +44,19 @@ class postDTO
         return $this->likes;
     }
 
-    public function getEsComentario()
-    {
-        return $this->esComentario;
+    public function getIDusuario(){
+        return $this->ID_usuario;
     }
 
-    public function getIDPadre()
-    {
-        return $this->IDPadre;
-    }
     public function getPost()
     {
         $valores = array(
             'ID' => $this->ID,
-            'usuario' => $this->usuario,
+            'ID_usuario' => $this->ID_usuario,
             'titulo' => $this->titulo,
             'texto' => $this->texto,
-            'likes' => $this->likes,
-            'esComentario' => $this->esComentario,
-            'IDPadre' => $this->IDPadre
+            'likes' => $this->likes
+
         );
         return $valores;
     }

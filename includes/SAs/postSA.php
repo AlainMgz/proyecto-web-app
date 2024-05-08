@@ -11,10 +11,9 @@ class postSA
 
     }
 
-    public function crearPost($ID, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre)
+    public function crearPost($postDTO)
     {
         $postDAO = new postDAO();
-        $postDTO = new postDTO($ID, $usuario, $titulo, $texto, $likes, $esComentario, $IDPadre);
         $postDAO->creaPost($postDTO);
         return $postDTO;
     }
@@ -31,6 +30,12 @@ class postSA
     {
         $postDAO = new postDAO();
         $posts = $postDAO->buscarPosts();
+        return $posts;
+    }
+
+    public function buscarPostsPorIdUsuario($ID_usuario){
+        $postDAO = new postDAO();
+        $posts = $postDAO->buscarPostsPorUsuario($ID_usuario);
         return $posts;
     }
 
@@ -75,23 +80,8 @@ class postSA
     public function postsSeguidos($id_usuario)
     {
         $postDAO = new postDAO();
-
-        // Buscar los IDs de los usuarios seguidos por el usuario dado
-        $ids = $postDAO->buscarIdsSeguidos($id_usuario);
-
-        // Verificar si el array de IDs está vacío
-        if (empty($ids)) {
-            return [];
-        }
-
-        // Buscar los usernames correspondientes a los IDs
-        $usernames = $postDAO->buscarUsernamesSeguidos($ids);
-
-$posts=[];
-        // Retornar los posts de los usuarios seguidos
-        $posts = $postDAO->obtenerPostsPorUsernames($usernames);
-      
-        return $posts;
+     
+        return $postDAO->buscarPostsSeguidos($id_usuario);
     }
 }
 

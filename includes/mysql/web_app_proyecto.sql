@@ -107,12 +107,10 @@ CREATE TABLE `peliculas` (
 
 CREATE TABLE `post` (
   `ID` int(11) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
   `titulo` varchar(255) NOT NULL,
   `texto` text NOT NULL,
-  `likes` int(11) DEFAULT 0,
-  `esComentario` tinyint(1) DEFAULT 0,
-  `IDPadre` int(11) DEFAULT -1
+  `likes` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -227,6 +225,10 @@ ALTER TABLE `peliculas`
 --
 ALTER TABLE `post`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `post`
+ADD FOREIGN KEY (`ID_usuario`) REFERENCES `users` (`id`);
 
 --
 -- AUTO_INCREMENT for table `reviews`

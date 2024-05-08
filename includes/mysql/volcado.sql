@@ -46,31 +46,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `profile_ima
 (39, 'user21', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user21@example.com', 0, 'user_default.png'),
 (40, 'user22', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'user22@example.com', 0, 'user_default.png');
 
--- Cuarta parte: usuarios 46 al 60
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `profile_image`) VALUES
-(41, 'user23', '$2y$10$KwUu5sSB8XiP7myjR4XIb.QSfdP9ue4.nzkMUwQuLHvEksrJ7FpiK', 'user23@example.com', 0, 'user_default.png'),
-(42, 'user24', '$2y$10$r5WSsenllw5ehQ8GtFI0nOFOZtfEh3/qKm3TjIt2PdWyWPxEetPdK', 'user24@example.com', 0, 'user_default.png'),
-(43, 'user25', '$2y$10$elYaLmcrvgiiL3td0CczkeWTNtGvFO5FWxGK3SgWih2gPAC/Py0ce', 'user25@example.com', 0, 'user_default.png'),
-(44, 'user26', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user26@example.com', 0, 'user_default.png'),
-(45, 'user27', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'user27@example.com', 0, 'user_default.png'),
-(46, 'user28', '$2y$10$KwUu5sSB8XiP7myjR4XIb.QSfdP9ue4.nzkMUwQuLHvEksrJ7FpiK', 'user28@example.com', 0, 'user_default.png'),
-(47, 'user29', '$2y$10$r5WSsenllw5ehQ8GtFI0nOFOZtfEh3/qKm3TjIt2PdWyWPxEetPdK', 'user29@example.com', 0, 'user_default.png'),
-(48, 'user30', '$2y$10$elYaLmcrvgiiL3td0CczkeWTNtGvFO5FWxGK3SgWih2gPAC/Py0ce', 'user30@example.com', 0, 'user_default.png'),
-(49, 'user31', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user31@example.com', 0, 'user_default.png'),
-(50, 'user32', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'user32@example.com', 0, 'user_default.png');
-
--- Quinta parte: usuarios 61 al 75
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `profile_image`) VALUES
-(51, 'user33', '$2y$10$KwUu5sSB8XiP7myjR4XIb.QSfdP9ue4.nzkMUwQuLHvEksrJ7FpiK', 'user33@example.com', 0, 'user_default.png'),
-(52, 'user34', '$2y$10$r5WSsenllw5ehQ8GtFI0nOFOZtfEh3/qKm3TjIt2PdWyWPxEetPdK', 'user34@example.com', 0, 'user_default.png'),
-(53, 'user35', '$2y$10$elYaLmcrvgiiL3td0CczkeWTNtGvFO5FWxGK3SgWih2gPAC/Py0ce', 'user35@example.com', 0, 'user_default.png'),
-(54, 'user36', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user36@example.com', 0, 'user_default.png'),
-(55, 'user37', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'user37@example.com', 0, 'user_default.png'),
-(56, 'user38', '$2y$10$KwUu5sSB8XiP7myjR4XIb.QSfdP9ue4.nzkMUwQuLHvEksrJ7FpiK', 'user38@example.com', 0, 'user_default.png'),
-(57, 'user39', '$2y$10$r5WSsenllw5ehQ8GtFI0nOFOZtfEh3/qKm3TjIt2PdWyWPxEetPdK', 'user39@example.com', 0, 'user_default.png'),
-(58, 'user40', '$2y$10$elYaLmcrvgiiL3td0CczkeWTNtGvFO5FWxGK3SgWih2gPAC/Py0ce', 'user40@example.com', 0, 'user_default.png'),
-(59, 'user41', '$2y$10$NjpTa1gbEWGvZ/.sOjNOT.7DfIDOY9oYj8ZoH6iORSF.0YzGpBGVO', 'user41@example.com', 0, 'user_default.png'),
-(60, 'user42', '$2y$10$cYfyWtbnojOf/jDw7cYswuqsbb9WcW7dgVWQioboPCoLWgK4NFh3y', 'user42@example.com', 0, 'user_default.png');
 
 --
 -- Dumping data for table `followers`
@@ -178,87 +153,76 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 (37, 'user29', 'Divertida', 'Una comedia muy entretenida, perfecta para ver en familia.', 4, 'Barbie'),
 (38, 'user30', 'Impactante', 'Los efectos especiales son increíbles, te sumergen por completo en la historia.', 5, 'Cars'),
 (39, 'user31', 'Emocionante', 'Una película que te mantiene en vilo de principio a fin.', 5, 'Shrek'),
-(40, 'user32', 'Sobrecogedora', 'No podía apartar la vista de la pantalla, una experiencia inolvidable.', 5, 'Gran Torino'),
-(41, 'user33', 'Intrigante', 'Una película que te hace cuestionarte todo, muy interesante.', 4, 'Inception'),
-(42, 'user34', 'Divertida', 'Me reí a carcajadas, una comedia perfecta.', 4, 'The Shawshank Redemption'),
-(43, 'user35', 'Inolvidable', 'Una película que te deja pensando mucho después de verla.', 5, 'Pulp Fiction'),
-(44, 'user36', 'Impactante', 'Los efectos especiales son alucinantes, te transportan a otro mundo.', 5, 'Avatar'),
-(45, 'user37', 'Emocionante', 'Una película que te llega al corazón, no pude contener las lágrimas.', 5, 'The Dark Knight'),
-(46, 'user38', 'Interesante', 'Una trama intrigante que te mantiene enganchado en todo momento.', 4, 'Fight Club'),
-(47, 'user39', 'Divertida', 'Una comedia ligera perfecta para desconectar.', 4, 'Los increíbles'),
-(48, 'user40', 'Conmovedora', 'Una película que te hace reflexionar sobre la vida.', 5, 'Forrest Gump'),
-(49, 'user41', 'Emocionante', 'Me mantuvo al borde del asiento todo el tiempo, muy recomendable.', 5, 'Gladiator'),
-(50, 'user42', 'Impresionante', 'Una película que te deja sin aliento, la recomiendo totalmente.', 5, 'Titanic'),
-(51, 'user3', 'Excelente película', 'Interstellar es una obra maestra del género de ciencia ficción. La trama es fascinante y la actuación es impresionante. ¡Recomendada al 100%!', 5, 'Interestellar'),
-(52, 'user4', 'Una aventura emocionante', 'Moana es una película animada maravillosa que cautiva tanto a niños como a adultos. La música, los personajes y la animación son excelentes.', 4, 'Moana'),
-(53, 'user5', 'Impactante y necesario', 'Spotlight es una película impactante que aborda un tema difícil pero importante. La actuación del elenco es sobresaliente y la dirección es impecable.', 5, 'Spotlight'),
-(54, 'user6', 'Emocionante y conmovedora', 'La La Land es una película hermosa que combina música, romance y nostalgia de una manera encantadora. ¡No puedes dejar de verla!', 4, 'La La Land'),
-(55, 'user7', 'Intensa y visceral', 'The Revenant es una experiencia cinematográfica intensa y visceral. La actuación de Leonardo DiCaprio es fenomenal y la cinematografía es impresionante.', 5, 'The Revenant'),
-(56, 'user8', 'Informativa y entretenida', 'The Big Short es un documental ingenioso que explica de manera accesible y entretenida los eventos que llevaron a la crisis financiera de 2008. ¡Muy recomendado!', 4, 'The Big Short'),
-(57, 'user9', 'Secuela emocionante', 'Sicario: Otra Vida es una secuela que no decepciona. La trama es emocionante y llena de giros inesperados. ¡Un gran thriller de acción!', 4, 'Sicario: Otra vida'),
-(58, 'user10', 'Acción trepidante', '12 Hombres Sin Línea es una película de acción trepidante con una trama emocionante y escenas de combate impresionantes. ¡Una gran película de aventuras!', 4, '12 Hombres Sin Línea'),
-(59, 'user3', 'Me encantó Black Panther', '¡Una película emocionante con una gran historia y personajes increíbles!', 9, 'Black Panther'),
-(60, 'user4', 'Joker es una obra maestra', 'La actuación de Joaquin Phoenix es sobresaliente y la trama te mantiene en vilo desde el principio hasta el final.', 10, 'Joker'),
-(61, 'user5', 'Parasitos: una obra maestra del cine', 'Bong Joon-ho ha creado una película brillante que te hace reflexionar sobre la desigualdad social de una manera impactante.', 9, 'Parasitos'),
-(62, 'user6', 'Crazy Rich Asians: una comedia encantadora', 'Esta película es una delicia visual y una historia romántica moderna que te deja con una sonrisa en el rostro.', 8, 'Crazy Rich Asians'),
-(63, 'user7', 'The Lighthouse es una experiencia única', 'La cinematografía y las actuaciones en esta película son excepcionales. Te sumerge por completo en la atmósfera claustrofóbica y misteriosa del faro.', 9, 'The Lighthouse'),
-(64, 'user8', 'Midsommar: perturbador y fascinante', 'Una película que te deja sin aliento con su belleza visual y su historia inquietante. Definitivamente no es para los débiles de corazón.', 8, 'Midsommar'),
-(65, 'user9', 'First Man: una mirada íntima a la historia', 'Esta película ofrece una visión conmovedora de la vida de Neil Armstrong y los desafíos que enfrentó en su viaje a la Luna. Ryan Gosling ofrece una actuación excepcional.', 8, 'First Man'),
-(66, 'user10', 'The Irishman: un clásico moderno', 'Martin Scorsese vuelve a entregar una obra maestra con esta épica historia de crimen y redención. Las actuaciones de De Niro, Pacino y Pesci son simplemente impresionantes.', 9, 'The Irishman'),
-(67, 'user11', 'The King''s Man: acción sin parar', 'Esta película es una montaña rusa de emociones con secuencias de acción emocionantes y un elenco estelar. Una adición digna a la franquicia Kingsman.', 8, 'The King''s Man'),
-(68, 'user12', 'The Tragedy of Macbeth: sombrío y poderoso', 'Una adaptación impresionante de la obra clásica de Shakespeare. Denzel Washington y Frances McDormand entregan actuaciones extraordinarias que te dejarán sin aliento.', 9, 'The Tragedy of Macbeth'),
-(69, 'user3', 'The White Princess: drama cautivador', 'Una historia épica de amor y traición ambientada en el oscuro y peligroso mundo de la Guerra de las Rosas. Una serie que te mantiene enganchado desde el primer episodio.', 8, 'The White Princess');
+(40, 'user32', 'Sobrecogedora', 'No podía apartar la vista de la pantalla, una experiencia inolvidable.', 5, 'Gran Torino');
+
 
 --
--- Dumping data post
+-- Dumping data for table `post`
 --
-INSERT INTO post (usuario, titulo, texto, likes, esComentario, IDPadre) 
-VALUES 
-('john', '¡Acabo de ver una gran película!', 'Me encantó la actuación de los protagonistas. ¿Alguien más la ha visto? #Avatar', 10, 0, -1),
-('jane', 'Recomendación de película', 'Esta película es una obra maestra del cine. No te la pierdas. #Forrest_Gump', 15, 0, -1),
-('admin', 'Crítica de cine', 'Esta película tiene una narrativa intrigante y una cinematografía impresionante. #The_Shawshank_Redemp', 20, 0, -1),
-('john', '¿Alguien ha visto esta película?', 'Estoy pensando en ver esta película este fin de semana. ¿Alguna recomendación? #Pulp_Fiction', 8, 0, -1),
-('nicolas', 'Una joya del cine independiente', 'Descubrí esta película recientemente y me dejó sin palabras. Debería ser más conocida. #The_Dark_Knight', 25, 0, -1),
-('aweew', 'Análisis de personajes', 'Los personajes de esta película son increíblemente complejos y bien desarrollados. #Fight_Club', 30, 0, -1),
-('samuel', 'Nueva película de acción', '¡Acabo de ver la nueva película de acción y me dejó sin aliento! ¿Alguien más la ha visto? #Inception', 12, 0, -1),
-('samcarri', '¡Increíble experiencia cinematográfica!', 'No puedo creer lo bien dirigida que está esta película. Definitivamente una de mis favoritas. #Titanic', 18, 0, -1),
-('nicolas', 'Comedia romántica imperdible', 'Esta película es perfecta para una noche de risas y buenos momentos. ¡Altamente recomendada! #Barbie', 22, 0, -1),
-('leni', 'Drama emocionante', 'El drama en esta película es simplemente impresionante. Prepara los pañuelos. #Gladiator', 14, 0, -1),
-('image', 'Nuevo thriller psicológico', 'Si te gustan las películas que te hacen pensar, esta es para ti. ¡No te decepcionará! #The_Shawshank_Redemp', 16, 0, -1),
-('user1', 'Una película para reflexionar', 'Esta película me dejó reflexionando sobre la vida durante días. Altamente recomendada para una experiencia introspectiva. #Gran_Torino', 28, 0, -1),
-('user2', 'Acción trepidante', 'Los efectos especiales en esta película son simplemente asombrosos. ¡No te la pierdas! #Cars', 20, 0, -1),
-('user3', 'Una obra de arte', 'Esta película es una verdadera obra de arte. Cada fotograma es impresionante. #Shrek', 24, 0, -1),
-('user4', 'Un clásico moderno', 'Esta película se convertirá en un clásico instantáneo. ¡Ve a verla antes de que sea demasiado tarde! #Los_increibles', 19, 0, -1),
-('user5', 'Fantasía épica', 'El mundo creado en esta película es simplemente impresionante. ¡Me encantaría vivir allí! #Dasdasfaasf', 21, 0, -1),
-('user6', 'Suspense hasta el final', 'Nunca sabes qué esperar con esta película. #Forrest_Gump', 17, 0, -1),
-('user7', 'Drama conmovedor', 'Las actuaciones en esta película son excepcionales. Te dejará con los ojos llorosos. #The_Shawshank_Redemp', 23, 0, -1),
-('user8', 'Una joya oculta', 'Descubrí esta película por casualidad y ahora la recomiendo a todo el mundo. Es una joya oculta. #The_Shawshank_Redemp', 27, 0, -1);
+
+INSERT INTO `post` (`ID`, `ID_usuario`, `titulo`, `texto`, `likes`) VALUES
+(1, 1, '¡Nuevo estreno en cartelera!', 'Acabo de ver la última película de Christopher Nolan y tengo que decir que es una obra maestra. ¡No te la pierdas!', 10),
+(2, 2, 'Una comedia para morirse de risa', 'Anoche vi una película de comedia que me tuvo riendo todo el tiempo. ¿Alguien más la ha visto?', 20),
+(3, 3, '¡Emocionante película de acción!', 'Acabo de ver una película de acción que me dejó sin aliento. ¡Increíbles efectos especiales y una trama emocionante!', 5),
+(4, 4, 'Una joya del cine clásico', 'Hoy me aventuré a ver una película clásica y debo decir que quedé impresionado. ¡Qué actuaciones y qué dirección!', 15),
+(5, 5, 'Una película conmovedora', 'Esta película es un viaje emocional que te llega al corazón. Definitivamente, ¡no te dejará indiferente!', 8),
+(6, 6, 'La mejor película que he visto este año', 'Acabo de salir del cine y necesito compartir mi entusiasmo por esta película. ¡Simplemente espectacular!', 12),
+(7, 7, 'Un thriller lleno de suspenso', 'Si te gustan las películas que te mantienen al borde del asiento, esta es para ti. ¡No te defraudará!', 18),
+(8, 8, 'Una película que desafía la realidad', 'Inception es una montaña rusa de emociones. ¡No puedo dejar de pensar en ella!', 25),
+(9, 9, 'Una película para reflexionar', 'Después de ver esta película, me quedé pensando en su mensaje durante días. Definitivamente, ¡vale la pena verla!', 30),
+(10, 10, 'Una aventura épica', '¡Forrest Gump es una película que te hace reír, llorar y reflexionar sobre la vida! Simplemente inolvidable.', 14),
+(11, 11, 'Una historia de amor y tragedia', 'Titanic sigue siendo una de mis películas favoritas. La recreación del hundimiento es simplemente impresionante.', 22),
+(12, 12, 'Un clásico animado', 'Shrek es una película que nunca pasará de moda. ¡Sus personajes y su humor son simplemente geniales!', 7),
+(13, 13, 'Una película para toda la familia', 'Cars es una película que disfrutan tanto los niños como los adultos. ¡Una verdadera joya de Pixar!', 13),
+(14, 14, 'Un thriller psicológico', 'Fight Club es una montaña rusa emocional. ¡No te pierdas este viaje inolvidable!', 19),
+(15, 15, 'Una historia de redención', 'The Shawshank Redemption es una película que te hace creer en la esperanza incluso en los momentos más oscuros.', 28),
+(16, 16, 'Una película que desafía las expectativas', 'Pulp Fiction rompe todas las reglas del cine convencional. ¡Una experiencia verdaderamente única!', 11),
+(17, 17, 'Un viaje al espacio', 'Interestellar te transporta a lugares que nunca imaginaste. ¡Una experiencia visual y emocionalmente impactante!', 17);
 
 
 -- Insertar nuevos comentarios
-INSERT INTO comentarios (id_post, usuario, contenido, fecha) 
-VALUES 
-(1, 'user9', '¡Sí! La vi también y me encantó.', '2024-05-03 16:45:00'),
-(1, 'user10', 'Totalmente de acuerdo. La actuación fue excepcional.', '2024-05-03 17:12:00'),
-(2, 'user11', 'Gracias por la recomendación. La agregaré a mi lista.', '2024-05-03 17:30:00'),
-(2, 'user12', '¡La vi hace poco y me fascinó!', '2024-05-03 18:02:00'),
-(3, 'user13', 'Estoy ansioso por ver esta película. ¡Gracias por compartir tu opinión!', '2024-05-03 18:20:00'),
-(3, 'user14', '¡Definitivamente la veré este fin de semana!', '2024-05-03 18:45:00'),
-(4, 'user15', 'La vi hace un tiempo y la recomendaría a cualquiera.', '2024-05-03 19:00:00'),
-(4, 'user16', 'Es una película increíble. ¡No te arrepentirás de verla!', '2024-05-03 19:30:00'),
-(5, 'user17', 'Estoy de acuerdo. Esta película es una joya escondida.', '2024-05-03 20:00:00'),
-(5, 'user18', 'Es una de mis películas favoritas. La he visto varias veces.', '2024-05-03 20:15:00'),
-(6, 'user19', 'El desarrollo de los personajes es realmente impresionante.', '2024-05-03 20:30:00'),
-(6, 'user20', 'Me encanta cómo cada personaje tiene su propia historia.', '2024-05-03 20:45:00'),
-(7, 'user21', '¡Acabo de verla! ¡Fue una montaña rusa de emociones!', '2024-05-03 21:00:00'),
-(7, 'user22', '¡Esa escena de la persecución en coche fue épica!', '2024-05-03 21:15:00'),
-(8, 'user23', 'Coincido totalmente. La dirección fue impecable.', '2024-05-03 21:30:00'),
-(8, 'user24', '¡Es una de mis películas favoritas de todos los tiempos!', '2024-05-03 21:45:00'),
-(9, 'user25', 'Estaba buscando una película ligera para ver. ¡Gracias por la recomendación!', '2024-05-03 22:00:00'),
-(9, 'user26', 'La vi con mi pareja y nos encantó a ambos. ¡Muy recomendable!', '2024-05-03 22:15:00'),
-(10, 'user27', '¡Me encantan las comedias románticas! Definitivamente la veré.', '2024-05-03 22:30:00'),
-(10, 'user28', 'Es perfecta para verla con tu pareja. ¡Disfrútenla juntos!', '2024-05-03 22:45:00'),
-(11, 'user29', 'Me encanta cuando las películas me hacen llorar. ¡Definitivamente la veré!', '2024-05-03 23:00:00'),
-(11, 'user30', '¡Prepara los pañuelos! Esta película te llegará al corazón.', '2024-05-03 23:15:00'),
-(12, 'user31', '¡Esta película me tuvo en vilo hasta el último minuto!', '2024-05-03 23:30:00'),
-(12, 'user32', 'Nunca supe qué iba a pasar a continuación. ¡Una experiencia increíble!', '2024-05-03 23:45:00');
+--
+-- Dumping data for table `comentario`
+--
+
+INSERT INTO `comentario` (`ID`, `ID_usuario`, `ID_post`, `texto`, `likes`) VALUES
+(1, 21, 1, 'Totalmente de acuerdo contigo. La película es una obra maestra.', 5),
+(2, 22, 1, 'Me encantaría verla. ¿En qué cine la viste?', 2),
+(3, 23, 1, '¡Tengo que verla! Gracias por la recomendación.', 3),
+(4, 24, 2, 'Sí, esa película es hilarante. Me reí mucho viéndola.', 8),
+(5, 25, 2, '¡La vi y me encantó! Definitivamente una de las mejores comedias que he visto.', 6),
+(6, 26, 2, '¿Cuál es el título de la película? Quiero agregarla a mi lista.', 4),
+(7, 27, 3, '¡Tiene una trama increíble! Los efectos especiales son alucinantes.', 10),
+(8, 28, 3, 'No puedo esperar para verla. ¿Dónde la viste?', 7),
+(9, 29, 3, '¡La vi ayer y quedé asombrado! Definitivamente una de mis favoritas.', 9),
+(10, 30, 4, 'Me alegro de que la hayas disfrutado tanto. ¿Cuál fue tu parte favorita?', 12),
+(11, 31, 4, '¿Podrías decirme el nombre de la película? Me encantan las películas clásicas.', 13),
+(12, 32, 4, '¡Qué buena elección! Las películas clásicas siempre tienen algo especial.', 15),
+(13, 33, 5, '¡Totalmente de acuerdo! Esta película me llegó al corazón.', 18),
+(14, 34, 5, '¡La vi y me hizo llorar como un bebé! Una experiencia conmovedora.', 20),
+(15, 35, 5, 'Definitivamente una de las mejores películas que he visto. ¡No puedo dejar de recomendarla!', 22),
+(16, 36, 6, '¡Estoy deseando verla! ¿De qué trata?', 25),
+(17, 37, 6, '¿En qué cine la viste? Me gustaría verla este fin de semana.', 27),
+(18, 38, 6, '¡No puedo esperar para verla! Gracias por compartir tu opinión.', 28),
+(19, 39, 7, '¡Suena genial! Me encantan las películas de suspenso.', 30),
+(20, 40, 7, '¿Es tan emocionante como dices? Definitivamente la agregaré a mi lista.', 32),
+(21, 41, 7, 'Estoy buscando una buena película para ver esta noche. ¡Gracias por la recomendación!', 33),
+(22, 42, 8, 'Inception es una obra maestra. ¡Nunca me canso de verla una y otra vez!', 36),
+(23, 43, 8, '¡Totalmente de acuerdo! La trama es tan intrigante que siempre descubres algo nuevo.', 38),
+(24, 44, 8, 'Uno de los mejores finales que he visto en una película. ¡Simplemente brillante!', 40),
+(25, 45, 9, 'Esta película me hizo reflexionar sobre muchas cosas en mi vida. ¡Altamente recomendada!', 42),
+(26, 46, 9, '¡Sí! Es una película que te deja pensando durante días. ¡No te la pierdas!', 44),
+(27, 47, 9, 'Definitivamente una película que todos deberían ver al menos una vez en su vida.', 46),
+(28, 48, 10, '¡Forrest Gump es una joya del cine! Una historia tan conmovedora y bien contada.', 48),
+(29, 49, 10, '¡Me encanta esa película! La he visto tantas veces y nunca me canso de ella.', 50),
+(30, 50, 10, 'Una película que captura perfectamente la esencia de la vida. ¡Altamente recomendada!', 52),
+(31, 51, 11, 'Titanic es una de mis películas favoritas de todos los tiempos. ¡Una obra maestra!', 55),
+(32, 52, 11, '¡Totalmente de acuerdo! Nunca me canso de verla una y otra vez.', 58),
+(33, 53, 11, 'Una historia de amor épica que sigue siendo relevante hoy en día.', 60),
+(34, 54, 12, 'Shrek es una película que siempre me hace reír. ¡Nunca pasa de moda!', 62),
+(35, 55, 12, '¡Los personajes de Shrek son tan memorables! Una de mis películas favoritas de animación.', 65),
+(36, 56, 12, '¡Es imposible no amar a Shrek y su pandilla! Una película divertida para todas las edades.', 68),
+(37, 57, 13, 'Cars es una de esas películas que siempre disfruto ver, incluso después de tantos años.', 70),
+(38, 58, 13, 'Una película llena de carisma y aventura. ¡Pixar siempre entrega lo mejor!', 72),
+(39, 59, 13, 'Cars tiene un lugar especial en mi corazón. Una película que nunca me canso de ver.', 75),
+(40, 60, 14, 'Fight Club es una montaña rusa emocional que te atrapa desde el principio hasta el final.', 78);

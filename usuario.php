@@ -204,13 +204,14 @@ Para promover o degradar
             <h2>Posts de ' . $nombre . '</h2>
     ';
 
-    $posts = $postSA->buscarPostsPorUsuario($nombreUsuario);
+    $posts = $postSA->buscarPostsPorIdUsuario($usuarioSA->buscaUsuario($_GET['nombre'])->getId());
     foreach ($posts as $post) {
         // Formatear cada post según el tipo "X"
         $contenidoPosts .= '
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . $post->getUsuario() . '</a></h5>
+                <h5 class="card-title"><a href="usuario.php?nombre=' . urlencode($usuarioSA->buscaPorId($post->getIDusuario())->getNombreUsuario()) . '">' . $usuarioSA->buscaPorId($post->getIDusuario())->getNombreUsuario() . '</a></h5>
+
                     <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>';
                     $texto_post = $post->getTexto();
 

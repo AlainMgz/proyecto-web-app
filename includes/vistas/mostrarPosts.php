@@ -25,19 +25,18 @@ class mostrarPosts
 
             $usuarioSA = new UsuarioSA();
             $postSA = new postSA();
-            $usuarioPost = $usuarioSA->buscaUsuario($post->getUsuario());
+            $usuarioPost = $usuarioSA->buscaPorId($post->getIDUsuario());
             $contenidoPosts .= '
-                           
-                            <div class="media-body">
-                                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($post->getUsuario()) . '">' . escape($post->getUsuario()) . ($usuarioPost->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioPost->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) .  '</a></h5>
-                            </div>
-                        </div>
+            <div class="media-body">
+                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($usuarioPost->getNombreUsuario()) . '">' . escape($usuarioPost->getNombreUsuario()) . ($usuarioPost->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioPost->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
+                </div>
+                     </div>
                         <div class="card-body">
                             <h6 class="card-subtitle mb-2 text-muted">' . escape($post->getTitulo()) . '</h6>
                             ';
             $texto_post = $post->getTexto();
 
-            $texto_post_con_enlaces = preg_replace_callback('/@(\w[\w.-]*)/', function($matches) {
+            $texto_post_con_enlaces = preg_replace_callback('/@(\w[\w.-]*)/', function ($matches) {
                 $nombreUsuario = $matches[1];
                 $user = new UsuarioSA();
                 if ($user->buscaUsuario($nombreUsuario)) {
@@ -45,9 +44,9 @@ class mostrarPosts
                 } else {
                     return '@' . $nombreUsuario; // Si el usuario no existe, no se convierte en enlace
                 }
-            }, $texto_post);            
-            
-            $texto_post_con_enlaces = preg_replace_callback('/#(\w[\w.-]*)/', function($matches) {
+            }, $texto_post);
+
+            $texto_post_con_enlaces = preg_replace_callback('/#(\w[\w.-]*)/', function ($matches) {
                 $nombrePelicula = $matches[1];
                 $pelicula = new PeliculaSA();
                 if ($pelicula->obtenerPeliculaPorNombre($nombrePelicula)) {
@@ -62,7 +61,7 @@ class mostrarPosts
                             <p class="card-text">Likes: ' . escape($post->getLikes()) . '</p>
             ';
             if (isset($_SESSION["user_obj"])) {
-                if ($usuario === $post->getUsuario() || unserialize($_SESSION["user_obj"])->getRole() == 1 ||unserialize($_SESSION["user_obj"])->getRole() == 1 ) {
+                if ($usuario === $usuarioSA->buscaNombrePorId($post->getIDUsuario()) || unserialize($_SESSION["user_obj"])->getRole() == 1 || unserialize($_SESSION["user_obj"])->getRole() == 1) {
                     $contenidoPosts .= '
                         <!-- Formulario para eliminar el post -->
                         <form action="" method="post">
@@ -74,7 +73,7 @@ class mostrarPosts
                     ';
                 }
             }
-            if ($usuario !== $post->getUsuario() && !$postSA->usuarioDioLike($post->getID(), $usuario)) {
+            if ($usuario !== $usuarioSA->buscaNombrePorId($post->getIDUsuario()) && !$postSA->usuarioDioLike($post->getID(), $usuario)) {
                 $contenidoPosts .= '
                     <!-- Formulario para dar like -->
                     <form action="" method="post">
@@ -107,7 +106,7 @@ class mostrarPosts
             }
             // Aquí llamamos a la función para construir los comentarios
             $mostrarComentarios = new mostrarComentarios();
-            $contenidoPosts .= $mostrarComentarios->construirComentarios($post->getID(), $post->getUsuario());
+            $contenidoPosts .= $mostrarComentarios->construirComentarios($post->getID(), $usuarioSA->buscaNombrePorId($post->getIDUsuario()));
 
             $contenidoPosts .= '
                         </ul>
@@ -123,7 +122,8 @@ class mostrarPosts
         return $contenidoPosts;
     }
 
-    public function existeUsuario($usuarioSA, $nombreUsuario){
+    public function existeUsuario($usuarioSA, $nombreUsuario)
+    {
         return $usuarioSA->buscaUsuario($nombreUsuario);
     }
 

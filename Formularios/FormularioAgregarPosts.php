@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/session_start.php';
 require_once __DIR__ . '/../includes/SAs/postSA.php';
+require_once __DIR__ . '/../includes/DTOs/UsuarioDTO.php';
 require_once __DIR__ . '/Formulario.php';
 
 class FormularioAgregarPosts
@@ -39,7 +40,9 @@ class FormularioAgregarPosts
         
         if(empty($this->errores)) {
             $postSA = new postSA();
-            $postSA->crearPost(0, unserialize($_SESSION["user_obj"])->getNombreUsuario(), $titulo, $contenido, 0, false, -1);
+            $ID_USUARIO= unserialize($_SESSION["user_obj"])->getId();
+            $postDTO= new postDTO(0,$ID_USUARIO , $titulo, $contenido, 0);
+            $postSA->crearPost($postDTO);
             
             // Redireccionar a esta misma página para actualizar la lista de posts
             echo '<script>window.location.replace("' . $_SERVER['PHP_SELF'] . '");</script>';
