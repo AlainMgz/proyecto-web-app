@@ -33,4 +33,3 @@ $contenidoPrincipal .= '
 </html>';
 
 require BASE_APP . '/includes/vistas/plantillas/plantillaPaginacion.php';
-?>
