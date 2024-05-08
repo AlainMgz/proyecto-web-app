@@ -54,7 +54,7 @@ $(document).ready(function () {
         if (searchTerm.length >= 2) {
             $("#searchOverlay").fadeIn();
             $.ajax({
-                url: '/proyecto-web-app/includes/buscador.php',
+                url: '/proyecto-web-app/serviciosAJAX/buscador.php',
                 method: 'GET',
                 data: $('#searchForm').serialize(),
                 success: function (response) {
@@ -89,7 +89,7 @@ $(document).ready(function(){
         var query = $(this).val();
         if(query.length >= 1){
             $.ajax({
-                url: "/proyecto-web-app/includes/buscadorReviews.php",
+                url: "/proyecto-web-app/serviciosAJAX/buscadorReviews.php",
                 method: "GET",
                 data: {nombre: query},
                 success: function(response){
@@ -127,7 +127,7 @@ $(document).ready(function() {
             $("#searchOverlay").fadeIn();
             // Realiza la solicitud AJAX para obtener los resultados de búsqueda
             $.ajax({
-                url: '/proyecto-web-app/includes/buscador.php',
+                url: '/proyecto-web-app/serviciosAJAX/buscador.php',
                 method: 'GET',
                 data: $('#searchForm').serialize(),
                 success: function(response) {
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var nombreUsuario = matchUser[1];
                 // Realizar la llamada AJAX con el nombre de usuario
                 $.ajax({
-                    url: "/proyecto-web-app/includes/usuarios_sugeridos_comm.php",
+                    url: "/proyecto-web-app/serviciosAJAX/usuarios_sugeridos_comm.php",
                     method: "GET",
                     data: { usuario: nombreUsuario, id_post: postId },
                     success: function (response) {
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var nombrePelicula = matchMovie[1];
                 // Realizar la llamada AJAX con el nombre de la película
                 $.ajax({
-                    url: "/proyecto-web-app/includes/peliculas_sugeridas_comm.php",
+                    url: "/proyecto-web-app/serviciosAJAX/peliculas_sugeridas_comm.php",
                     method: "GET",
                     data: { pelicula: nombrePelicula, id_post: postId }, // Agrega una coma después de nombrePelicula
                     success: function (response) {
@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var nombreUsuario = matchUser[1];
             // Realizar la llamada AJAX con el nombre de usuario
             $.ajax({
-                url: "/proyecto-web-app/includes/usuarios_sugeridos.php",
+                url: "/proyecto-web-app/serviciosAJAX/usuarios_sugeridos.php",
                 method: "GET",
                 data: {
                     usuario: nombreUsuario
@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var nombrePelicula = matchMovie[1];
             // Realizar la llamada AJAX con el nombre de la película
             $.ajax({
-                url: "/proyecto-web-app/includes/peliculas_sugeridas.php",
+                url: "/proyecto-web-app/serviciosAJAX/peliculas_sugeridas.php",
                 method: "GET",
                 data: {
                     pelicula: nombrePelicula
