@@ -35,16 +35,6 @@ $(document).ready(function () {
     });
 });
 
-// precargar imagenes en el carrusel
-$(document).ready(function() {
-// Pre-cargar imágenes
-var images = [];
-for (var i = 1; i <= 5; i++) {
-    images[i] = new Image();
-    images[i].src = 'img/carrusel' + i + '.png';
-}
-});
-
 //maneja el input del buscador y muestra el overlaySearch
 $(document).ready(function () {
     $("#searchInput").on("input", function () {
@@ -118,30 +108,6 @@ $(document).ready(function(){
 
 });
 
-
-
-// busca peliculas e imagenes y usuarios con el termino del buscador y los muestra en el overlaySearch
-$(document).ready(function() {
-    $("#searchInput").on("input", function() {
-        if ($(this).val().length >= 3) {
-            $("#searchOverlay").fadeIn();
-            // Realiza la solicitud AJAX para obtener los resultados de búsqueda
-            $.ajax({
-                url: '/proyecto-web-app/serviciosAJAX/buscador.php',
-                method: 'GET',
-                data: $('#searchForm').serialize(),
-                success: function(response) {
-                    $('#searchResults').html(response); // Muestra los resultados de búsqueda en el overlay
-                }
-            });
-        }
-    });
-
-    $("#closeSearch").click(function() {
-        $("#searchOverlay").fadeOut();
-    });
-});
-
 // Manejar clic en enlaces de sugerencias de usuario Y reemplazar el nombre de usuario que hay en el input con el nombre de usuario seleccionado
 $(document).ready(function () {
     $(".sugerencia-usuario").on("click", function (event) {
@@ -172,52 +138,6 @@ $(document).ready(function () {
         $("#sugerencias-post").empty(); // Limpiar sugerencias
     });
 
-});
-
-// Manejar cambios en el textarea de comentarios y muestra sugerencias de usuarios encontrados por lo que hay en el input
-document.addEventListener("DOMContentLoaded", function () {
-    var contenidoInputs = document.querySelectorAll('textarea[id^="contenido-"]');
-
-    contenidoInputs.forEach(function (contenidoInput) {
-        contenidoInput.addEventListener("input", function () {
-            var postId = contenidoInput.dataset.postid;
-            var sugerenciasId = "sugerencias-" + postId;
-            var sugerenciasUsuarios = document.getElementById(sugerenciasId);
-
-            var contenido = contenidoInput.value;
-            var lastSpaceIndex = contenido.lastIndexOf(" ");
-            var textAfterLastSpace = contenido.substring(lastSpaceIndex + 1);
-            var matchUser = textAfterLastSpace.match(/@(\w+)/); // Expresión regular para buscar usuarios
-            var matchMovie = textAfterLastSpace.match(/#(\w+)/); // Expresión regular para buscar películas
-
-            if (matchUser && matchUser.length === 2) {
-                var nombreUsuario = matchUser[1];
-                // Realizar la llamada AJAX con el nombre de usuario
-                $.ajax({
-                    url: "/proyecto-web-app/serviciosAJAX/usuarios_sugeridos_comm.php",
-                    method: "GET",
-                    data: { usuario: nombreUsuario, id_post: postId },
-                    success: function (response) {
-                        $("#" + sugerenciasId).html(response);
-                    }
-                });
-            } else if (matchMovie && matchMovie.length === 2) {
-                var nombrePelicula = matchMovie[1];
-                // Realizar la llamada AJAX con el nombre de la película
-                $.ajax({
-                    url: "/proyecto-web-app/serviciosAJAX/peliculas_sugeridas_comm.php",
-                    method: "GET",
-                    data: { pelicula: nombrePelicula, id_post: postId }, // Agrega una coma después de nombrePelicula
-                    success: function (response) {
-                        $("#" + sugerenciasId).html(response);
-                    }
-                });
-            } else {
-                // Limpiar sugerencias si no se encontró ninguna mención después del último espacio
-                sugerenciasUsuarios.innerHTML = "";
-            }
-        });
-    });
 });
 
 // Manejar clic en enlaces de sugerencias de usuario en comentarios Y reemplazar el nombre de usuario que hay en el input del comentario con el nombre de usuario seleccionado
@@ -318,6 +238,52 @@ $(document).ready(function () {
         $("#sugerencias-" + id_post).empty(); // Limpiar sugerencias
     });
 
+});
+
+// Manejar cambios en el textarea de comentarios y muestra sugerencias de usuarios encontrados por lo que hay en el input
+document.addEventListener("DOMContentLoaded", function () {
+    var contenidoInputs = document.querySelectorAll('textarea[id^="contenido-"]');
+
+    contenidoInputs.forEach(function (contenidoInput) {
+        contenidoInput.addEventListener("input", function () {
+            var postId = contenidoInput.dataset.postid;
+            var sugerenciasId = "sugerencias-" + postId;
+            var sugerenciasUsuarios = document.getElementById(sugerenciasId);
+
+            var contenido = contenidoInput.value;
+            var lastSpaceIndex = contenido.lastIndexOf(" ");
+            var textAfterLastSpace = contenido.substring(lastSpaceIndex + 1);
+            var matchUser = textAfterLastSpace.match(/@(\w+)/); // Expresión regular para buscar usuarios
+            var matchMovie = textAfterLastSpace.match(/#(\w+)/); // Expresión regular para buscar películas
+
+            if (matchUser && matchUser.length === 2) {
+                var nombreUsuario = matchUser[1];
+                // Realizar la llamada AJAX con el nombre de usuario
+                $.ajax({
+                    url: "/proyecto-web-app/serviciosAJAX/usuarios_sugeridos_comm.php",
+                    method: "GET",
+                    data: { usuario: nombreUsuario, id_post: postId },
+                    success: function (response) {
+                        $("#" + sugerenciasId).html(response);
+                    }
+                });
+            } else if (matchMovie && matchMovie.length === 2) {
+                var nombrePelicula = matchMovie[1];
+                // Realizar la llamada AJAX con el nombre de la película
+                $.ajax({
+                    url: "/proyecto-web-app/serviciosAJAX/peliculas_sugeridas_comm.php",
+                    method: "GET",
+                    data: { pelicula: nombrePelicula, id_post: postId }, // Agrega una coma después de nombrePelicula
+                    success: function (response) {
+                        $("#" + sugerenciasId).html(response);
+                    }
+                });
+            } else {
+                // Limpiar sugerencias si no se encontró ninguna mención después del último espacio
+                sugerenciasUsuarios.innerHTML = "";
+            }
+        });
+    });
 });
 
 // Manejar el evento de entrada en el textarea del post y muestra sugerencias de usuario y peliculas
