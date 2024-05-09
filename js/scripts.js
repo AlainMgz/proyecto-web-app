@@ -97,12 +97,23 @@ $(document).ready(function(){
     $("#searchReview").keypress(function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
-            var firstResultLink = $("#sugerencias a:first").attr("href");
-            if (firstResultLink) {
-                window.location.href = firstResultLink;
-            } else {
-                $("#searchReview").css("border", "1px solid red");
-            }
+            $.ajax({
+                url: "/proyecto-web-app/serviciosAJAX/check_session.php",
+                method: "POST",
+                success: function(response) {
+                    if (response === "user_exists") {
+                        var firstResultLink = $("#sugerencias a:first").attr("href");
+                        if (firstResultLink) {
+                            window.location.href = firstResultLink;
+                        } else {
+                            $("#searchReview").css("border", "1px solid red");
+                        }
+                    } else {
+                        // El usuario no ha iniciado sesión, puedes mostrar un mensaje o hacer otra acción
+                        window.location.href = "login.php";
+                    }
+                }
+            });
         }
     });
 
