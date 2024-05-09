@@ -6,7 +6,7 @@ require_once __DIR__ . '/includes/SAs/UsuarioSA.php';
 require_once __DIR__ . '/includes/DTOs/postDTO.php';
 require_once __DIR__ . '/includes/SAs/postSA.php';
 require_once __DIR__ . '/includes/SAs/PeliculaSA.php';
-require_once __DIR__ . '/includes/reviewsPlantilla.php'; // Incluir la plantilla de reviews
+require_once __DIR__ . '/includes/vistas/plantillas/reviewsPlantilla.php'; // Incluir la plantilla de reviews
 require_once __DIR__ . '/Formularios/FormularioEditarPerfil.php'; // Incluir el formulario de edición de perfil
 
 
