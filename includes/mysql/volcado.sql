@@ -144,16 +144,16 @@ INSERT INTO `reviews` (`ID`, `usuario`, `titulo`, `critica`, `puntuacion`, `peli
 (28, 'user20', 'Inolvidable', 'Una película que te deja pensando mucho después de verla.', 5, 'Pulp Fiction'),
 (29, 'user21', 'Impactante', 'Los efectos especiales son alucinantes, te transportan a otro mundo.', 5, 'Avatar'),
 (30, 'user22', 'Emocionante', 'Una película que te llega al corazón, no pude contener las lágrimas.', 5, 'The Dark Knight'),
-(31, 'user23', 'Interesante', 'Una trama intrigante que te mantiene enganchado en todo momento.', 4, 'Fight Club'),
-(32, 'user24', 'Divertida', 'Una comedia ligera perfecta para desconectar.', 4, 'Los increíbles'),
-(33, 'user25', 'Conmovedora', 'Una película que te hace reflexionar sobre la vida.', 5, 'Forrest Gump'),
-(34, 'user26', 'Emocionante', 'Me mantuvo al borde del asiento todo el tiempo, muy recomendable.', 5, 'Gladiator'),
-(35, 'user27', 'Impresionante', 'Una película que te deja sin aliento, la recomiendo totalmente.', 5, 'Titanic'),
-(36, 'user28', 'Genial', 'Una película que te hace reflexionar sobre la naturaleza humana.', 5, 'El dictador'),
-(37, 'user29', 'Divertida', 'Una comedia muy entretenida, perfecta para ver en familia.', 4, 'Barbie'),
-(38, 'user30', 'Impactante', 'Los efectos especiales son increíbles, te sumergen por completo en la historia.', 5, 'Cars'),
-(39, 'user31', 'Emocionante', 'Una película que te mantiene en vilo de principio a fin.', 5, 'Shrek'),
-(40, 'user32', 'Sobrecogedora', 'No podía apartar la vista de la pantalla, una experiencia inolvidable.', 5, 'Gran Torino');
+(31, 'user13', 'Interesante', 'Una trama intrigante que te mantiene enganchado en todo momento.', 4, 'Fight Club'),
+(32, 'user14', 'Divertida', 'Una comedia ligera perfecta para desconectar.', 4, 'Los increíbles'),
+(33, 'user15', 'Conmovedora', 'Una película que te hace reflexionar sobre la vida.', 5, 'Forrest Gump'),
+(34, 'user16', 'Emocionante', 'Me mantuvo al borde del asiento todo el tiempo, muy recomendable.', 5, 'Gladiator'),
+(35, 'user17', 'Impresionante', 'Una película que te deja sin aliento, la recomiendo totalmente.', 5, 'Titanic'),
+(36, 'user18', 'Genial', 'Una película que te hace reflexionar sobre la naturaleza humana.', 5, 'El dictador'),
+(37, 'user19', 'Divertida', 'Una comedia muy entretenida, perfecta para ver en familia.', 4, 'Barbie'),
+(38, 'user20', 'Impactante', 'Los efectos especiales son increíbles, te sumergen por completo en la historia.', 5, 'Cars'),
+(39, 'user21', 'Emocionante', 'Una película que te mantiene en vilo de principio a fin.', 5, 'Shrek'),
+(40, 'user22', 'Sobrecogedora', 'No podía apartar la vista de la pantalla, una experiencia inolvidable.', 5, 'Gran Torino');
 
 
 --

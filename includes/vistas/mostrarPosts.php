@@ -28,7 +28,7 @@ class mostrarPosts
             $usuarioPost = $usuarioSA->buscaPorId($post->getIDUsuario());
             $contenidoPosts .= '
             <div class="media-body">
-                <h5 class="mt-0">@<a href="usuario.php?nombre=' . urlencode($usuarioPost->getNombreUsuario()) . '">' . escape($usuarioPost->getNombreUsuario()) . ($usuarioPost->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioPost->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
+                <h5 class="mt-0"><a href="usuario.php?nombre=' . urlencode($usuarioPost->getNombreUsuario()) . '"> <img src="img/' . $usuarioPost->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">@' . escape($usuarioPost->getNombreUsuario()) . ($usuarioPost->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuarioPost->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
                 </div>
                      </div>
                         <div class="card-body">
