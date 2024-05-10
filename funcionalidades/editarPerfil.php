@@ -19,7 +19,7 @@ if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['pass
         else{
             echo "usuario ya existente";
         }
-        if(isset($_POST['new_email']) && !empty($_POST['new_email'] && (!$usuarioSA->buscaUsuario($_POST['new_email']) || $_POST['new_email'] == unserialize($_SESSION['user_obj'])->getEmail()))) {
+        if(isset($_POST['new_email']) && !empty($_POST['new_email'] && (!$usuarioSA->buscarEmail($_POST['new_email']) || $_POST['new_email'] == unserialize($_SESSION['user_obj'])->getEmail()))) {
             $usuario->setEmail(htmlspecialchars(htmlspecialchars($_POST['new_email'])));
         }
         else{

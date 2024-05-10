@@ -79,5 +79,9 @@ return UsuarioDAO::promoverUsuario($idUsuario);
     public function degradarUsuario($idUsuario){
 return UsuarioDAO::degradarUsuario($idUsuario);
     }
+
+    public function buscarEmail($email){
+        return UsuarioDAO::buscarEmail($email);
+    }
 }
 
