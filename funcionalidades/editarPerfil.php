@@ -12,13 +12,14 @@ if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['pass
     $usuarioSA = new UsuarioSA();
     $usuario = $usuarioSA->buscaUsuario($nombreUsuario);
     if ($usuario->compruebaPassword($_POST['password'])) {
-        if(isset($_POST['new_username']) && !empty($_POST['new_username']) && !$usuarioSA->buscaUsuario($_POST['new_username'])){
+        if(isset($_POST['new_username']) && !empty($_POST['new_username']) && (!$usuarioSA->buscaUsuario($_POST['new_username']) || $_POST['new_username'] == unserialize($_SESSION['user_obj'])->getNombreUsuario())) {
+
             $usuario->setNombreUsuario(htmlspecialchars($_POST['new_username']));
         }
         else{
             echo "usuario ya existente";
         }
-        if(isset($_POST['new_email']) && !empty($_POST['new_email'])){
+        if(isset($_POST['new_email']) && !empty($_POST['new_email'] && (!$usuarioSA->buscaUsuario($_POST['new_email']) || $_POST['new_email'] == unserialize($_SESSION['user_obj'])->getEmail()))) {
             $usuario->setEmail(htmlspecialchars(htmlspecialchars($_POST['new_email'])));
         }
         if(isset($_POST['new_password']) && !empty($_POST['new_password'])){

@@ -368,6 +368,23 @@ public static function degradarUsuario($id_usuario)
         return false;
     }
 }
+public static function buscarEmail($email)
+{
+    $conn = Aplicacion::getInstance()->getConexionBd();
+    $query = "SELECT * FROM users WHERE email=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $rs = $stmt->get_result();
+
+    if ($rs->num_rows > 0) {
+        // El email existe en la base de datos
+        return true;
+    } else {
+        // El email no existe en la base de datos
+        return false;
+    }
+}
 
 }
 
