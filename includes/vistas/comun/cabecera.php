@@ -19,7 +19,7 @@
 
     $estrenos_url = RUTA_APP . '/estrenos.php';
     $reviews_url = RUTA_APP . '/lastReviews.php';
-    $blog_url = RUTA_APP . '/blog.php';
+    $blog_url = RUTA_APP . '/Blog.php';
     $ranking_url = RUTA_APP . '/ranking.php';
     $search_url = RUTA_APP . '/includes/vistas/comun/buscador.php';
     $agregar_pelicula_url = RUTA_APP . '/funcionalidades/agregarPelicula.php';

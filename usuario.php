@@ -185,7 +185,7 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
                 <div class="profile-info">
                     <div class="profile-detail">
                         <h2>Información del Usuario</h2>
-                        <button id="following-btn" class="following-btn" nombre="' . $nombre . '"></button>
+                        <button id="following-btn" class="following-btn" nombre="' . $nombre . '">Unfollow</button>
                         <span class="value"><img style="" src="img/' . $usuario->getProfileImage() . '" alt="Profile Image" height="150px"></span>
                     </div>
                     <div class="profile-detail">

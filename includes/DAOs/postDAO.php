@@ -311,7 +311,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         $this->conexion->begin_transaction();
 
         // Preparar la consulta SQL para insertar el like en la tabla likes
-        $query_likes = "INSERT INTO likes (id_post, id_usuario) VALUES (?, ?)";
+        $query_likes = "INSERT INTO likes (id, id_post) VALUES (?, ?)";
         $statement_likes = $this->conexion->prepare($query_likes);
 
         // Verificar si la preparación de la consulta fue exitosa
@@ -320,7 +320,7 @@ FIX: Ahora todas las conexiones se hacen desde las funciones.
         }
 
         // Bind parameters para la tabla likes
-        $statement_likes->bind_param("ii", $IDpost, $id_usuario);
+        $statement_likes->bind_param("ii", $id_usuario, $IDpost);
 
         // Ejecutar la consulta para la tabla likes
         $statement_likes->execute();
