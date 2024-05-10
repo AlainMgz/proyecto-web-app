@@ -12,8 +12,11 @@ if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['pass
     $usuarioSA = new UsuarioSA();
     $usuario = $usuarioSA->buscaUsuario($nombreUsuario);
     if ($usuario->compruebaPassword($_POST['password'])) {
-        if(isset($_POST['new_username']) && !empty($_POST['new_username'])){
+        if(isset($_POST['new_username']) && !empty($_POST['new_username']) && !$usuarioSA->buscaUsuario($_POST['new_username'])){
             $usuario->setNombreUsuario(htmlspecialchars($_POST['new_username']));
+        }
+        else{
+            echo "usuario ya existente";
         }
         if(isset($_POST['new_email']) && !empty($_POST['new_email'])){
             $usuario->setEmail(htmlspecialchars(htmlspecialchars($_POST['new_email'])));
