@@ -22,6 +22,9 @@ if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['pass
         if(isset($_POST['new_email']) && !empty($_POST['new_email'] && (!$usuarioSA->buscaUsuario($_POST['new_email']) || $_POST['new_email'] == unserialize($_SESSION['user_obj'])->getEmail()))) {
             $usuario->setEmail(htmlspecialchars(htmlspecialchars($_POST['new_email'])));
         }
+        else{
+            echo "correo ya existente";
+        }
         if(isset($_POST['new_password']) && !empty($_POST['new_password'])){
             $usuario->cambiaPassword($_POST['new_password']);
         }
