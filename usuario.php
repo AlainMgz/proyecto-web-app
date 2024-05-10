@@ -111,9 +111,31 @@ if ($loggedUsername == $nombreUsuario) { // Si el usuario está viendo su propio
         $contenidoPosts .= '
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="usuario.php?nombre=' . $nombre . '">' . $nombre . '</a></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>
-                    <p class="card-text">' . $post->getTexto() . '</p>
+                <h5 class="mt-0"><a href="usuario.php?nombre=' . urlencode($usuario->getNombreUsuario()) . '"> <img src="img/' . $usuario->getProfileImage() . '" alt="Avatar" class="rounded-circle mr-2" style="width: 40px; height: 40px;">@' . $usuario->getNombreUsuario() . ($usuario->getRole() == 2 ? '<i class="fas fa-check-circle text-primary"></i>' : ($usuario->getRole() == 1 ? '<i class="fas fa-check-circle text-warning"></i>' : '')) . '</a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">' . $post->getTitulo() . '</h6>';
+                    $texto_post = $post->getTexto();
+
+            $texto_post_con_enlaces = preg_replace_callback('/@(\w[\w.-]*)/', function ($matches) {
+                $nombreUsuario = $matches[1];
+                $user = new UsuarioSA();
+                if ($user->buscaUsuario($nombreUsuario)) {
+                    return '<a href="usuario.php?nombre=' . $nombreUsuario . '">@' . $nombreUsuario . '</a>';
+                } else {
+                    return '@' . $nombreUsuario; // Si el usuario no existe, no se convierte en enlace
+                }
+            }, $texto_post);
+
+            $texto_post_con_enlaces = preg_replace_callback('/#(\w[\w.-]*)/', function ($matches) {
+                $nombrePelicula = $matches[1];
+                $pelicula = new PeliculaSA();
+                if ($pelicula->obtenerPeliculaPorNombre($nombrePelicula)) {
+                    return '<a href="infoPeliculas.php?nombre=' . urlencode($nombrePelicula) . '">#' . $nombrePelicula . '</a>';
+                } else {
+                    return '#' . $nombrePelicula; // Si la película no existe, no se convierte en enlace
+                }
+            }, $texto_post_con_enlaces);
+            $contenidoPosts .='
+                    <p class="card-text">' . $texto_post_con_enlaces . '</p>
                 </div>
             </div>
         ';
